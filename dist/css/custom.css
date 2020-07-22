@@ -273,13 +273,13 @@
 
 /* covid */
 #main-wrapper .left-sidebar[data-sidebarbg="skin5"], #main-wrapper .left-sidebar[data-sidebarbg="skin5"] ul {
-  background: #062957;
+  background: #065755;
 }
 #main-wrapper .topbar .navbar-collapse[data-navbarbg="skin5"], #main-wrapper .topbar[data-navbarbg="skin5"],
 #navbarSupportedContent,
 #main-wrapper .topbar .top-navbar .navbar-header[data-logobg="skin5"] {
-  /* background: #00C2CB !important; */
-  background: #062957 !important;
+  /* background: #00cb9f !important; */
+  background: #065755 !important;
 }
 .sidebar-nav ul .sidebar-item .sidebar-link{
   opacity: 1;
@@ -325,7 +325,7 @@ input, select, textarea {
   select:active, select:focus,
   textarea:active, textarea:focus {
     background-color: #ffffff;
-    border-color: #142c6b !important
+    border-color: #033f3e !important
   }
 
   .card-title{
