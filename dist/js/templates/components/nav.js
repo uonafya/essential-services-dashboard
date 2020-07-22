@@ -15,47 +15,23 @@ const nav_template = `
             <span class="hide-menu">Dashboard</span>
         </a>
     </li>
-        <li class="sidebar-item">
-            <a class="sidebar-link" href="stocklevels.html" aria-expanded="false">
-                <small class="text-muted text-smaller"><i class="fa-small fa fa-warehouse fcwhite"></i></small>&nbsp;
-                <span class="hide-menu">Stock Levels</span>
-                </a>
-        </li>
-        <li class="sidebar-item">
-            <a class="sidebar-link" href="issues.html" aria-expanded="false">
-                <small class="text-muted text-smaller"><i class="fa-small fa fa-shuttle-van fcwhite"></i></small>&nbsp;
-                <span class="hide-menu">Stock Issued</span>
-            </a>
-        </li>
-        <li class="sidebar-item">
-            <a class="sidebar-link" href="orders.html" aria-expanded="false">
-                <small class="text-muted text-smaller"><i class="fa-small fa fa-cart-plus fcwhite"></i></small>&nbsp;
-                <span class="hide-menu">Stock Orders</span>
-            </a>
-        </li>
-        <li class="sidebar-item">
-            <a class="sidebar-link" href="donations.html" aria-expanded="false">
-                <small class="text-muted text-smaller"><i class="fa-small fa fa-hands-helping fcwhite"></i></small>&nbsp;
-                <span class="hide-menu">Donations</span>
-            </a>
-        </li>
-        <li class="sidebar-item">
-            <a class="sidebar-link" href="forecast.html" aria-expanded="false">
-                <small class="text-muted text-smaller"><i class="fa-small fa fa-binoculars fcwhite"></i></small>&nbsp;
-                <span class="hide-menu">Forecast</span>
-            </a>
-        </li>
-        <li class="sidebar-item">
-            <a class="sidebar-link" href="pipeline.html" aria-expanded="false">
-                <small class="text-muted text-smaller"><i class="fa-small fa fa-road fcwhite"></i></small>&nbsp;
-                <span class="hide-menu">Pipeline Report</span>
-            </a>
-        </li>
-        <li class="sidebar-item">
-            <a class="sidebar-link" href="other.html" aria-expanded="false">
-                <small class="text-muted text-smaller"><i class="fa-small fa fa-chart-bar"></i></small>&nbsp;
-                <span class="hide-menu">Other Analytics</span>
-            </a>
-        </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="essential.html" aria-expanded="false">
+            <small class="text-muted text-smaller"><i class="fa-small fa fa-th fcwhite"></i></small>&nbsp;
+            <span class="hide-menu">Essential Health Services</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="rmncah.html" aria-expanded="false">
+            <small class="text-muted text-smaller"><i class="fa-small fa fa-th fcwhite"></i></small>&nbsp;
+            <span class="hide-menu">RMNCAH</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="birthsdeathsreg.html" aria-expanded="false">
+            <small class="text-muted text-smaller"><i class="fa-small fa fa-th fcwhite"></i></small>&nbsp;
+            <span class="hide-menu">Births &amp; Deaths Registration</span>
+        </a>
+    </li>
 </ul>
 `

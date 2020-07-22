@@ -10,7 +10,7 @@
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
         <title>
-            Home | Essential Services Dashboard
+            Essential Health Service Utilization | Essential Services Dashboard
         </title>
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
@@ -63,18 +63,109 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">All Indicators</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-condensed table-striped table-bordered slimtable">
-                                            <thead class="text-center">
-                                                <tr>
-                                                    <th>Category</th>
-                                                    <th>Indicator</th>
-                                                    <th>Source</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
+                                    <h4 class="card-title">OPD visits - Kenya</h4>
+                                    <div class="graph" id="opd_visits_kenya">
+                                        <p class="card-text">Line graph, Jan 2018 - June 2020, monthly disaggregation, National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits by year</h4>
+                                    <div class="graph" id="opd_visits_by_year">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits by year table</h4>
+                                    <div class="table-container" id="opd_visits_by_year_table">
+                                        <p class="card-text">Table showing above data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits for Children Under 5 Years</h4>
+                                    <div class="graph" id="opd_visits_under5">
+                                        <p class="card-text">Line graph from jan 2018 to June 2020, monthly disaggregation, National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits for Children Under 5 by year</h4>
+                                    <div class="graph" id="opd_visits_under5_by_year">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits for Children Under 5 by year table</h4>
+                                    <div class="table-container" id="opd_visits_under5_by_year_table">
+                                        <p class="card-text">Table showing above data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">% of change in under 5 opd attendance</h4>
+                                    <div class="graph" id="perc_change_under5_opd">
+                                        <p class="card-text">Bar graph showing all counties</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Bed Occupancy Rate (%)</h4>
+                                    <div class="graph" id="perc_change_under5_opd">
+                                        <p class="card-text">Line graph from Jan 2018 - June 2020</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Bed occupancy rate - Kenya</h4>
+                                    <div class="graph" id="bed_occupancy_rate_kenya">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Bed occupancy rate - Kenya table</h4>
+                                    <div class="table-container" id="bed_occupancy_rate_kenya_table">
+                                        <p class="card-text">Table showing above data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">% difference in bed occupancy by county</h4>
+                                    <div class="graph" id="perc_difference_bed_occupancy_by_county">
+                                        <p class="card-text">Bar graph showing all counties</p>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +235,7 @@
             <!-- render Fn -->
             <script>
                 function renderAll() {
-                    let page_title = {title: 'Essential Services Dashboard'}
+                    let page_title = {title: 'Essential Health Service Utilization'}
                     let page_filters = {
                         is_county:false, 
                         is_subcounty:false, 
@@ -173,6 +264,7 @@
 
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
+
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
         <script src="../dist/js/_utils.js"></script>

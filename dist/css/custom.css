@@ -148,16 +148,16 @@
     font-weight: 600 !important;
   }
   .highcharts-subtitle{
-    color: #142c6b !important;
-    fill: #142c6b !important;
+    color: #065755 !important;
+    fill: #065755 !important;
     font-size: 1.33em !important;
     letter-spacing: 1px;
     font-weight: 600 !important;
     text-decoration: underline;
   }
   .highcharts-axis-title{
-    color: #142c6b !important;
-    fill: #142c6b !important;
+    color: #065755 !important;
+    fill: #065755 !important;
     font-weight: 600 !important;
     font-size: 1.1em !important;
     text-transform: uppercase;
@@ -288,6 +288,7 @@
 }
 .page-wrapper {
   background: #e9fcfd;
+  margin-top: 3rem;
 }
 
 .card{
@@ -351,6 +352,7 @@ input, select, textarea {
 .bdr-50{border-radius: 50px}
 .ws-nowrap{white-space: nowrap !important;}
 
+.card-body .table-container,
 .card-body .graph{
   min-height: 500px;
 }

@@ -10,7 +10,7 @@
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
         <title>
-            Home | Essential Services Dashboard
+            Births &amp; Deaths Registration | Essential Services Dashboard
         </title>
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
@@ -60,21 +60,22 @@
                         <div class="col-md-12 p-0" id="loading_target"> </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">All Indicators</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-condensed table-striped table-bordered slimtable">
-                                            <thead class="text-center">
-                                                <tr>
-                                                    <th>Category</th>
-                                                    <th>Indicator</th>
-                                                    <th>Source</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
+                                    <h4 class="card-title">Title</h4>
+                                    <div class="graph" id="total_commodity_distribution">
+                                        <p class="card-text">Loading...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Title</h4>
+                                    <div class="graph" id="total_commodity_distribution">
+                                        <p class="card-text">Loading...</p>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +145,7 @@
             <!-- render Fn -->
             <script>
                 function renderAll() {
-                    let page_title = {title: 'Essential Services Dashboard'}
+                    let page_title = {title: 'Births &amp; Deaths Registration'}
                     let page_filters = {
                         is_county:false, 
                         is_subcounty:false, 
@@ -173,6 +174,7 @@
 
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
+
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
         <script src="../dist/js/_utils.js"></script>
