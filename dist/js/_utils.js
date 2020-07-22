@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.table').DataTable({
+    $('.table:not(.no-datatable)').DataTable({
         dom: 'Bfrtlip',
         ordering: false,
         paging: true,
