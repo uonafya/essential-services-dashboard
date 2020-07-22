@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Viral Transport Medium",
+    "total_issues": 26616,
+    "forecast": 1619007
+  },
+  {
+    "name": "Face shield",
+    "total_issues": 11330,
+    "forecast": 258746
+  },
+  {
+    "name": "Goggles, protective",
+    "total_issues": 13187,
+    "forecast": 11700
+  },
+  {
+    "name": "Gloves, surgical",
+    "total_issues": 15261,
+    "forecast": 241296
+  },
+  {
+    "name": "Mask, medical",
+    "total_issues": 788350,
+    "forecast": 4474723
+  },
+  {
+    "name": "Gloves, examination",
+    "total_issues": 701050,
+    "forecast": 4894897
+  }
+]

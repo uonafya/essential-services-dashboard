@@ -1,0 +1,74 @@
+[
+  [
+    "Product",
+    "Forecast",
+    "Issued",
+    "Variance"
+  ],
+  [
+    "Goggles protective",
+    11700,
+    13187,
+    -1487
+  ],
+  [
+    "Face shield",
+    258746,
+    11330,
+    247416
+  ],
+  [
+    "Alcohol-based hand rub",
+    14178,
+    35293,
+    -21115
+  ],
+  [
+    "Viral Transport Medium",
+    1619007,
+    26616,
+    1592391
+  ],
+  [
+    "Suction pump electrical w/accessories",
+    11457,
+    1,
+    11456
+  ],
+  [
+    "Gloves surgical",
+    241296,
+    15461,
+    225835
+  ],
+  [
+    "Gum boots",
+    4583,
+    11454,
+    -6871
+  ],
+  [
+    "Mask particulate respirator",
+    482592,
+    85272,
+    397320
+  ],
+  [
+    "Apron disposable",
+    247329,
+    905,
+    246424
+  ],
+  [
+    "Infusion pump w/accessories",
+    11457,
+    29,
+    11428
+  ],
+  [
+    "Mask medical",
+    4474723,
+    803850,
+    3670873
+  ]
+]

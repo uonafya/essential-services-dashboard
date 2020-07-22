@@ -1,0 +1,409 @@
+[
+    [
+        "Category",
+        "Item",
+        "Total quantity",
+        "Unit",
+        "Estimated price (USD)/unit",
+        "Estimated total price, USD"
+    ],
+    [
+        "PPE and hygiene",
+        "Gown, protective",
+        "498516",
+        " Pieces ",
+        " 1 ",
+        " 398813 "
+    ],
+    ["PPE and hygiene", "Scrubs, tops", "15839", " Pieces ", " 3 ", " 41181 "],
+    ["PPE and hygiene", "Scrubs, pants", "15839", " Pieces ", " 3 ", " 41181 "],
+    [
+        "PPE and hygiene",
+        "Apron, disposable",
+        "247329",
+        " Pieces ",
+        " 0 ",
+        " 49466 "
+    ],
+    [
+        "PPE and hygiene",
+        "Apron, heavy duty, reusable",
+        "4583",
+        " Pieces ",
+        " 4 ",
+        " 18332 "
+    ],
+    ["PPE and hygiene", "Gum boots", "4583", " Pair ", " 5 ", " 21082 "],
+    [
+        "PPE and hygiene",
+        "Gloves, heavy duty",
+        "4583",
+        " Pair ",
+        " 2 ",
+        " 8249 "
+    ],
+    [
+        "PPE and hygiene",
+        "Gloves, examination",
+        "4894897",
+        " Pair ",
+        " 0 ",
+        " 293694 "
+    ],
+    [
+        "PPE and hygiene",
+        "Gloves, surgical",
+        "241296",
+        " Pair ",
+        " 0 ",
+        " 96518 "
+    ],
+    [
+        "PPE and hygiene",
+        "Goggles, protective",
+        "11700",
+        " Pieces ",
+        " 3 ",
+        " 32760 "
+    ],
+    ["PPE and hygiene", "Face shield", "258746", " Pieces ", " 1 ", " 155248 "],
+    [
+        "PPE and hygiene",
+        "Mask, particulate respirator",
+        "482592",
+        " Pieces ",
+        " 2 ",
+        " 723888 "
+    ],
+    [
+        "PPE and hygiene",
+        "Mask, medical",
+        "4474723",
+        " Pieces ",
+        " 1 ",
+        " 3132306 "
+    ],
+    ["PPE and hygiene", "Chlorine, HTH 70%", "4671", " Kgs ", " 4 ", " 16349 "],
+    [
+        "PPE and hygiene",
+        "Alcohol-based hand rub",
+        "14178",
+        " Liters ",
+        " 8 ",
+        " 117677 "
+    ],
+    ["PPE and hygiene", "Liquid soap", "7408", " Liters ", " 1 ", " 6667 "],
+    [
+        "PPE and hygiene",
+        "Bio-hazardous bag",
+        "214978",
+        " Pieces ",
+        " 0 ",
+        " 32247 "
+    ],
+    [
+        "Drugs and consumables",
+        "Drugs modules 40 patients (severe + critical)",
+        "653",
+        " Kits ",
+        " 8,000 ",
+        " 5222602 "
+    ],
+    [
+        "Drugs and consumables",
+        "Medical supply, consumables, 40 patients (severe + critical)",
+        "653",
+        " Kits ",
+        " 1,800 ",
+        " 1175085 "
+    ],
+    [
+        "Diagnostics",
+        "Triple packaging boxes",
+        "1148",
+        " Pieces ",
+        " 30 ",
+        " 34440 "
+    ],
+    [
+        "Diagnostics",
+        "Viral Transport Medium",
+        "1619007",
+        " Pieces ",
+        " 1 ",
+        " 1133305 "
+    ],
+    ["Diagnostics", "Safety box", "6128", " Pieces ", " 1 ", " 4902 "],
+    [
+        "Diagnostics",
+        "Lab extraction kit (250 extractions)",
+        "7124",
+        " Kits ",
+        " 960 ",
+        " 6839040 "
+    ],
+    [
+        "Diagnostics",
+        "Lab screening test kit (94 tests)",
+        "18946",
+        " Kits ",
+        " 140 ",
+        " 2652440 "
+    ],
+    [
+        "Diagnostics",
+        "Lab confirmation test kit (94 tests)",
+        "18946",
+        " Kits ",
+        " 80 ",
+        " 1515680 "
+    ],
+    [
+        "Diagnostics",
+        "RT-PCR kit (100 tests)",
+        "17810",
+        " Kits ",
+        " 260 ",
+        " 4630600 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Patient monitor, multiparametric w/o ECG, with accessories",
+        "7438",
+        " Pieces ",
+        " 2,990 ",
+        " 22239620 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Pulse oximeter - fingertip",
+        "9166",
+        " Pieces ",
+        " 25 ",
+        " 229150 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Concentrator O2, 10 L, with accessories",
+        "11457",
+        " Pieces ",
+        " 1,600 ",
+        " 18331200 "
+    ],
+    [
+        "Biomedical Equipment",
+        "O2 need",
+        "27747",
+        " 11.5 kg cylinders ",
+        " 35 ",
+        " 971146 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Flowmeter, Thorpe tube, for pipe oxygen 0-15L/min",
+        "4019",
+        " Pieces ",
+        " 250 ",
+        " 1004750 "
+    ],
+    [
+        "Biomedical Equipment",
+        "CPAP, for neonate, with accessories",
+        "115",
+        " Pieces ",
+        " 1,800 ",
+        " 207000 "
+    ],
+    [
+        "Biomedical Equipment",
+        "CPAP, for adult, with accessories",
+        "917",
+        " Pieces ",
+        " 2,500 ",
+        " 2292500 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Suction pump, manual",
+        "573",
+        " Pieces ",
+        " 2,800 ",
+        " 1604400 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Clinical Chemistry Analyser, portable (PoC)",
+        "287",
+        " Pieces ",
+        " 480 ",
+        " 137760 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Patient monitor, multiparametric w/ECG, with accessories",
+        "4019",
+        " Pieces ",
+        " 9,200 ",
+        " 36974800 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Cricothyrotomy, set, emergency, 6 mm, sterile, single use",
+        "287",
+        " Set ",
+        " 550 ",
+        " 157850 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Laryngoscope, FO, diameter 28 mm, w/blades",
+        "287",
+        " Pieces ",
+        " 80 ",
+        " 22960 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Laryngoscope, FO, neonate, diameter 19 mm, w/blades",
+        "287",
+        " Pieces ",
+        " 120 ",
+        " 34440 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Self-inflating bag, adult/child",
+        "287",
+        " Pieces ",
+        " 65 ",
+        " 18655 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Self-inflating bag, child/neonate",
+        "287",
+        " Pieces ",
+        " 20 ",
+        " 5740 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Suction bulb, for newborn, reusable, autoclavable",
+        "287",
+        " Pieces ",
+        " 15 ",
+        " 4305 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Suction pump, manual",
+        "573",
+        " Pieces ",
+        " 2,800 ",
+        " 1604400 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Patient ventilator, intensive care, for adult, paediatric and neonate w/breathing circuits",
+        "2010",
+        " Pieces ",
+        " 7,500 ",
+        " 15075000 "
+    ],
+    [
+        "Biomedical Equipment",
+        "High Flow Nasal Cannula, with accessories",
+        "11457",
+        " Pieces ",
+        " 30 ",
+        " 343710 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Suction pump, electrical, w/accessories",
+        "11457",
+        " Pieces ",
+        " 1,800 ",
+        " 20622600 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Infusion pump, w/accessories",
+        "11457",
+        " Pieces ",
+        " 1,000 ",
+        " 11457000 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Drill, for vascular access, w/accessories adult and paediatric, w/transport bag",
+        "287",
+        " Pieces ",
+        " 850 ",
+        " 243950 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Defibrillator, semiautomatic, w/accessories",
+        "287",
+        " Pieces ",
+        " 4,600 ",
+        " 1320200 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Electrocardiograph, portable, w/accessories",
+        "287",
+        " Pieces ",
+        " 1,450 ",
+        " 416150 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Ultrasound, portable, w/ transducers and trolley",
+        "287",
+        " Pieces ",
+        " 8,000 ",
+        " 2296000 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Table, resuscitation, neonate",
+        "287",
+        " Pieces ",
+        " 3,500 ",
+        " 1004500 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Infant scale, electronic, 0-20 kg ",
+        "287",
+        " Pieces ",
+        " 100 ",
+        " 28700 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Scale, electronic, 50g/0-200kg",
+        "287",
+        " Pieces ",
+        " 100 ",
+        " 28700 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Autoclave, 40-60L, with accessories",
+        "287",
+        " Pieces ",
+        " 500 ",
+        " 143500 "
+    ],
+    [
+        "Biomedical Equipment",
+        "Autoclave, 90L, with accessories",
+        "287",
+        " Pieces ",
+        " 1,200 ",
+        " 344400 "
+    ]
+]

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
+        <title>
+            Home | COVID-19 Commodities Dashboard
+        </title>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
+        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" />
+        <link href="../dist/css/style.min.css" rel="stylesheet" />
+        <link href="../dist/css/custom.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/DataTables/DataTables-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="../dist/css/datatables/buttons.dataTables.min.css" rel="stylesheet" />
+        <link href="../dist/css/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/monthpicker/MonthPicker.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/monthpicker/jquery-ui.css" rel="stylesheet" />
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/css/highcharts.min.css">
+        
+    </head>
+
+    <body onload="renderAll()">
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <div id="main-wrapper">
+            <header class="topbar" data-navbarbg="skin5" id="header_target"></header>
+            <aside class="left-sidebar" data-sidebarbg="skin5">
+                <div class="scroll-sidebar">
+                    <nav class="sidebar-nav" id="nav_target"></nav>
+                </div>
+            </aside>
+            <div class="page-wrapper">
+                <div class="page-breadcrumb">
+                    <div class="row">
+                        <div class="col-12 d-flex no-block align-items-center" id="filter_target">
+                            <!-- <small class="text-bold">Filter:</small> -->
+                                <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0" id="status_target"> </div>
+                        <div class="col-md-12 p-0" id="loading_target"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Total Commodity Distribution - As at 25-06-2020</h4>
+                                    <div class="graph" id="total_commodity_distribution">
+                                        <p class="card-text">Loading...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Commodity Distribution by group - As at 25-06-2020</h4>
+                                    <div class="graph" id="group_commodity_distribution">
+                                        <p class="card-text">Loading...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Stock Issues Summary<!-- - Last 4 Weeks--></h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-striped table-bordered slimtable" id="issues_summary">
+                                            <thead class="text-center">
+                                                <tr id="4wks_th">
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer_target" class="p-0 m-0 w-100"></div>
+        
+        <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+        <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+        <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+        <script src="../dist/js/sidebarmenu.js"></script>
+        <script src="../dist/js/custom.js"></script>
+        <script src="../assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+        <script src="../assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+        <script src="../assets/extra-libs/DataTables/datatables.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/dataTables.buttons.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.flash.min.js"></script>
+        <script src="../assets/extra-libs/jszip/jszip.min.js"></script>
+        <script src="../assets/extra-libs/pdfmake/pdfmake.min.js"></script>
+        <script src="../assets/extra-libs/pdfmake/vfs_fonts.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.html5.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.print.min.js"></script>
+
+        <!-- *********** <MonthPicker ************** -->
+        <script src="../assets/extra-libs/monthpicker/jquery-migrate-3.0.1.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/jquery.maskedinput.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/jquery-ui.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/MonthPicker.js"></script>
+        <!-- *********** MonthPicker/> ************** -->
+
+        <!-- *********** <WeekPicker ************** -->
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.26.0/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+        <script src="../dist/js/weekpicker.js"></script>
+        <!-- *********** WeekPicker/> ************** -->
+        
+        <!-- *********** <Highcharts ************** -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script>
+        <!-- *********** Highcharts/> ************** -->
+
+
+
+
+        <!-- TEMPLATING -->
+        <script src="../dist/js/templates/mustache.js"></script>
+
+            <!-- templates -->
+            <!-- <script id="header_template" type="x-tmpl-mustache">
+                //html here
+            </script> -->
+            <script src="../dist/js/templates/components/footer.js"></script>
+            <script src="../dist/js/templates/components/header.js"></script>
+            <script src="../dist/js/templates/components/nav.js"></script>
+            <script src="../dist/js/templates/components/filter.js"></script>
+            <script src="../dist/js/templates/components/loading.js"></script>
+            <script src="../dist/js/templates/components/status.js"></script>
+            <!-- templates -->
+
+            <!-- renders -->
+            <script src="../dist/js/templates/renders.js"></script>
+            <!-- renders -->
+
+            <!-- render Fn -->
+            <script>
+                function renderAll() {
+                    let page_title = {title: 'COVID-19 Commodities Dashboard'}
+                    let page_filters = {
+                        is_county:true, 
+                        is_subcounty:false, 
+                        is_ward:false, 
+                        is_facility:false, 
+                        is_period:true, 
+                        is_period_range:false}
+                    let is_loading = {is_loading: false}
+                    let footer_yr = { yr: new Date().getFullYear()}
+                    let page_status = {title: '', message: '', type: 'info', hidden: true} //type: info, success, danger
+
+                    renderNav()
+                    renderHeader(page_title)
+                    renderFooter(footer_yr)
+                    renderLoader(is_loading)
+                    renderFilter(page_filters)
+                    renderStatus(page_status)
+                }
+            </script>
+            <!-- render Fn -->
+        <!-- TEMPLATING -->
+
+
+
+
+
+        <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
+        <script>
+            const total_distribution_target = "total_commodity_distribution"   // $("#total_commodity_distribution")
+            const group_distribution_target = "group_commodity_distribution"   // $("#group_commodity_distribution")
+            
+            // ~~~~~~~~~~~ <summary ~~~~~~~~~~~~~
+            const issues_summary_target = $("#issues_summary tbody")
+            let commodities
+            // $.getJSON("https://histracker.health.go.ke/covid/api/29/analytics.json?dimension=pe:LAST_4_WEEKS&dimension=dx:q4j5vVZ5Jzx.mSG9Cte6axK;Mhp8Vri9jE7.mSG9Cte6axK;gFwWtRWJOQL.mSG9Cte6axK;mQSh3FKsj1s.mSG9Cte6axK;VL8NeAPoG9g.mSG9Cte6axK;MH49orvnB8k.mSG9Cte6axK;VNALYHgN6tX.mSG9Cte6axK;jh3DuTH1QGp.mSG9Cte6axK;sCc8z0Cg77F.mSG9Cte6axK;LpYn8s1xFre.mSG9Cte6axK;tHFSnaGH821.mSG9Cte6axK;RLBR15ssj6q.mSG9Cte6axK;OuuukGcMQSV.mSG9Cte6axK;dG0k6J8BWec.mSG9Cte6axK;HZJAF1Fg8Ai.mSG9Cte6axK;ZtW1gVNn8oo.mSG9Cte6axK;DZAMVXtEbeb.mSG9Cte6axK;fkFABdeW5Gb.mSG9Cte6axK;pCyiNGwkrer.mSG9Cte6axK;A4ke6wEaKAU.mSG9Cte6axK;q7RqYwC8izZ.mSG9Cte6axK;KEvext6ehLt.mSG9Cte6axK;ymKEFekkiiW.mSG9Cte6axK;No36BhcXkun.mSG9Cte6axK;QUAdMsAKnhK.mSG9Cte6axK;fXCkOGdiJ0h.mSG9Cte6axK;xd3LDI0aoN9.mSG9Cte6axK;LXsxjpy52TK.mSG9Cte6axK;nqFvbQOPdlA.mSG9Cte6axK;a2ozHqtFqF3.mSG9Cte6axK;JpdSfyZd6KF.mSG9Cte6axK;rjiog2lld5m.mSG9Cte6axK;OVShMS5SswI.mSG9Cte6axK;U83VimhHHkC.mSG9Cte6axK;nljDmoG5MLB.mSG9Cte6axK;xVqhB9jsdze.mSG9Cte6axK;NfMoXdFipYX.mSG9Cte6axK;p3FZyEGWL83.mSG9Cte6axK;XDDY18zMMq9.mSG9Cte6axK;PQ86A7bBDIe.mSG9Cte6axK;T6r07biKiVW.mSG9Cte6axK;v8xTD3FYAsT.mSG9Cte6axK;rlLaQXLVXyE.mSG9Cte6axK;X6nIOhsWxM3.mSG9Cte6axK;ZZHQSPMnvF6.mSG9Cte6axK;A9uZjVfLEw2.mSG9Cte6axK;ImiimYfeh43.mSG9Cte6axK;VFLXPI8BE4J.mSG9Cte6axK;fwjuTcEljaz.mSG9Cte6axK;Bj8v4z05axU.mSG9Cte6axK;CiaqcmpEyfB.mSG9Cte6axK;A1s4I8uY6gr.mSG9Cte6axK;VmFkHUXT2pW.mSG9Cte6axK;v5LdUGXl47w.mSG9Cte6axK;McX6PwMtz3A.mSG9Cte6axK;ux5FTnO60pd.mSG9Cte6axK;DDZxjcMfmaq.mSG9Cte6axK;MX58dp1Q6LF.mSG9Cte6axK;jl6t7FnjwYq.mSG9Cte6axK;wiLeJS5KUs5.mSG9Cte6axK;QyZkt9xmu6z.mSG9Cte6axK;jZ5NZbZGLse.mSG9Cte6axK;ptFO4MKFVJE.mSG9Cte6axK;DfrOjVMaExN.mSG9Cte6axK;AarLNsb8Vmy.mSG9Cte6axK;Gci6xOJ5arc.mSG9Cte6axK;TX3BlCJeYLU.mSG9Cte6axK;H1J4KIqNGwm.mSG9Cte6axK;P2Jde5OBVCP.mSG9Cte6axK;z1HC8bkXkQ7.mSG9Cte6axK;Da0sDQ97QF0.mSG9Cte6axK;BBEEkZc6Lmg.mSG9Cte6axK&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID", (data, textStatus, jqXHR)=>{
+            //     let issues_summary_rows = ''
+            //     commodities = data
+            //     let l4w_titles = '<th>Commodity</th>'
+            //     data.metaData.dimensions.pe.map((o_pe,inx)=>{
+            //         l4w_titles += '<th>'+data.metaData.items[o_pe].name+'</th>'
+            //     })
+            //     $('#4wks_th').append(l4w_titles)
+            //     data.metaData.dimensions.dx.map((o_dx,inx)=>{
+            //         const rows_by_dx = data.rows.filter(o_r=>o_r[0] == o_dx)
+            //         issues_summary_rows += '<tr>'
+            //         issues_summary_rows += '<td>'+data.metaData.items[o_dx].name.replace(' Stock Issued','').replace('COVID19_','')+'</td>'
+            //         data.metaData.dimensions.pe.map((o_pe,inx)=>{
+            //             let val_by_dx_pe = rows_by_dx.filter(o_rw=>o_rw[1] == o_pe)[0]
+            //             if(!val_by_dx_pe || val_by_dx_pe == undefined || val_by_dx_pe == null || val_by_dx_pe.length < 1){val_by_dx_pe = 0}else{val_by_dx_pe = val_by_dx_pe[2]}
+            //             issues_summary_rows += '<td class="text-right">'+val_by_dx_pe+'</td>'
+            //         })
+            //         issues_summary_rows += '</tr>'
+            //     })
+            //     issues_summary_target.append(issues_summary_rows)
+            // })
+            $.getJSON("../assets/json/issues/summary_11-07-2020.json",
+                function (data, textStatus, jqXHR) {
+                    let thh = data.shift()
+                    thh.map(th=>{$("#4wks_th").append('<th>'+th+'</th')})
+                    data.map(o_d=>{
+                        let t_r = '<tr>'
+                        o_d.map(o_dc=>{
+                            t_r += '<td>'+o_dc+'</td>'
+                        })
+                        t_r += '</tr>'
+                        $("#issues_summary tbody").append(t_r)
+                    })
+                }
+            );
+            // ~~~~~~~~~~~ summary/> ~~~~~~~~~~~~~
+
+            const commodity_groups = [
+                {id: 5924, name: "Complete PPE kits", commodities: [0,600,100,0,0,293,0]},
+                {id: 4768, name: "Examination Gloves", commodities: [0,72,1842,320,729,6838,0]},
+                {id: 310, name: "Surgical Mask 3 PLY", commodities: [120,360,211,480,1294,2084,0]},
+            ]
+
+            $.getJSON("../assets/json/stocklevels/national-ou-structure.json", (data, textStatus, jqXHR)=>{
+                let ous = data[0]
+                let vals_total = data[1]
+                let series_total = []
+                let series_grouped = []
+                // ~~~~~~~ <total ~~~~~~
+                // data.map(o_u=>{
+                //      let v_al = Math.floor(Math.random()*24980)
+                //      if (v_al > 105000) { vals_total.push(v_al) } else { vals_total.push(v_al*2000) }
+                // })
+                // ~~~~~~~ total/> ~~~~~~
+
+                // ~~~~~~~ <grouped ~~~~~~
+                commodity_groups.map(c_g=>{
+                    const o_sg = {}
+                    o_sg.name = c_g.name
+                    let o_sg_data = c_g.commodities
+                    console.log('kenys', o_sg_data)
+                    // data.map(o_d=>{
+                    //     let v_al = Math.floor(Math.random()*24980)
+                    //     if (v_al < 105000) { v_al = v_al*2000 }
+                    //     o_sg_data.push(v_al)
+                    // })
+                    o_sg.data = o_sg_data
+                    series_grouped.push(o_sg)
+                })
+                // ~~~~~~~ grouped/> ~~~~~~
+                series_total.push( {name: 'Ksh', data: vals_total})
+                barChart(ous,series_total, 'National Commodity Distribution', '2020W12', total_distribution_target, 'column')
+                console.log(series_grouped)
+                barChart(ous,series_grouped, 'Grouped Commodity Distribution', '2020W12', group_distribution_target, 'bar')
+
+                fetchData ( munchHash(window.location.hash.substr(1)) )
+                // hashParams
+
+                    // fn to parse hash & return object
+                    window.addEventListener('hashchange', (hash_event)=>{
+                        var hash = window.location.hash.substr(1);
+                        var hashObj = munchHash(hash)
+                        // exec fn to utilize new params
+                        fetchData(hashObj)
+                    })
+                // hashParams
+
+            })
+
+            const munchHash = (hash)=>{
+                return hash.split('&').reduce( (rs, itm)=>{
+                    let pt = itm.split('=')
+                    rs[pt[0]] = pt[1]
+                    return rs
+                }, {})
+            }
+
+            const fetchData = (params)=>{
+                const {pe, ou} = params
+                console.log('params ==> '+JSON.stringify(params));
+            }
+
+            let barChart = (x, y, title, period, container, chartype)=> {
+                Highcharts.chart(container, {
+                    chart: {
+                        type: chartype
+                    },
+                    title: {
+                        text: title
+                    },
+                    subtitle: {
+                        text: period
+                    },
+                    exporting: {
+                        enabled: true
+                    },
+                    xAxis: {
+                        categories: x,
+                        title: {
+                            text: null
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Commodity value',
+                            align: 'high'
+                        },
+                        labels: {
+                            overflow: 'justify'
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: ''
+                    },
+                    plotOptions: {
+                        bar: {
+                            dataLabels: {
+                                enabled: true
+                            }
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: y,
+                    colors: [ '#0AC4CC', '#59D1A2', '#7CB799', '#1e779a', '#2A2E79']
+                });
+            }
+        </script>
+        <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
+        <script src="../dist/js/_utils.js"></script>
+    </body>
+</html>
