@@ -10,7 +10,7 @@
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
         <title>
-            RMNCAH | Essential Services Dashboard
+            RMNCAH - 1st ANC Visit | Essential Services Dashboard
         </title>
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
@@ -63,9 +63,9 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Title</h4>
-                                    <div class="graph" id="total_commodity_distribution">
-                                        <p class="card-text">Loading...</p>
+                                    <h4 class="card-title">First antenatal care attendants (ANC1) by year</h4>
+                                    <div class="graph" id="anc1_attendants_by_year">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
                                     </div>
                                 </div>
                             </div>
@@ -73,9 +73,19 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Title</h4>
-                                    <div class="graph" id="total_commodity_distribution">
-                                        <p class="card-text">Loading...</p>
+                                    <h4 class="card-title">First antenatal care attendants (ANC1) by year table</h4>
+                                    <div class="table-container" id="anc1_attendants_by_year_table">
+                                        <p class="card-text">Table showing above data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">% change in antenatal care first visit per county</h4>
+                                    <div class="graph" id="perc_change_anc1_per_county">
+                                        <p class="card-text">Bar graph showing all counties</p>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +155,7 @@
             <!-- render Fn -->
             <script>
                 function renderAll() {
-                    let page_title = {title: 'RMNCAH'}
+                    let page_title = {title: 'RMNCAH - 1st ANC Visit'}
                     let page_filters = {
                         is_county:false, 
                         is_subcounty:false, 

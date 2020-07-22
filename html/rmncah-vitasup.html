@@ -10,7 +10,7 @@
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
         <title>
-            Births &amp; Deaths Registration | Essential Services Dashboard
+            RMNCAH - Vitamin A Supplementation | Essential Services Dashboard
         </title>
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
@@ -60,12 +60,12 @@
                         <div class="col-md-12 p-0" id="loading_target"> </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Trend of the number of registered births 2019-2020</h4>
-                                    <div class="graph" id="no_reg_births_19_20">
-                                        <p class="card-text">Line graph with 2 lines for each year (2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    <h4 class="card-title">Vitamin A Supplementation Coverage by Age Category</h4>
+                                    <div class="graph" id="vit_a_suppl_by_agecat">
+                                        <p class="card-text">Bar charts age category (6-11 months, 12-59 months, 6-59 months), Jan - June 2020</p>
                                     </div>
                                 </div>
                             </div>
@@ -73,9 +73,19 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Trend of the number of registered births 2019-2020 table</h4>
-                                    <div class="table-container" id="no_reg_births_19_20_table">
-                                        <p class="card-text">Table showing above data...</p>
+                                    <h4 class="card-title">Trends in Vitamin A Supplementation for Children aged between 6 to 59 Months</h4>
+                                    <div class="graph" id="vit_a_sup_trends_age_6_to_59_months">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - June for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Trends in Vitamin A Supplementation for Children aged between 6 to 59 Months table</h4>
+                                    <div class="table-container" id="vit_a_sup_trends_age_6_to_59_months_table">
+                                        <p class="card-text">Table showing above data</p>
                                     </div>
                                 </div>
                             </div>
@@ -83,29 +93,9 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Monthly changes in birth registration (%)</h4>
-                                    <div class="graph" id="changes_birth_reg">
-                                        <p class="card-text">Line graph from Jan - May 2020, monthly disaggregation, National (Kenya)...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Trend of the number of registered deaths 2019-2020</h4>
-                                    <div class="graph" id="no_reg_deaths_19_20">
-                                        <p class="card-text">Line graph with 2 lines for each year (2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Trend of the number of registered deaths 2019-2020 table</h4>
-                                    <div class="table-container" id="no_reg_deaths_19_20_table">
-                                        <p class="card-text">Table showing above data...</p>
+                                    <h4 class="card-title">Vitamin A Supplementation Coverage for Children (6 -59 Months) by County</h4>
+                                    <div class="graph" id="vit_a_sup_age_6_to_59_months_by_county_table">
+                                        <p class="card-text">Bar charts for all counties</p>
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +165,7 @@
             <!-- render Fn -->
             <script>
                 function renderAll() {
-                    let page_title = {title: 'Births & Deaths Registration'}
+                    let page_title = {title: 'RMNCAH - Vitamin A Supplementation'}
                     let page_filters = {
                         is_county:false, 
                         is_subcounty:false, 
