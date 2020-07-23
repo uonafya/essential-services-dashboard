@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
+        <title>
+            Home | Essential Services Dashboard
+        </title>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
+        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" />
+        <link href="../dist/css/style.min.css" rel="stylesheet" />
+        <link href="../dist/css/custom.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/DataTables/DataTables-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="../dist/css/datatables/buttons.dataTables.min.css" rel="stylesheet" />
+        <link href="../dist/css/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/monthpicker/MonthPicker.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/monthpicker/jquery-ui.css" rel="stylesheet" />
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/css/highcharts.min.css">
+        
+    </head>
+
+    <body onload="renderAll()">
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <div id="main-wrapper">
+            <header class="topbar" data-navbarbg="skin5" id="header_target"></header>
+            <aside class="left-sidebar" data-sidebarbg="skin5">
+                <div class="scroll-sidebar">
+                    <nav class="sidebar-nav" id="nav_target"></nav>
+                </div>
+            </aside>
+            <div class="page-wrapper">
+                <div class="page-breadcrumb">
+                    <div class="row">
+                        <div class="col-12 d-flex no-block align-items-center" id="filter_target">
+                            <!-- <small class="text-bold">Filter:</small> -->
+                                <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0" id="status_target"> </div>
+                        <div class="col-md-12 p-0" id="loading_target"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">All Indicators</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-striped table-bordered slimtable no-datatable">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th>Category</th>
+                                                    <th>Indicator</th>
+                                                    <th>Source</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer_target" class="p-0 m-0 w-100"></div>
+        
+        <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+        <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+        <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+        <script src="../dist/js/sidebarmenu.js"></script>
+        <script src="../dist/js/custom.js"></script>
+        <script src="../assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+        <script src="../assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+        <script src="../assets/extra-libs/DataTables/datatables.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/dataTables.buttons.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.flash.min.js"></script>
+        <script src="../assets/extra-libs/jszip/jszip.min.js"></script>
+        <script src="../assets/extra-libs/pdfmake/pdfmake.min.js"></script>
+        <script src="../assets/extra-libs/pdfmake/vfs_fonts.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.html5.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.print.min.js"></script>
+
+        <!-- *********** <MonthPicker ************** -->
+        <script src="../assets/extra-libs/monthpicker/jquery-migrate-3.0.1.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/jquery.maskedinput.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/jquery-ui.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/MonthPicker.js"></script>
+        <!-- *********** MonthPicker/> ************** -->
+
+        <!-- *********** <WeekPicker ************** -->
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.26.0/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+        <script src="../dist/js/weekpicker.js"></script>
+        <!-- *********** WeekPicker/> ************** -->
+        
+        <!-- *********** <Highcharts ************** -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script>
+        <!-- *********** Highcharts/> ************** -->
+
+
+
+
+        <!-- TEMPLATING -->
+        <script src="../dist/js/templates/mustache.js"></script>
+
+            <!-- templates -->
+            <!-- <script id="header_template" type="x-tmpl-mustache">
+                //html here
+            </script> -->
+            <script src="../dist/js/templates/components/footer.js"></script>
+            <script src="../dist/js/templates/components/header.js"></script>
+            <script src="../dist/js/templates/components/nav.js"></script>
+            <script src="../dist/js/templates/components/filter.js"></script>
+            <script src="../dist/js/templates/components/loading.js"></script>
+            <script src="../dist/js/templates/components/status.js"></script>
+            <!-- templates -->
+
+            <!-- renders -->
+            <script src="../dist/js/templates/renders.js"></script>
+            <!-- renders -->
+
+            <!-- render Fn -->
+            <script>
+                function renderAll() {
+                    let page_title = {title: 'Essential Services Dashboard'}
+                    let page_filters = {
+                        is_county:false, 
+                        is_subcounty:false, 
+                        is_ward:false, 
+                        is_facility:false, 
+                        is_period:false, 
+                        is_period_range:false}
+                    let is_loading = {is_loading: false}
+                    let footer_yr = { yr: new Date().getFullYear()}
+                    let page_status = {title: '', message: '', type: 'info', hidden: true} //type: info, success, danger
+
+                    renderNav()
+                    renderHeader(page_title)
+                    renderFooter(footer_yr)
+                    renderLoader(is_loading)
+                    renderFilter(page_filters)
+                    renderStatus(page_status)
+                }
+            </script>
+            <!-- render Fn -->
+        <!-- TEMPLATING -->
+
+
+
+
+
+        <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
+        <script>
+        </script>
+        <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
+        <script src="../dist/js/_utils.js"></script>
+    </body>
+</html>
