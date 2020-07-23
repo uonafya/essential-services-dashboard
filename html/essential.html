@@ -123,7 +123,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">% of change in under 5 opd attendance</h4>
+                                    <h4 class="card-title">% of change in under 5 OPD attendance</h4>
                                     <div class="graph" id="perc_change_under5_opd">
                                         <p class="card-text">Bar graph showing all counties</p>
                                     </div>
@@ -261,10 +261,40 @@
 
 
 
-
+        
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
-
+            /* 
+                plotGraph(
+                    x_array,    //array of x values e.g. months
+                    x_title,    //string
+                    y_data,     //array of objects e.g [{name:"Year 2018", data:[1,2,3], color: "#3330ff"}],
+                    y_title,    //string
+                    title,      //string title of entire graph
+                    subtitle,   //string subtitle
+                    containter, //DOM object, preferrably jQuery selector-ed
+                    chertype,   //string, 'bar', 'line'
+                    colours,    //array of string colors e.g [ '#7CB799', '#1e779a', '#2A2E79']
+                )
+            */
+            $.getJSON("../assets/json/essential/opd-attendance-kenya.json", function (data, textStatus, jqXHR) {
+                let target = $("#opd_visits_by_year_table")
+                let theads = data.pop()
+                let table = `
+                    <table class="table table-condensed slimtable">
+                        <thead>
+                            <tr>
+                                ${theads.map(thd=>{
+                                    '<th>'+thd+'</th>'
+                                })}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                `
+                target.html(table)
+            });
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
         <script src="../dist/js/_utils.js"></script>
