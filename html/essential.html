@@ -372,6 +372,7 @@
                 y_data[0].name = "% of change in under 5 OPD attendance"
                 y_data[0].data = []
                 let target4 = document.getElementById("perc_change_under5_opd")
+                let t_itles = data.shift()
                 data.map(dt=>{
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
@@ -436,6 +437,7 @@
                 y_data_l[0].name = "% Difference in bed occupancy by county"
                 y_data_l[0].data = []
                 let target7 = document.getElementById("perc_difference_bed_occupancy_by_county")
+                let t_itles = data.shift()
                 data.map(dt=>{
                     x_array_l.push(dt[0]);
                     y_data_l[0].data.push(dt[1])
