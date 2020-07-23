@@ -36,8 +36,8 @@ function formatNumber(x) {
         y_title,    //string
         title,      //string title of entire graph
         subtitle,   //string subtitle
-        containter, //DOM object, preferrably jQuery selector-ed
-        chertype,   //string, 'bar', 'line'
+        containter, //DOM object, preferrably document.getElementBlaBlaBla
+        chartype,   //string, 'bar', 'line'
         colours,    //array of string colors e.g [ '#7CB799', '#1e779a', '#2A2E79']
     )
 */
@@ -64,8 +64,7 @@ let plotGraph = (x_array, x_title, y_data, y_title, title, subtitle, container, 
         },
         yAxis: {
             title: {
-                text: y_title || null,
-                // align: 'high'
+                text: y_title || null
             },
             labels: {
                 overflow: 'justify'
@@ -79,12 +78,17 @@ let plotGraph = (x_array, x_title, y_data, y_title, title, subtitle, container, 
                 dataLabels: {
                     enabled: true
                 }
+            },
+            line: {
+                dataLabels: {
+                    enabled: true
+                }
             }
         },
         credits: {
             enabled: false
         },
         series: y_data,
-        colors: colours || [ '#0AC4CC', '#59D1A2', '#7CB799', '#1e779a', '#2A2E79']
+        colors: colours || [ '#1e77bf', '#7CB799', '#1e779a', '#2A2E79']
     });
 }
