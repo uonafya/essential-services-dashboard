@@ -1,30 +1,34 @@
 [
-  {
-    "Months": "Januarry",
-    "Values": "3.50%"
-  },
-  {
-    "Months": "February",
-    "Values": "4.60%"
-  },
-  {
-    "Months": "March",
-    "Values": "-31.80%"
-  },
-  {
-    "Months": "April",
-    "Values": "-17.40%"
-  },
-  {
-    "Months": "May",
-    "Values": "-33.90%"
-  },
-  {
-    "Months": "June",
-    "Values": "-11.40%"
-  },
-  {
-    "Months": "July",
-    "Values": "-6.80%"
-  }
+  [
+    "Period",
+    "Value"
+  ],
+  [
+   "Januarry",
+   3.50
+  ],
+  [
+   "February",
+   4.60
+  ],
+  [
+   "March",
+   -31.80
+  ],
+  [
+   "April",
+   -17.40
+  ],
+  [
+   "May",
+   -33.90
+  ],
+  [
+   "June",
+   -11.40
+  ],
+  [
+   "July",
+   -6.80
+  ]
 ]

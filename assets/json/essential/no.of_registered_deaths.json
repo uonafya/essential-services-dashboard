@@ -1,78 +1,82 @@
 [
-  {
-    "Month": "January2019",
-    "Values": 18537
-  },
-  {
-    "Month": "February2019",
-    "Values": 19558
-  },
-  {
-    "Month": "March2019",
-    "Values": 19529
-  },
-  {
-    "Month": "April2019",
-    "Values": 11991
-  },
-  {
-    "Month": "May2019",
-    "Values": 12066
-  },
-  {
-    "Month": "June2019",
-    "Values": 13743
-  },
-  {
-    "Month": "July2019",
-    "Values": 16414
-  },
-  {
-    "Month": "August2019",
-    "Values": 18527
-  },
-  {
-    "Month": "September2019",
-    "Values": 14689
-  },
-  {
-    "Month": "October2019",
-    "Values": 12799
-  },
-  {
-    "Month": "November2019",
-    "Values": 19142
-  },
-  {
-    "Month": "December2019",
-    "Values": 16267
-  },
-  {
-    "Month": "January2020",
-    "Values": 14112
-  },
-  {
-    "Month": "February2020",
-    "Values": 13621
-  },
-  {
-    "Month": "March2020",
-    "Values": 17519
-  },
-  {
-    "Month": "April2020",
-    "Values": 13400
-  },
-  {
-    "Month": "May2020",
-    "Values": 19466
-  },
-  {
-    "Month": "June2020",
-    "Values": 17114
-  },
-  {
-    "Month": "July2020",
-    "Values": 11596
-  }
+  [
+    "Period",
+    "Value"
+  ],
+  [
+   "January 2019",
+    18537
+  ],
+  [
+   "February 2019",
+    19558
+  ],
+  [
+   "March 2019",
+    19529
+  ],
+  [
+   "April 2019",
+    11991
+  ],
+  [
+   "May 2019",
+    12066
+  ],
+  [
+   "June 2019",
+    13743
+  ],
+  [
+   "July 2019",
+    16414
+  ],
+  [
+   "August 2019",
+    18527
+  ],
+  [
+   "September 2019",
+    14689
+  ],
+  [
+   "October 2019",
+    12799
+  ],
+  [
+   "November 2019",
+    19142
+  ],
+  [
+   "December 2019",
+    16267
+  ],
+  [
+   "January 2020",
+    14112
+  ],
+  [
+   "February 2020",
+    13621
+  ],
+  [
+   "March 2020",
+    17519
+  ],
+  [
+   "April 2020",
+    13400
+  ],
+  [
+   "May 2020",
+    19466
+  ],
+  [
+   "June 2020",
+    17114
+  ],
+  [
+   "July 2020",
+    11596
+  ]
 ]
