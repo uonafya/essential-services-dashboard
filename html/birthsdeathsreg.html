@@ -74,7 +74,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Monthly changes in birth registration (%)</h4>
-                                    <div class="graph" id="changes_birth_reg">
+                                    <div class="graph" id="changes_birth_reg_trend">
                                         <p class="card-text">Line graph from Jan - May 2020, monthly disaggregation, National (Kenya)...</p>
                                     </div>
                                 </div>
@@ -96,6 +96,16 @@
                                     <h4 class="card-title">Monthly changes in birth registration (%)</h4>
                                     <div class="table-container" id="changes_death_reg">
                                         <p class="card-text">Table showing above data...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Monthly changes in death registration (%)</h4>
+                                    <div class="graph" id="changes_death_reg">
+                                        <p class="card-text">Line graph from Jan - May 2020, monthly disaggregation, National (Kenya)...</p>
                                     </div>
                                 </div>
                             </div>
@@ -194,12 +204,27 @@
 
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
+<<<<<<< HEAD
              $.getJSON("../assets/json/essential/no.of_registered_births.json", function (data, textStatus, jqXHR) {
                 
                 /* *********Number of registered births 2019-2020******** */
              
                 let x_array
                 let y_data = []
+=======
+            $.getJSON("../assets/json/bdregs/no_of_registered_births.json", function (data, textStatus, jqXHR) {
+                /* *********Trend of the number of registered births 2019-2020 by year table******** */
+                $("#no_reg_births_19_20_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
+                let target_head = $("#no_reg_births_19_20_table table thead")
+                let target = $("#no_reg_births_19_20_table table tbody")
+                let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
+                /* *********Trend of the number of registered births 2019-2020 by year table******** */
+                
+                /* *********Trend of the number of registered births 2019-2020 by year******** */
+                let x_array2
+                let y_data2 = []
+>>>>>>> 49f55f2aa859ce76139d14edd2d9ac08ceb4fb4a
                 let target3 = document.getElementById("no_reg_births_19_20")
                 let twenty_19 = data.filter(dt=>dt[0].includes(2019));
                 let twenty_20 = data.filter(dt=>dt[0].includes(2020));
@@ -210,6 +235,7 @@
                     twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
                     twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
                 })
+<<<<<<< HEAD
                 y_data.push(data_19)
                 y_data.push(data_20)
                 plotGraph(m_onths, "Period", y_data, "Registered Births", "Trend in number of registered births", "January 2019 - June 2020", target3, "line", null)
@@ -221,6 +247,30 @@
              
                 let x_array1
                 let y_data1 = []
+=======
+                y_data2.push(data_19)
+                y_data2.push(data_20)
+                plotGraph(m_onths, "Period", y_data2, "Number (#)", "Trend of the number of registered births 2019-2020", "Jan 2019 - June 2020", target3, "line", null)
+                /* *********Trend of the number of registered births 2019-2020 by year******** */
+            });
+
+
+
+
+
+            $.getJSON("../assets/json/bdregs/no_of_registered_deaths.json", function (data, textStatus, jqXHR) {
+                /* *********Trend of the number of registered deaths 2019-2020 by year table******** */
+                $("#no_reg_deaths_19_20_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
+                let target_head = $("#no_reg_deaths_19_20_table table thead")
+                let target = $("#no_reg_deaths_19_20_table table tbody")
+                let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
+                /* *********Trend of the number of registered deaths 2019-2020 by year table******** */
+                
+                /* *********Trend of the number of registered births 2019-2020 by year******** */
+                let x_array2
+                let y_data2 = []
+>>>>>>> 49f55f2aa859ce76139d14edd2d9ac08ceb4fb4a
                 let target3 = document.getElementById("no_reg_deaths_19_20")
                 let twenty_19 = data.filter(dt=>dt[0].includes(2019));
                 let twenty_20 = data.filter(dt=>dt[0].includes(2020));
@@ -231,6 +281,7 @@
                     twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
                     twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
                 })
+<<<<<<< HEAD
                 y_data1.push(data_19)
                 y_data1.push(data_20)
                 plotGraph(m_onths, "Period", y_data1, "Registered Deaths", "Trend in number of registered deaths", "January 2019 - June 2020", target3, "line", null)
@@ -270,7 +321,55 @@
                 plotGraph(x_array, "Period", y_data, "% percentage", "Monthly changes in death registration", "January-June 2020", target2, "line", null)
                 /* *********Monthly changes in birth registration******** */
             });
+=======
+                y_data2.push(data_19)
+                y_data2.push(data_20)
+                plotGraph(m_onths, "Period", y_data2, "Number (#)", "Trend of the number of registered deaths 2019-2020", "Jan 2019 - June 2020", target3, "line", null)
+                /* *********Trend of the number of registered deaths 2019-2020 by year******** */
+            });
 
+
+
+
+
+            $.getJSON("../assets/json/bdregs/monthly_change_birthregistration.json", function (data, textStatus, jqXHR) {
+                /* *********Monthly changes in birth registration (%)******** */
+                let x_array_l = []
+                let y_data_l = []
+                y_data_l[0] = {}
+                y_data_l[0].name = "Monthly changes in birth registration (%)"
+                y_data_l[0].data = []
+                let target8 = document.getElementById("changes_birth_reg_trend")
+                let t_itles = data.shift()
+                data.map(dt=>{
+                    x_array_l.push(dt[0]);
+                    y_data_l[0].data.push(dt[1])
+                })
+                plotGraph(x_array_l, "Period", y_data_l, "% Difference", "Monthly changes in birth registration (%)", null, target8, "line", null)
+                /* *********Monthly changes in birth registration (%)******** */
+            });
+
+
+
+
+>>>>>>> 49f55f2aa859ce76139d14edd2d9ac08ceb4fb4a
+
+            $.getJSON("../assets/json/bdregs/monthly_change_in_deathregistration.json", function (data, textStatus, jqXHR) {
+                /* *********Monthly changes in death registration (%)******** */
+                let x_array_d = []
+                let y_data_d = []
+                y_data_d[0] = {}
+                y_data_d[0].name = "Monthly changes in deaths registration (%)"
+                y_data_d[0].data = []
+                let target7 = document.getElementById("changes_death_reg")
+                let t_itles = data.shift()
+                data.map(dt=>{
+                    x_array_d.push(dt[0]);
+                    y_data_d[0].data.push(dt[1])
+                })
+                plotGraph(x_array_d, "Period", y_data_d, "% Difference", "Monthly changes in death registration (%)", null, target7, "line", null)
+                /* *********Monthly changes in death registration (%)******** */
+            });
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
         <script src="../dist/js/_utils.js"></script>

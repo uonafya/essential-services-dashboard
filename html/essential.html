@@ -279,6 +279,7 @@
                 y_data[0].name = "OPD Visits"
                 y_data[0].data = []
                 let target2 = document.getElementById("opd_visits_kenya")
+                let dt = data.shift()
                 data.map(dt=>{
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
