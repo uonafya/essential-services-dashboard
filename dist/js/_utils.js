@@ -89,6 +89,6 @@ let plotGraph = (x_array, x_title, y_data, y_title, title, subtitle, container, 
             enabled: false
         },
         series: y_data,
-        colors: colours || [ '#1e77bf', '#7CB799', '#1e779a', '#2A2E79']
+        colors: colours || [ '#1e77bf', '#8B0000', '#008000', '#2A2E79']
     });
 }
