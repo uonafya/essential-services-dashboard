@@ -231,39 +231,50 @@
 
 
 
-
-
-            // $.getJSON("../assets/json/rmncah/perc_change_anc_visits.json", function (data, textStatus, jqXHR) {
-            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:soUwg5kvxKs&dimension=ou:LEVEL-2;HfVjCurKxh2&dimension=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID', {})
-            .then(response=>{
-                let data = [['County', "Values"]]
-                response.metaData.dimensions.ou.map(o_ou=>{
-                    let val_arr = [response.metaData.items[o_ou].name]
-                    let v_alue = 0
-                    let v_alue_ar = response.rows.filter(o_rw=>o_rw[1]==o_ou)
-                    if(v_alue_ar.length > 0){
-                        v_alue = parseFloat(v_alue_ar[0][3])
-                    }
-                    val_arr.push(v_alue)
-                    data.push(val_arr)
-                })
-                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name
-                /* *********% change in antenatal care first visit per county******** */
-                let x_array = []
-                let y_data = []
-                y_data[0] = {}
-                y_data[0].name = "% change in antenatal care first visit per county"
-                y_data[0].data = []
-                let target5 = document.getElementById("perc_change_anc1_per_county")
-                let daat = data
-                let daat_titles = daat.shift()
-                daat.map(dt=>{
-                    x_array.push(dt[0]);
-                    y_data[0].data.push(dt[1])
-                })
-                plotGraph(x_array, "Period", y_data, "Percentage (%)", "% change in antenatal care first visit per county", period_string, target5, "line", null)
-                /* *********% change in antenatal care first visit per county******** */
-            });
+            ( ()=>{
+                let this_date = new Date()
+                let this_yr = this_date.getFullYear()
+                let this_mn = this_date.getMonth()
+                if(this_mn<1){this_mn=12;this_yr-=1}
+                if(this_mn<10){this_mn="0"+this_mn}
+                let this_pe = this_yr+""+this_mn
+                let last_pe = this_yr-1+""+this_mn
+                
+                // $.getJSON("../assets/json/rmncah/perc_change_anc_visits.json", function (data, textStatus, jqXHR) {
+                justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:soUwg5kvxKs&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-2;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
+                .then(response=>{
+                    let data = [['County', "Values"]]
+                    response.metaData.dimensions.ou.map(o_ou=>{
+                        let val_arr = [response.metaData.items[o_ou].name]
+                        let v_alue_last = 0
+                        let v_alue_this = 0
+                        let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
+                        let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
+                        if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
+                        if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
+                        let v_alue_diff = 0
+                        v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
+                        val_arr.push(v_alue_diff)
+                        data.push(val_arr)
+                    })
+                    let period_string = response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[0]].name
+                    /* *********% change in antenatal care first visit per county******** */
+                    let x_array = []
+                    let y_data = []
+                    y_data[0] = {}
+                    y_data[0].name = "Change in antenatal care first visit per county"
+                    y_data[0].data = []
+                    let target4 = document.getElementById("perc_change_anc1_per_county")
+                    let fta = data
+                    let fta_title = fta.shift()
+                    fta.map(dt=>{
+                        x_array.push(dt[0]);
+                        y_data[0].data.push(dt[1])
+                    })
+                    plotGraph(x_array, "County", y_data, "Difference", "Change in antenatal care first visit per county", period_string, target4, "column", ["#d88842"])
+                    /* *********% change in antenatal care first visit per county******** */
+                });
+            } )()
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
     </body>
