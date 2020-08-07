@@ -200,11 +200,23 @@
 
 
 
+        <script src="../dist/js/_utils.js"></script>
+
 
 
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
-            $.getJSON("../assets/json/rmncah/skilled_deliveries.json", function (data, textStatus, jqXHR) {
+            // $.getJSON("../assets/json/rmncah/skilled_deliveries.json", function (data, textStatus, jqXHR) {
+            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201901;201902;201903;201904;201905;201906;201907;202001;202002;202003;202004;202005;202006&filter=ou:LEVEL-1;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
+            .then(response=>{
+                let data = [['Months', "Values"]]
+                response.metaData.dimensions.pe.map(o_pe=>{
+                    let val_arr = [response.metaData.items[o_pe].name]
+                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    val_arr.push(v_alue)
+                    data.push(val_arr)
+                })
+                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
                 /* *********Number of skilled deliveries- Kenya, by year table******** */
                 $("#no_of_skilledeliveries_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
                 let target_head = $("#no_of_skilledeliveries_table table thead")
@@ -232,7 +244,7 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "No. of attendants", "Number of skilled deliveries- Kenya, by year", "Jan 2018 - June 2020", target3, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "No. of attendants", "Number of skilled deliveries- Kenya, by year", period_string, target3, "line", null)
                 /* *********Number of skilled deliveries- Kenya, by year******** */
             });
 
@@ -240,7 +252,21 @@
 
 
 
-            $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
+            // $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
+            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&dimension=ou:LEVEL-2;HfVjCurKxh2&filter=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID', {})
+            .then(response=>{
+                let data = [['County', "Values"]]
+                response.metaData.dimensions.ou.map(o_ou=>{
+                    let val_arr = [response.metaData.items[o_ou].name]
+                    let v_alue = 0
+                    let v_alue_ar = response.rows.filter(o_rw=>o_rw[1]==o_ou)
+                    if(v_alue_ar.length > 0){
+                        v_alue = parseFloat(v_alue_ar[0][2])
+                    }
+                    val_arr.push(v_alue)
+                    data.push(val_arr)
+                })
+                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name
                 /* *********% change in skilled deliveries******** */
                 let x_array = []
                 let y_data = []
@@ -249,7 +275,9 @@
                 y_data[0].data = []
                 let target4 = document.getElementById("perc_change_skilledeliveries")
                 let t_itles = data.shift()
-                data.map(dt=>{
+                let daat = data
+                let daat_titles = daat.shift()
+                daat.map(dt=>{
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
@@ -262,7 +290,17 @@
 
 
 
-            $.getJSON("../assets/json/rmncah/adolesent_among_anc_clients.json", function (data, textStatus, jqXHR) {
+            // $.getJSON("../assets/json/rmncah/adolesent_among_anc_clients.json", function (data, textStatus, jqXHR) {
+            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:mNYjNlj6kgW&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201901;201902;201903;201904;201905;201906;201907;202001;202002;202003;202004;202005;202006;202007&filter=ou:LEVEL-1;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
+            .then(response=>{
+                let data = [['Months', "Values"]]
+                response.metaData.dimensions.pe.map(o_pe=>{
+                    let val_arr = [response.metaData.items[o_pe].name]
+                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    val_arr.push(v_alue)
+                    data.push(val_arr)
+                })
+                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
                 /* *********% Proportion of adolesent pregnancy among ANC clients by year table******** */
                 $("#perc_adolesc_anc_clients_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
                 let target_head = $("#perc_adolesc_anc_clients_table table thead")
@@ -290,11 +328,10 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "Percentage (%)", "% Proportion of adolesent pregnancy among ANC clients", "Jan 2018 - June 2020", target3, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "Percentage (%)", "% Proportion of adolesent pregnancy among ANC clients", period_string, target3, "line", null)
                 /* *********% Proportion of adolesent pregnancy among ANC clients by year******** */
             });
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
-        <script src="../dist/js/_utils.js"></script>
     </body>
 </html>
