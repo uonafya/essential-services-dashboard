@@ -206,11 +206,7 @@
         <!-- *********** WeekPicker/> ************** -->
         
         <!-- *********** <Highcharts ************** -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script> -->
-		<script src="https://code.highcharts.com/highcharts.js"></script>
-		<script src="https://code.highcharts.com/modules/exporting.js"></script>		
-		<script src="https://code.highcharts.com/modules/export-data.js"></script>
-		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script>
         <!-- *********** Highcharts/> ************** -->
 
 
@@ -284,7 +280,7 @@
                 $("#opd_visits_by_year_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
                 let target_head = $("#opd_visits_by_year_table table thead")
                 let target = $("#opd_visits_by_year_table table tbody")
-                let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                let theads = data[0]; let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
                 let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
                 /* *********OPD Visits by year table******** */
                 
@@ -295,7 +291,9 @@
                 y_data[0].name = "OPD Visits"
                 y_data[0].data = []
                 let target2 = document.getElementById("opd_visits_kenya")
-                data.map(dt=>{
+                let sta = data
+                let sta_titles = sta.shift()
+                sta.map(dt=>{
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
@@ -348,7 +346,7 @@
                 $("#opd_visits_under5_by_year_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
                 let target_head = $("#opd_visits_under5_by_year_table table thead")
                 let target = $("#opd_visits_under5_by_year_table table tbody")
-                let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                let theads = data[0]; let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
                 let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
                 /* *********OPD Visits for Children Under 5 Years******** */
                 
@@ -359,7 +357,9 @@
                 y_data[0].name = "OPD Visits for children under 5 years"
                 y_data[0].data = []
                 let target2 = document.getElementById("opd_visits_under5")
-                data.map(dt=>{
+                let ota = data
+                let ota_title = ota.shift()
+                ota.map(dt=>{
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
@@ -373,7 +373,7 @@
                 let twenty_18 = data.filter(dt=>dt[0].includes(2018));
                 let twenty_19 = data.filter(dt=>dt[0].includes(2019));
                 let twenty_20 = data.filter(dt=>dt[0].includes(2020));
-                let m_onths = Array.from(twenty_20, x=>x[0].replace(" 2020","")).splice(0,6); x_array2 = m_onths
+                let m_onths = Array.from(twenty_18, x=>x[0].replace(" 2018","")).splice(0,6); x_array2 = m_onths
                 let data_18 = {}; data_18.name = "2018"; data_18.data = [];
                 let data_19 = {}; data_19.name = "2019"; data_19.data = [];
                 let data_20 = {}; data_20.name = "2020"; data_20.data = [];
@@ -401,7 +401,9 @@
                 y_data[0].name = "% of change in under 5 OPD attendance"
                 y_data[0].data = []
                 let target4 = document.getElementById("perc_change_under5_opd")
-                data.map(dt=>{
+                let fta = data
+                let fta_title = fta.shift()
+                fta.map(dt=>{
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
@@ -431,9 +433,9 @@
                 y_data[0].name = "Bed Occupancy Rate (%)"
                 y_data[0].data = []
                 let target5 = document.getElementById("bed_occupancy_rate_perc")
-                let dtaa = data
-                let dtaa_titles = data.shift()
-                dtaa.map(dt=>{
+                let dta2_ = data
+                let dta2_title = dta2_.shift()
+                dta2_.map(dt=>{
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
@@ -444,18 +446,18 @@
                 $("#bed_occupancy_rate_kenya_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
                 let target_head = $("#bed_occupancy_rate_kenya_table table thead")
                 let target = $("#bed_occupancy_rate_kenya_table table tbody")
-                let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                let theads = data[0]; let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
                 let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
                 /* *********Bed occupancy rate - Kenya table******** */
 
-                /* *********OPD Visits for Children Under 5 by year table******** */
+                /* *********Bed occupancy rate by year by year table******** */
                 let x_array2
                 let y_data2 = []
                 let target6 = document.getElementById("bed_occupancy_rate_kenya")
                 let twenty_18 = data.filter(dt=>dt[0].includes(2018));
                 let twenty_19 = data.filter(dt=>dt[0].includes(2019));
                 let twenty_20 = data.filter(dt=>dt[0].includes(2020));
-                let m_onths = Array.from(twenty_20, x=>x[0].replace(" 2020","")).splice(0,6); x_array2 = m_onths
+                let m_onths = Array.from(twenty_18, x=>x[0].replace(" 2018","")).splice(0,6); x_array2 = m_onths
                 let data_18 = {}; data_18.name = "2018"; data_18.data = [];
                 let data_19 = {}; data_19.name = "2019"; data_19.data = [];
                 let data_20 = {}; data_20.name = "2020"; data_20.data = [];
@@ -468,21 +470,23 @@
                 y_data2.push(data_19)
                 y_data2.push(data_20)
                 plotGraph(m_onths, "Period", y_data2, "Occupied Bed Rate", "Bed occupancy rate by year - Kenya", "Jan 2018 - June 2020", target6, "line", null)
-                /* *********OPD Visits for Children Under 5 by year table******** */
+                /* *********Bed occupancy rate by year by year table******** */
 
-                /* *********% of change in under 5 OPD attendance******** */
+                /* *********% Difference in bed occupancy by county******** */
                 let x_array_l = []
                 let y_data_l = []
                 y_data_l[0] = {}
                 y_data_l[0].name = "% Difference in bed occupancy by county"
                 y_data_l[0].data = []
                 let target7 = document.getElementById("perc_difference_bed_occupancy_by_county")
-                data.map(dt=>{
+                let dta_ = data
+                // let dta_title = dta_.shift()
+                dta_.map(dt=>{
                     x_array_l.push(dt[0]);
                     y_data_l[0].data.push(dt[1])
                 })
-                plotGraph(x_array_l, "Period", y_data_l, "% Difference", "% Difference in bed occupancy by county", "All counties", target7, "column", ["#d88842"])
-                /* *********% of change in under 5 OPD attendance******** */
+                plotGraph(x_array_l, "Period", y_data_l, "% Difference", "% Difference in bed occupancy by county", period_string, target7, "column", ["#d88842"])
+                /* *********% Difference in bed occupancy by county******** */
             });
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
