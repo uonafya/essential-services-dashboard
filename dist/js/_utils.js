@@ -110,7 +110,7 @@ let justFetch = async (endpoint, postoptions) => {
     req_hd.method = req_method;
     req_hd.Accept = 'application/json';
     
-    console.log(`justFetch: ${final_endpoint} with headers: ${JSON.stringify(req_hd)}`);
+    // console.log(`justFetch: ${final_endpoint} with headers: ${JSON.stringify(req_hd)}`);
     try {
         let result = await window.fetch(final_endpoint, req_hd);
         let result_json = await result.json();
