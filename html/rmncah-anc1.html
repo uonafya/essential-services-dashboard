@@ -236,8 +236,6 @@
             // $.getJSON("../assets/json/rmncah/perc_change_anc_visits.json", function (data, textStatus, jqXHR) {
             justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:soUwg5kvxKs&dimension=ou:LEVEL-2;HfVjCurKxh2&dimension=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID', {})
             .then(response=>{
-                console.log('response');
-                console.log(response);
                 let data = [['County', "Values"]]
                 response.metaData.dimensions.ou.map(o_ou=>{
                     let val_arr = [response.metaData.items[o_ou].name]
@@ -249,7 +247,6 @@
                     val_arr.push(v_alue)
                     data.push(val_arr)
                 })
-                console.log(data);
                 let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name
                 /* *********% change in antenatal care first visit per county******** */
                 let x_array = []
