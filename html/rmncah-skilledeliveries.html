@@ -201,10 +201,21 @@
 
 
 
-
+		<script src="../dist/js/_utils.js"></script>
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
-            $.getJSON("../assets/json/rmncah/skilled_deliveries.json", function (data, textStatus, jqXHR) {
+            //$.getJSON("../assets/json/rmncah/skilled_deliveries.json", function (data, textStatus, jqXHR) {
+			justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201901;201902;201903;201904;201905;201906;201907;202001;202002;202003;202004;202005;202006&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
+            .then(response=>{
+                let data = [['Period', "No. of attendants"]]
+                response.metaData.dimensions.pe.map(o_pe=>{
+                    let val_arr = [response.metaData.items[o_pe].name]
+                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    val_arr.push(v_alue)
+                    data.push(val_arr)
+                })
+                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+				
                 /* *********Number of skilled deliveries- Kenya, by year table******** */
                 $("#no_of_skilledeliveries_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
                 let target_head = $("#no_of_skilledeliveries_table table thead")
@@ -237,10 +248,18 @@
             });
 
 
-
-
-
-            $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
+            //$.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
+			justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&filter=ou:LEVEL-2;HfVjCurKxh2&dimension=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID', {})
+            .then(response=>{
+                let data = [['County', "% Change"]]
+                response.metaData.dimensions.pe.map(o_pe=>{
+                    let val_arr = [response.metaData.items[o_pe].name]
+                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    val_arr.push(v_alue)
+                    data.push(val_arr)
+                })
+                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+				
                 /* *********% change in skilled deliveries******** */
                 let x_array = []
                 let y_data = []
@@ -253,7 +272,7 @@
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
-                plotGraph(x_array, "Period", y_data, "% Change", "% change in skilled deliveries", "All counties", target4, "column", ["#d88842"])
+                plotGraph(x_array, "County", y_data, "% Change", "% change in skilled deliveries", "All counties", target4, "column", ["#d88842"])
                 /* *********% change in skilled deliveries******** */
             });
 
@@ -262,7 +281,18 @@
 
 
 
-            $.getJSON("../assets/json/rmncah/adolesent_among_anc_clients.json", function (data, textStatus, jqXHR) {
+            //$.getJSON("../assets/json/rmncah/adolesent_among_anc_clients.json", function (data, textStatus, jqXHR) {
+			justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:mNYjNlj6kgW&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201901;201902;201903;201904;201905;201906;201907;202001;202002;202003;202004;202005;202006&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
+            .then(response=>{
+                let data = [['Period', "Percentage (%)"]]
+                response.metaData.dimensions.pe.map(o_pe=>{
+                    let val_arr = [response.metaData.items[o_pe].name]
+                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    val_arr.push(v_alue)
+                    data.push(val_arr)
+                })
+                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+				
                 /* *********% Proportion of adolesent pregnancy among ANC clients by year table******** */
                 $("#perc_adolesc_anc_clients_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
                 let target_head = $("#perc_adolesc_anc_clients_table table thead")
@@ -295,6 +325,6 @@
             });
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
-        <script src="../dist/js/_utils.js"></script>
+        
     </body>
 </html>
