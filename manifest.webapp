@@ -1,6 +1,6 @@
 {
     "version": "1.0.4",
-    "name": "Essential Services Dashboard",
+    "name": "Essential Services Report",
     "description": "An App to Visualize Essential Services data",
     "launch_path": "html/index.html",
     "appType": "APP",
