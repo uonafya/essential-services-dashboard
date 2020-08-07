@@ -10,7 +10,7 @@
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
         <title>
-            Home | Essential Services Dashboard
+            Essential Health Service Utilization | Essential Services Dashboard
         </title>
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
@@ -63,18 +63,108 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">All Indicators</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-condensed table-striped table-bordered slimtable no-datatable">
-                                            <thead class="text-center">
-                                                <tr>
-                                                    <th>Category</th>
-                                                    <th>Indicator</th>
-                                                    <th>Source</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
+                                    <h4 class="card-title">OPD visits - Kenya</h4>
+                                    <div class="graph" id="opd_visits_kenya">
+                                        <p class="card-text">Line graph, Jan 2018 - June 2020, monthly disaggregation, National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits by year</h4>
+                                    <div class="graph" id="opd_visits_by_year">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style = display:none>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits by year table</h4>
+                                    <div class="table-container" id="opd_visits_by_year_table">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits for Children Under 5 Years</h4>
+                                    <div class="graph" id="opd_visits_under5">
+                                        <p class="card-text">Line graph from jan 2018 to June 2020, monthly disaggregation, National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card" >
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits for Children Under 5 by year</h4>
+                                    <div class="graph" id="opd_visits_under5_by_year">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style = display:none>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits for Children Under 5 by year table</h4>
+                                    <div class="table-container" id="opd_visits_under5_by_year_table">
+                                        <p class="card-text">Table showing above data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">% of change in under 5 OPD attendance</h4>
+                                    <div class="graph" id="perc_change_under5_opd">
+                                        <p class="card-text">Bar graph showing all counties</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Bed Occupancy Rate (%)</h4>
+                                    <div class="graph" id="bed_occupancy_rate_perc">
+                                        <p class="card-text">Line graph from Jan 2018 - June 2020, monthly disaggregation, National (Kenya)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Bed occupancy rate - Kenya</h4>
+                                    <div class="graph" id="bed_occupancy_rate_kenya">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style = display:none>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Bed occupancy rate - Kenya table</h4>
+                                    <div class="table-container" id="bed_occupancy_rate_kenya_table">
+                                        <p class="card-text">Table showing above data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">% difference in bed occupancy by county</h4>
+                                    <div class="graph" id="perc_difference_bed_occupancy_by_county">
+                                        <p class="card-text">Bar graph showing all counties</p>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +206,11 @@
         <!-- *********** WeekPicker/> ************** -->
         
         <!-- *********** <Highcharts ************** -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script> -->
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>		
+		<script src="https://code.highcharts.com/modules/export-data.js"></script>
+		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
         <!-- *********** Highcharts/> ************** -->
 
 
@@ -144,7 +238,7 @@
             <!-- render Fn -->
             <script>
                 function renderAll() {
-                    let page_title = {title: 'Essential Services Dashboard'}
+                    let page_title = {title: 'Essential Health Service Utilization'}
                     let page_filters = {
                         is_county:false, 
                         is_subcounty:false, 
@@ -168,13 +262,219 @@
         <!-- TEMPLATING -->
 
 
+        <script src="../dist/js/_utils.js"></script>
 
 
-
+        
+        
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
+            // $.getJSON("../assets/json/essential/opd-attendance-kenya.json", function (data, textStatus, jqXHR) {
+            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:Rsus0ojKqPe&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201901;201902;201903;201904;201905;201906;201907;202001;202002;202003;202004;202005;202006&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
+            .then(response=>{
+                let data = [['Period', "OPD Visits"]]
+                response.metaData.dimensions.pe.map(o_pe=>{
+                    let val_arr = [response.metaData.items[o_pe].name]
+                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    val_arr.push(v_alue)
+                    data.push(val_arr)
+                })
+                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+                /* *********OPD Visits by year table******** */
+                $("#opd_visits_by_year_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
+                let target_head = $("#opd_visits_by_year_table table thead")
+                let target = $("#opd_visits_by_year_table table tbody")
+                let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
+                /* *********OPD Visits by year table******** */
+                
+                /* *********OPD visits - Kenya******** */
+                let x_array = []
+                let y_data = []
+                y_data[0] = {}
+                y_data[0].name = "OPD Visits"
+                y_data[0].data = []
+                let target2 = document.getElementById("opd_visits_kenya")
+                data.map(dt=>{
+                    x_array.push(dt[0]);
+                    y_data[0].data.push(dt[1])
+                })
+                plotGraph(x_array, "Period", y_data, "OPD Visits", "OPD Visits - Kenya", "Jan 2018 - June 2020", target2, "line", null)
+                /* *********OPD visits - Kenya******** */
+                
+                /* *********OPD visits by year******** */
+                let x_array2
+                let y_data2 = []
+
+                // console.log(data.filter(dt=>dt[0].includes(2019)))
+                let target3 = document.getElementById("opd_visits_by_year")
+                let twenty_18 = data.filter(dt=>dt[0].includes(2018));
+                let twenty_19 = data.filter(dt=>dt[0].includes(2019));
+                let twenty_20 = data.filter(dt=>dt[0].includes(2020));
+                let m_onths = Array.from(twenty_20, x=>x[0].replace(" 2020","")).splice(0,6); x_array2 = m_onths
+                // console.log(m_onths)
+                let data_18 = {}; data_18.name = "2018"; data_18.data = [];
+                let data_19 = {}; data_19.name = "2019"; data_19.data = [];
+                let data_20 = {}; data_20.name = "2020"; data_20.data = [];
+                m_onths.map(mo=>{
+                    twenty_18.map(t8=>{ if(t8[0].includes(mo)){ data_18.data.push(t8[1]) } })
+                    twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
+                    twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
+                })
+                y_data2.push(data_18)
+                y_data2.push(data_19)
+                y_data2.push(data_20)
+                plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits by year", period_string, target3, "line", null)
+                /* *********OPD visits by year******** */
+            });
+
+
+
+
+
+
+            $.getJSON("../assets/json/essential/opd-visits-children-under5.json", function (data, textStatus, jqXHR) {
+                /* *********OPD Visits for Children Under 5 Years******** */
+                $("#opd_visits_under5_by_year_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
+                let target_head = $("#opd_visits_under5_by_year_table table thead")
+                let target = $("#opd_visits_under5_by_year_table table tbody")
+                let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
+                /* *********OPD Visits for Children Under 5 Years******** */
+                
+                /* *********OPD Visits for Children Under 5 by year******** */
+                let x_array = []
+                let y_data = []
+                y_data[0] = {}
+                y_data[0].name = "OPD Visits for children under 5 years"
+                y_data[0].data = []
+                let target2 = document.getElementById("opd_visits_under5")
+                data.map(dt=>{
+                    x_array.push(dt[0]);
+                    y_data[0].data.push(dt[1])
+                })
+                plotGraph(x_array, "Period", y_data, "OPD Visits", "OPD Visits for children under 5 years", "Jan 2018 - June 2020", target2, "line", null)
+                /* *********OPD Visits for Children Under 5 by year******** */
+
+                /* *********OPD Visits for Children Under 5 by year table******** */
+                let x_array2
+                let y_data2 = []
+                let target3 = document.getElementById("opd_visits_under5_by_year")
+                let twenty_18 = data.filter(dt=>dt[0].includes(2018));
+                let twenty_19 = data.filter(dt=>dt[0].includes(2019));
+                let twenty_20 = data.filter(dt=>dt[0].includes(2020));
+                let m_onths = Array.from(twenty_20, x=>x[0].replace(" 2020","")).splice(0,6); x_array2 = m_onths
+                let data_18 = {}; data_18.name = "2018"; data_18.data = [];
+                let data_19 = {}; data_19.name = "2019"; data_19.data = [];
+                let data_20 = {}; data_20.name = "2020"; data_20.data = [];
+                m_onths.map(mo=>{
+                    twenty_18.map(t8=>{ if(t8[0].includes(mo)){ data_18.data.push(t8[1]) } })
+                    twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
+                    twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
+                })
+                y_data2.push(data_18)
+                y_data2.push(data_19)
+                y_data2.push(data_20)
+                plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits for children under 5 years by year", "Jan 2018 - June 2020", target3, "line", null)
+                /* *********OPD Visits for Children Under 5 by year table******** */
+            });
+
+
+
+
+
+            $.getJSON("../assets/json/essential/perc-change-opd-attn-under5.json", function (data, textStatus, jqXHR) {
+                /* *********% of change in under 5 OPD attendance******** */
+                let x_array = []
+                let y_data = []
+                y_data[0] = {}
+                y_data[0].name = "% of change in under 5 OPD attendance"
+                y_data[0].data = []
+                let target4 = document.getElementById("perc_change_under5_opd")
+                data.map(dt=>{
+                    x_array.push(dt[0]);
+                    y_data[0].data.push(dt[1])
+                })
+                plotGraph(x_array, "Period", y_data, "% Change", "% of change in under 5 OPD attendance", "All counties", target4, "column", ["#d88842"])
+                /* *********% of change in under 5 OPD attendance******** */
+            });
+
+
+
+
+
+            // $.getJSON("../assets/json/essential/bed-occupancy-kenya.json", function (data, textStatus, jqXHR) {
+            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:MRllWHKmVua&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201901;201902;201903;201904;201905;201906;201907202001;202002;202003;202004;202005;202006;202007&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
+            .then(response=>{
+                let data = [['Period', "Value"]]
+                response.metaData.dimensions.pe.map(o_pe=>{
+                    let val_arr = [response.metaData.items[o_pe].name]
+                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    val_arr.push(v_alue)
+                    data.push(val_arr)
+                })
+                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+                /* *********Bed Occupancy Rate (%)******** */
+                let x_array = []
+                let y_data = []
+                y_data[0] = {}
+                y_data[0].name = "Bed Occupancy Rate (%)"
+                y_data[0].data = []
+                let target5 = document.getElementById("bed_occupancy_rate_perc")
+                let dtaa = data
+                let dtaa_titles = data.shift()
+                dtaa.map(dt=>{
+                    x_array.push(dt[0]);
+                    y_data[0].data.push(dt[1])
+                })
+                plotGraph(x_array, "Period", y_data, "Percentage (%)", "Bed Occupancy Rate (%)", "Jan 2018 - June 2020", target5, "line", null)
+                /* *********Bed Occupancy Rate (%)******** */
+
+                /* *********Bed occupancy rate - Kenya table******** */
+                $("#bed_occupancy_rate_kenya_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
+                let target_head = $("#bed_occupancy_rate_kenya_table table thead")
+                let target = $("#bed_occupancy_rate_kenya_table table tbody")
+                let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
+                /* *********Bed occupancy rate - Kenya table******** */
+
+                /* *********OPD Visits for Children Under 5 by year table******** */
+                let x_array2
+                let y_data2 = []
+                let target6 = document.getElementById("bed_occupancy_rate_kenya")
+                let twenty_18 = data.filter(dt=>dt[0].includes(2018));
+                let twenty_19 = data.filter(dt=>dt[0].includes(2019));
+                let twenty_20 = data.filter(dt=>dt[0].includes(2020));
+                let m_onths = Array.from(twenty_20, x=>x[0].replace(" 2020","")).splice(0,6); x_array2 = m_onths
+                let data_18 = {}; data_18.name = "2018"; data_18.data = [];
+                let data_19 = {}; data_19.name = "2019"; data_19.data = [];
+                let data_20 = {}; data_20.name = "2020"; data_20.data = [];
+                m_onths.map(mo=>{
+                    twenty_18.map(t8=>{ if(t8[0].includes(mo)){ data_18.data.push(t8[1]) } })
+                    twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
+                    twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
+                })
+                y_data2.push(data_18)
+                y_data2.push(data_19)
+                y_data2.push(data_20)
+                plotGraph(m_onths, "Period", y_data2, "Occupied Bed Rate", "Bed occupancy rate by year - Kenya", "Jan 2018 - June 2020", target6, "line", null)
+                /* *********OPD Visits for Children Under 5 by year table******** */
+
+                /* *********% of change in under 5 OPD attendance******** */
+                let x_array_l = []
+                let y_data_l = []
+                y_data_l[0] = {}
+                y_data_l[0].name = "% Difference in bed occupancy by county"
+                y_data_l[0].data = []
+                let target7 = document.getElementById("perc_difference_bed_occupancy_by_county")
+                data.map(dt=>{
+                    x_array_l.push(dt[0]);
+                    y_data_l[0].data.push(dt[1])
+                })
+                plotGraph(x_array_l, "Period", y_data_l, "% Difference", "% Difference in bed occupancy by county", "All counties", target7, "column", ["#d88842"])
+                /* *********% of change in under 5 OPD attendance******** */
+            });
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
-        <script src="../dist/js/_utils.js"></script>
     </body>
 </html>

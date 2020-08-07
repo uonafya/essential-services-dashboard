@@ -26,17 +26,17 @@ const header_template = `
         <ul class="navbar-nav float-right hidden-xs">
             <li class="nav-item search-box">
                 <a href="https://usaid.gov/kenya/global-health/" class="bcwhite ws-nowrap bdr-3 p-3 m-r-5">
-                    <img src="../../../../assets/images/logos/USAID-Kenya.png" alt="USAID Kenya" style="max-height: 37px"/>
+                    <img src="../assets/images/logos/USAID-Kenya.png" alt="USAID Kenya" style="max-height: 37px"/>
                 </a>
             </li>
             <li class="nav-item search-box">
                 <a href="https://health.go.ke/" class="m-r-5 bcwhite ws-nowrap bdr-3 p-3">
-                    <img src="../../../../assets/images/logos/moh-logo.jpg" alt="MoH" style="max-height: 37px"/>
+                    <img src="../assets/images/logos/moh-logo.jpg" alt="MoH" style="max-height: 37px"/>
                 </a>
             </li>
             <li class="nav-item search-box">
                 <a href="https://healthit.uonbi.ac.ke" class="bcwhite ws-nowrap bdr-3 p-3">
-                    <img src="../../../../assets/images/logos/healthit.png" alt="HealthIT" style="max-height: 37px"/>
+                    <img src="../assets/images/logos/healthit.png" alt="HealthIT" style="max-height: 37px"/>
                 </a>
             </li>
         </ul>
