@@ -30,5 +30,11 @@ const nav_template = `
             <span class="hide-menu">Births &amp; Deaths Registration</span>
         </a>
     </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="violence.html" aria-expanded="false">
+            <small class="text-muted text-smaller"><i class="fa-small fa fa-th fcwhite"></i></small>&nbsp;
+            <span class="hide-menu">Violence</span>
+        </a>
+    </li>
 </ul>
 `
