@@ -25,10 +25,16 @@ const nav_template = `
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rmncah-vitasup.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Vitamin A supplementation</span></a></li>
         </ul>
     </li>
-    <li class="sidebar-item">
+    <li class="sidebar-item hidden">
         <a class="sidebar-link" href="birthsdeathsreg.html" aria-expanded="false">
             <small class="text-muted text-smaller"><i class="fa-small fa fa-th fcwhite"></i></small>&nbsp;
             <span class="hide-menu">Births &amp; Deaths Registration</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="violence.html" aria-expanded="false">
+            <small class="text-muted text-smaller"><i class="fa-small fa fa-th fcwhite"></i></small>&nbsp;
+            <span class="hide-menu">Violence</span>
         </a>
     </li>
 </ul>
