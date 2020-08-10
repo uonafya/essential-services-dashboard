@@ -218,7 +218,7 @@
 
             // $.getJSON("../assets/json/rmncah/vit_a_coverage_percounty.json", function (data, textStatus, jqXHR) {
             // justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:AEwBkehhvpY&dimension=pe:201701;201702;201703;201704;201705;201706;201801;201802;201803;201804;201805;201806;201901;201902;201903;201904;201905;201906;202001;202002;202003;202004;202005;202006;LAST_MONTH&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
-            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:201701;201702;201703;201704;201705;201706;201801;201802;201803;201804;201805;201806;201901;201902;201903;201904;201905;201906;201907;202001;202002;202003;202004;202005;202006&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID',{})
+            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:201701;201702;201703;201704;201705;201706;201707;201801;201802;201803;201804;201805;201806;201807;201901;201902;201903;201904;201905;201906;201907;202001;202002;202003;202004;202005;202006;202007&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID',{})
             .then(response=>{
                 let data = [['Period', "Trends in Vitamin A Supplementation for Children aged between 6 to 59 Months"]]
                 response.metaData.dimensions.pe.map(o_pe=>{
@@ -260,7 +260,7 @@
             });
 
             // $.getJSON("../assets/json/rmncah/vit_a_coverage_percounty.json", function (data, textStatus, jqXHR) {
-                ( ()=>{
+            ( ()=>{
                 let this_date = new Date()
                 let this_yr = this_date.getFullYear()
                 let this_mn = this_date.getMonth()
