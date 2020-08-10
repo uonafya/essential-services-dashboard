@@ -20,7 +20,7 @@ const nav_template = `
         <ul aria-expanded="false" class="collapse  first-level">
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rmncah-anc1.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">ANC 1st Visit</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rmncah-skilledeliveries.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Skilled Deliveries</span></a></li>
-            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rmncah-cwc.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Under 5 CWC attendance</span></a></li>
+            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rmncah-cwc.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Nutrition</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rmncah-vitasup.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Vitamin A supplementation</span></a></li>
         </ul>
     </li>
