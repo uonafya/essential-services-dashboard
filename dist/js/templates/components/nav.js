@@ -37,5 +37,14 @@ const nav_template = `
             <span class="hide-menu">Violence</span>
         </a>
     </li>
+    <li class="sidebar-item hidden"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Communicable Diseases </span></a>
+        <ul aria-expanded="false" class="collapse  first-level">
+            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="communicable-hiv.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">HIV</span></a></li>
+
+            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="communicable-tb.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Tuberculosis</span></a></li>
+
+            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="communicable-malaria.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Malaria</span></a></li>
+        </ul>
+    </li>
 </ul>
 `

@@ -36,13 +36,16 @@ function formatNumber(x) {
         y_title,    //string
         title,      //string title of entire graph
         subtitle,   //string subtitle
-        containter, //DOM object, preferrably document.getElementBlaBlaBla
+        container, //DOM object, preferrably document.getElementBlaBlaBla
         chartype,   //string, 'bar', 'line'
         colours,    //array of string colors e.g [ '#7CB799', '#1e779a', '#2A2E79']
     )
 */
 
 let plotGraph = (x_array, x_title, y_data, y_title, title, subtitle, container, chartype, colours)=> {
+    let colo = colours || [ '#1e77bf', '#8B0000', '#008000', '#2A2E79']
+    if((chartype == 'column' || chartype == 'bar') && !JSON.stringify(colours).includes('#d88842')){colo.unshift('#d88842')}
+    
     Highcharts.chart(container, {
         chart: {
             type: chartype
@@ -70,9 +73,6 @@ let plotGraph = (x_array, x_title, y_data, y_title, title, subtitle, container, 
                 overflow: 'justify'
             }
         },
-        tooltip: {
-            valueSuffix: ''
-        },
         plotOptions: {
             bar: {
                 dataLabels: {
@@ -83,13 +83,17 @@ let plotGraph = (x_array, x_title, y_data, y_title, title, subtitle, container, 
                 dataLabels: {
                     enabled: true
                 }
+            },
+            column: {
+                dataLabels: true,
+                color: colo[0]
             }
         },
         credits: {
             enabled: false
         },
         series: y_data,
-        colors: colours || [ '#1e77bf', '#8B0000', '#008000', '#2A2E79']
+        colors: colo
     });
 }
 
