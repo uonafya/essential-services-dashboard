@@ -301,7 +301,7 @@
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
-                plotGraph(x_array, "Period", y_data, "OPD Visits", "OPD Visits - Kenya", period_string, target2, "line", null)
+                plotGraph(x_array, "Period", y_data, "OPD Visits", "OPD Visits - Kenya", null, target2, "line", null)
                 /* *********OPD visits - Kenya******** */
                 
                 /* *********OPD visits by year******** */
@@ -326,7 +326,7 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits by year", period_string, target3, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits by year", null, target3, "line", null)
                 /* *********OPD visits by year******** */
             });
 
@@ -367,7 +367,7 @@
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
-                plotGraph(x_array, "Period", y_data, "OPD Visits", "OPD Visits for children under 5 years", "Jan 2018 - June 2020", target2, "line", null)
+                plotGraph(x_array, "Period", y_data, "OPD Visits", "OPD Visits for children under 5 years", null, target2, "line", null)
                 /* *********OPD Visits for Children Under 5 by year******** */
 
                 /* *********OPD Visits for Children Under 5 by year table******** */
@@ -389,7 +389,7 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits for children under 5 years by year", period_string, target3, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits for children under 5 years by year", null, target3, "line", null)
                 /* *********OPD Visits for Children Under 5 by year table******** */
             });
 
@@ -429,6 +429,7 @@
                     y_data[0] = {}
                     y_data[0].name = "Change in under 5 OPD attendance"
                     y_data[0].data = []
+                    y_data[0].color = '#d88842'
                     let target4 = document.getElementById("perc_change_under5_opd")
                     let fta = data
                     let fta_title = fta.shift()
@@ -469,7 +470,7 @@
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
-                plotGraph(x_array, "Period", y_data, "Percentage (%)", "Bed Occupancy Rate (%)", period_string, target5, "line", null)
+                plotGraph(x_array, "Period", y_data, "Percentage (%)", "Bed Occupancy Rate (%)", null, target5, "line", null)
                 /* *********Bed Occupancy Rate (%)******** */
 
                 /* *********Bed occupancy rate - Kenya table******** */
@@ -499,7 +500,7 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "Occupied Bed Rate", "Bed occupancy rate by year - Kenya", "Jan 2018 - June 2020", target6, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "Occupied Bed Rate", "Bed occupancy rate by year - Kenya", null, target6, "line", null)
                 /* *********Bed occupancy rate by year by year table******** */
             });
 
@@ -536,6 +537,7 @@
                     let y_data = []
                     y_data[0] = {}
                     y_data[0].name = "Difference in bed occupancy by county"
+                    y_data.color = '#d88842'
                     y_data[0].data = []
                     let target4 = document.getElementById("perc_difference_bed_occupancy_by_county")
                     let fta = data

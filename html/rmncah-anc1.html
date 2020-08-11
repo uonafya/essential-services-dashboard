@@ -238,7 +238,7 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "No. of attendants", "First antenatal care attendants (ANC1) by year", "Jan 2018 - June 2020", target3, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "No. of attendants", "First antenatal care attendants (ANC1) by year", null, target3, "line", null)
                 /* *********First antenatal care attendants (ANC1) by year******** */
             });
             justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:soUwg5kvxKs&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201708;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006&filter=ou:LEVEL-1;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
@@ -256,7 +256,7 @@
                 let x_array = []
                 let y_data = []
                 y_data[0] = {}
-                y_data[0].name = "First ANC attendance 2018-2020"
+                y_data[0].name = "First ANC attendance"
                 y_data[0].data = []
                 let target2 = document.getElementById("anc1_attendants_trends")
                 let sta = data
@@ -265,7 +265,7 @@
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
-                plotGraph(x_array, "Period", y_data, "ANC attendance ", "1st ANC attendance trends", period_string, target2, "line", null)
+                plotGraph(x_array, "Period", y_data, "ANC attendance ", "1st ANC attendance trends", null, target2, "line", null)
             });
 
 
@@ -305,6 +305,7 @@
                     y_data[0] = {}
                     y_data[0].name = "Change in antenatal care first visit per county"
                     y_data[0].data = []
+                    y_data[0].color = "#d88842"
                     let target4 = document.getElementById("perc_change_anc1_per_county")
                     let fta = data
                     let fta_title = fta.shift()

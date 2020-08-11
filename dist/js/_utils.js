@@ -44,7 +44,7 @@ function formatNumber(x) {
 
 let plotGraph = (x_array, x_title, y_data, y_title, title, subtitle, container, chartype, colours)=> {
     let colo = colours || [ '#1e77bf', '#8B0000', '#008000', '#2A2E79']
-    if((chartype == 'column' || chartype == 'bar') && !JSON.stringify(colours).includes('#d88842')){colo.unshift('#d88842')}
+    // if((chartype == 'column' || chartype == 'bar') && !JSON.stringify(colours).includes('#d88842')){colo.unshift('#d88842')}
     
     Highcharts.chart(container, {
         chart: {
@@ -86,7 +86,7 @@ let plotGraph = (x_array, x_title, y_data, y_title, title, subtitle, container, 
             },
             column: {
                 dataLabels: true,
-                color: colo[0]
+                colors: colo
             }
         },
         credits: {
