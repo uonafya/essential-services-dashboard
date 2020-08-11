@@ -293,7 +293,7 @@
 
 
             //$.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
-         justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&filter=ou:LEVEL-2;HfVjCurKxh2&dimension=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID', {})
+            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&filter=ou:LEVEL-2;HfVjCurKxh2&dimension=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID', {})
             .then(response=>{
                 let data = [['County', "% Change"]]
                 response.metaData.dimensions.pe.map(o_pe=>{
@@ -358,7 +358,7 @@
                         x_array.push(dt[0]);
                         y_data[0].data.push(dt[1])
                     })
-                    plotGraph(x_array, "County", y_data, "Difference", "Change in skilled deliveries by county", period_string, target4, "column", ["#d88842"])
+                    plotGraph(x_array, "County", y_data, "Difference", "Change in skilled deliveries by county", period_string, target4, "column", null)
                     /* *********% change in skilled deliveries******** */
                 });
             

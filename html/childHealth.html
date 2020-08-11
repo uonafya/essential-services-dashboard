@@ -85,7 +85,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title"> DPT 3 doses administered 2018-2020 </h4>
                                     <div class="graph" id="DPT_3_trend">
-                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - June for each year), National (Kenya)...</p>
+                                        <p class="card-text">Single line graph showing trends</p>
                                     </div>
                                 </div>
                             </div>
@@ -268,82 +268,10 @@
               
             });
 
-  
 
-
-            //$.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
-			justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&filter=ou:LEVEL-2;HfVjCurKxh2&dimension=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID', {})
-            .then(response=>{
-                let data = [['County', "% Change"]]
-                response.metaData.dimensions.pe.map(o_pe=>{
-                    let val_arr = [response.metaData.items[o_pe].name]
-                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
-                    val_arr.push(v_alue)
-                    data.push(val_arr)
-                })
-                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
-				
-                /* *********% change in skilled deliveries******** */
-                let x_array = []
-                let y_data = []
-                y_data[0] = {}
-                y_data[0].name = "% change in skilled deliveries"
-                y_data[0].data = []
-                let target4 = document.getElementById("perc_change_skilledeliveries")
-                let t_itles = data.shift()
-                data.map(dt=>{
-                    x_array.push(dt[0]);
-                    y_data[0].data.push(dt[1])
-                })
-                plotGraph(x_array, "County", y_data, "% Change", "% change in skilled deliveries", "All counties", target4, "column", ["#d88842"])
-                /* *********% change in skilled deliveries******** */
-            });
-
-                let this_date = new Date()
-                let this_yr = this_date.getFullYear()
-                let this_mn = this_date.getMonth()
-                if(this_mn<1){this_mn=12;this_yr-=1}
-                if(this_mn<10){this_mn="0"+this_mn}
-                let this_pe = this_yr+""+this_mn
-                let last_pe = this_yr-1+""+this_mn
-                
-                // $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
-                justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-2;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
-                .then(response=>{
-                    let data = [['County', "Values"]]
-                    response.metaData.dimensions.ou.map(o_ou=>{
-                        let val_arr = [response.metaData.items[o_ou].name]
-                        let v_alue_last = 0
-                        let v_alue_this = 0
-                        let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
-                        let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
-                        if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
-                        if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
-                        let v_alue_diff = 0
-                        v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
-                        val_arr.push(v_alue_diff)
-                        data.push(val_arr)
-                    })
-                    let period_string = response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[0]].name
-                    /* *********% change in skilled deliveries******** */
-                    let x_array = []
-                    let y_data = []
-                    y_data[0] = {}
-                    y_data[0].name = "Change in skilled deliveries"
-                    y_data[0].data = []
-                    let target4 = document.getElementById("perc_change_skilledeliveries")
-                    let fta = data
-                    let fta_title = fta.shift()
-                    fta.map(dt=>{
-                        x_array.push(dt[0]);
-                        y_data[0].data.push(dt[1])
-                    })
-                    plotGraph(x_array, "County", y_data, "Difference", "Change in skilled deliveries by county", period_string, target4, "column", ["#d88842"])
-                    /* *********% change in skilled deliveries******** */
-                });
             
             // $.getJSON("../assets/json/rmncah/adolesent_among_anc_clients.json", function (data, textStatus, jqXHR) {
-            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:mNYjNlj6kgW&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201901;201902;201903;201904;201905;201906;201907;202001;202002;202003;202004;202005;202006;202007&filter=ou:LEVEL-1;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
+            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:Cblp7TAdj9W&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201908;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID', {})
             .then(response=>{
                 let data = [['Months', "Values"]]
 
@@ -355,18 +283,11 @@
                 })
                 let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
 
-                /* *********% Proportion of adolesent pregnancy among ANC clients by year table******** */
-                $("#perc_adolesc_anc_clients_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
-                let target_head = $("#perc_adolesc_anc_clients_table table thead")
-                let target = $("#perc_adolesc_anc_clients_table table tbody")
-                let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
-                let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
-                /* *********% Proportion of adolesent pregnancy among ANC clients by year table******** */
                 
-                /* *********% Proportion of adolesent pregnancy among ANC clients by year******** */
+                /* ********* DPT 3 doses administered by year******** */
                 let x_array2
                 let y_data2 = []
-                let target3 = document.getElementById("perc_adolesc_anc_clients")
+                let target3 = document.getElementById("DPT_3_trend_yearly")
                 let twenty_18 = data.filter(dt=>dt[0].includes(2018));
                 let twenty_19 = data.filter(dt=>dt[0].includes(2019));
                 let twenty_20 = data.filter(dt=>dt[0].includes(2020));
@@ -382,9 +303,27 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "Percentage (%)", "% Proportion of adolesent pregnancy among ANC clients", period_string, target3, "line", null)
-                /* *********% Proportion of adolesent pregnancy among ANC clients by year******** */
+                plotGraph(m_onths, "Period", y_data2, "Doses administered", "DPT 3 doses administered 2018-2020", period_string, target3, "line", null)
+                /* *********DPT 3 doses administered by year******** */
+
+                /* *********DPT 3 doses administered Kenya trends******* */
+                let x_array = []
+                let y_data = []
+                y_data[0] = {}
+                y_data[0].name = " DPT3 doses administered 2018 - 2020"
+                y_data[0].data = []
+                let target2 = document.getElementById("DPT_3_trend")
+                let sta = data
+                let sta_titles = sta.shift()
+                sta.map(dt=>{
+                    x_array.push(dt[0]);
+                    y_data[0].data.push(dt[1])
+                })
+                plotGraph(x_array, "Period", y_data, "Doses administered", "  DPT3 doses administered Yearly - Kenya", period_string, target2, "line", null)
+                /* *********DPT 3 doses administered Kenya trends******** */
             });
+
+
             ( ()=>{
                 let this_date = new Date()
                 let this_yr = this_date.getFullYear()
@@ -395,7 +334,7 @@
                 let last_pe = this_yr-1+""+this_mn
                 
                 // $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
-                justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-2;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
+                justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:Cblp7TAdj9W&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-2;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
                 .then(response=>{
                     let data = [['County', "Values"]]
                     response.metaData.dimensions.ou.map(o_ou=>{
@@ -412,21 +351,21 @@
                         data.push(val_arr)
                     })
                     let period_string = response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[0]].name
-                    /* *********% change in skilled deliveries******** */
+                    /* ********* Diffrence in DPT3 doses administered (June 2019 vs June 2020) ******** */
                     let x_array = []
                     let y_data = []
                     y_data[0] = {}
-                    y_data[0].name = "Difference in vitamin A doses(12-59 Months) by county"
+                    y_data[0].name = "Diffrence in DPT3 doses administered (June 2019 vs June 2020) by county"
                     y_data[0].data = []
-                    let target4 = document.getElementById("vit_a_sup_age_6_to_59_months_by_county")
+                    let target4 = document.getElementById("Diff_DPT_doses_admin")
                     let fta = data
                     let fta_title = fta.shift()
                     fta.map(dt=>{
                         x_array.push(dt[0]);
                         y_data[0].data.push(dt[1])
                     })
-                    plotGraph(x_array, "County", y_data, "Difference", "Difference in vitamin A doses(12-59 Months) by county", period_string, target4, "column", ["#d88842"])
-                    /* *********% change in skilled deliveries******** */
+                    plotGraph(x_array, "County", y_data, "DPT3 doses administered", "Diffrence in DPT3 doses administered (June 2019 vs June 2020)", period_string, target4, "column", null)
+                    /* *********Diffrence in DPT3 doses administered (June 2019 vs June 2020)******** */
                 });
             } )()
         </script>
