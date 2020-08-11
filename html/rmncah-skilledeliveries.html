@@ -259,7 +259,7 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "No. of attendants", "Number of skilled deliveries- Kenya, by year", period_string, target3, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "No. of attendants", "Number of skilled deliveries- Kenya, by year", null, target3, "line", null)
                 /* *********Number of skilled deliveries- Kenya, by year******** */
             });
 
@@ -288,7 +288,7 @@
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
-                plotGraph(x_array, "Period", y_data, "Skilled Deliveries ", "Skilled deliveries trends", period_string, target2, "line", null)
+                plotGraph(x_array, "Period", y_data, "Skilled Deliveries ", "Skilled deliveries trends", null, target2, "line", null)
             });
 
 
@@ -310,13 +310,14 @@
                 y_data[0] = {}
                 y_data[0].name = "% change in skilled deliveries"
                 y_data[0].data = []
+                y_data[0].color = "#d88842"
                 let target4 = document.getElementById("perc_change_skilledeliveries")
                 let t_itles = data.shift()
                 data.map(dt=>{
                     x_array.push(dt[0]);
                     y_data[0].data.push(dt[1])
                 })
-                plotGraph(x_array, "County", y_data, "% Change", "% change in skilled deliveries", "All counties", target4, "column", ["#d88842"])
+                plotGraph(x_array, "County", y_data, "% Change", "% change in skilled deliveries", null, target4, "column", ["#d88842"])
                 /* *********% change in skilled deliveries******** */
             });
                 let this_date = new Date()
@@ -351,6 +352,7 @@
                     y_data[0] = {}
                     y_data[0].name = "Change in skilled deliveries"
                     y_data[0].data = []
+                    y_data[0].color = "#d88842"
                     let target4 = document.getElementById("perc_change_skilledeliveries")
                     let fta = data
                     let fta_title = fta.shift()
@@ -402,7 +404,7 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "Percentage (%)", "% Proportion of adolesent pregnancy among ANC clients", period_string, target3, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "Percentage (%)", "% Proportion of adolesent pregnancy among ANC clients", null, target3, "line", null)
                 /* *********% Proportion of adolesent pregnancy among ANC clients by year******** */
             });
         </script>
