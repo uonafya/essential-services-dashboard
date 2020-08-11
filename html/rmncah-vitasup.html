@@ -206,6 +206,7 @@
                 y_data[0] = {}
                 y_data[0].name = "Vitamin A Supplementation Coverage by Age Category"
                 y_data[0].data = []
+                y_data[0].color = "#d88842"
                 let target4 = document.getElementById("vit_a_suppl_by_agecat")
                 let t_itles = data.shift()
                 data.map(dt=>{
@@ -255,7 +256,7 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "Coverage", "Trends in Vitamin A Supplementation for Children aged between 6 to 59 Months", period_string, target3, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "Coverage", "Trends in Vitamin A Supplementation for Children aged between 6 to 59 Months", null, target3, "line", null)
                 /* *********Vitamin A Supplementation Coverage for Children (6 -59 Months) by County******** */
             });
 
@@ -293,6 +294,7 @@
                     y_data[0] = {}
                     y_data[0].name = "Difference in vitamin A doses(12-59 Months) by county"
                     y_data[0].data = []
+                    y_data[0].color = "#d88842"
                     let target4 = document.getElementById("vit_a_sup_age_6_to_59_months_by_county")
                     let fta = data
                     let fta_title = fta.shift()

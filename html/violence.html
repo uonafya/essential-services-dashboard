@@ -215,7 +215,7 @@
                 y_data2.push(data_18)
                 y_data2.push(data_19)
                 y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "Coverage", "Trends in violence", period_string, target3, "line", null)
+                plotGraph(m_onths, "Period", y_data2, "Coverage", "Trends in violence", null, target3, "line", null)
                 /* *********Trends in violence******** */
             });
 
@@ -252,6 +252,7 @@
                     y_data[0] = {}
                     y_data[0].name = "Difference in violence cases"
                     y_data[0].data = []
+                    y_data[0].color = "#d88842"
                     let target4 = document.getElementById("violence_cases_by_county")
                     let fta = data
                     let fta_title = fta.shift()
