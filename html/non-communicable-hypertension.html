@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
+        <title>
+            Hypertension - Non-Communicable Diseases | Essential Services Report
+        </title>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
+        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" />
+        <link href="../dist/css/style.min.css" rel="stylesheet" />
+        <link href="../dist/css/custom.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/DataTables/DataTables-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="../dist/css/datatables/buttons.dataTables.min.css" rel="stylesheet" />
+        <link href="../dist/css/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/monthpicker/MonthPicker.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/monthpicker/jquery-ui.css" rel="stylesheet" />
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/css/highcharts.min.css">
+        
+    </head>
+
+    <body onload="renderAll()">
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <div id="main-wrapper">
+            <header class="topbar" data-navbarbg="skin5" id="header_target"></header>
+            <aside class="left-sidebar" data-sidebarbg="skin5">
+                <div class="scroll-sidebar">
+                    <nav class="sidebar-nav" id="nav_target"></nav>
+                </div>
+            </aside>
+            <div class="page-wrapper">
+                <div class="page-breadcrumb">
+                    <div class="row">
+                        <div class="col-12 d-flex no-block align-items-center" id="filter_target">
+                            <!-- <small class="text-bold">Filter:</small> -->
+                                <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0" id="status_target"> </div>
+                        <div class="col-md-12 p-0" id="loading_target"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Trend on Hypertension cases – New and Total</h4>
+                                    <div class="graph" id="hypertension_cases_total_new_trend">
+                                        <p class="card-text">Bar graph of total cases per month in comparison with line graph of new cases (october 2018 - june 2020)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">% change in hypertension cases by County</h4>
+                                    <div class="graph" id="perc_change_confirmed_hypertension_cases">
+                                        <p class="card-text">Counties bar graph...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer_target" class="p-0 m-0 w-100"></div>
+        
+        <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+        <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+        <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+        <script src="../dist/js/sidebarmenu.js"></script>
+        <script src="../dist/js/custom.js"></script>
+        <script src="../assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+        <script src="../assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+        <script src="../assets/extra-libs/DataTables/datatables.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/dataTables.buttons.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.flash.min.js"></script>
+        <script src="../assets/extra-libs/jszip/jszip.min.js"></script>
+        <script src="../assets/extra-libs/pdfmake/pdfmake.min.js"></script>
+        <script src="../assets/extra-libs/pdfmake/vfs_fonts.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.html5.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.print.min.js"></script>
+
+        <!-- *********** <MonthPicker ************** -->
+        <script src="../assets/extra-libs/monthpicker/jquery-migrate-3.0.1.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/jquery.maskedinput.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/jquery-ui.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/MonthPicker.js"></script>
+        <!-- *********** MonthPicker/> ************** -->
+
+        <!-- *********** <WeekPicker ************** -->
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.26.0/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+        <script src="../dist/js/weekpicker.js"></script>
+        <!-- *********** WeekPicker/> ************** -->
+        
+        <!-- *********** <Highcharts ************** -->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script>-->
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <!-- *********** Highcharts/> ************** -->
+
+
+
+
+        <!-- TEMPLATING -->
+        <script src="../dist/js/templates/mustache.js"></script>
+
+            <!-- templates -->
+            <!-- <script id="header_template" type="x-tmpl-mustache">
+                //html here
+            </script> -->
+            <script src="../dist/js/templates/components/footer.js"></script>
+            <script src="../dist/js/templates/components/header.js"></script>
+            <script src="../dist/js/templates/components/nav.js"></script>
+            <script src="../dist/js/templates/components/filter.js"></script>
+            <script src="../dist/js/templates/components/loading.js"></script>
+            <script src="../dist/js/templates/components/status.js"></script>
+            <!-- templates -->
+
+            <!-- renders -->
+            <script src="../dist/js/templates/renders.js"></script>
+            <script src="../dist/js/_utils.js"></script>
+            <!-- renders -->
+
+            <!-- render Fn -->
+            <script>
+                function renderAll() {
+                    let page_title = {title: 'Non-Communicable Diseases - Hypertension'}
+                    let page_filters = {
+                        is_county:false, 
+                        is_subcounty:false, 
+                        is_ward:false, 
+                        is_facility:false, 
+                        is_period:false, 
+                        is_period_range:false}
+                    let is_loading = {is_loading: false}
+                    let footer_yr = { yr: new Date().getFullYear()}
+                    let page_status = {title: '', message: '', type: 'info', hidden: true} //type: info, success, danger
+
+                    renderNav()
+                    renderHeader(page_title)
+                    renderFooter(footer_yr)
+                    renderLoader(is_loading)
+                    renderFilter(page_filters)
+                    renderStatus(page_status)
+                }
+            </script>
+            <!-- render Fn -->
+        <!-- TEMPLATING -->
+
+
+
+
+
+        <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
+        <script>
+            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:hNyiGOxeAE0;MsSSJrdOw0a&dimension=pe:2201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201908;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006;&dimension=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID',{})
+            .then(response=>{
+                let data = [['Period', "Cases"]]
+                response.metaData.dimensions.pe.map(o_pe=>{
+                    let val_arr = [response.metaData.items[o_pe].name]
+                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][3]) || 0
+                    val_arr.push(v_alue)
+                    data.push(val_arr)
+                })
+                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+                
+                /* *********Trend on Hypertension cases – New and Total******** */
+                let x_array2
+                let y_data2 = []
+
+                let target3 = document.getElementById("hypertension_cases_total_new_trend")
+                
+                let d_total_data = []
+                let d_tot = Array.from(
+                    response.metaData.dimensions.pe,
+                    tot_pe=>{
+                        let arra = [response.metaData.items[tot_pe].name]
+                        let v_alu = parseFloat(response.rows.find(rw=>rw[1]==tot_pe && rw[0]==response.metaData.dimensions.dx[0])[3])
+                        arra.push(v_alu)
+                        d_total_data.push(v_alu)
+                        return arra
+                    }
+                )
+                
+                let d_new_data = []
+                let d_nu = Array.from(
+                    response.metaData.dimensions.pe,
+                    tot_nw=>{
+                        let arra = [response.metaData.items[tot_nw].name]
+                        let v_alu = parseFloat(response.rows.find(rw=>rw[1]==tot_nw && rw[0]==response.metaData.dimensions.dx[1])[3])
+                        arra.push(v_alu)
+                        d_new_data.push(v_alu)
+                        return arra
+                    }
+                )
+                
+                let m_onths = Array.from( response.metaData.dimensions.pe, pe_=>response.metaData.items[pe_].name )
+                
+                let data_total = {}; data_total.name = "Total"; data_total.data = d_total_data; data_total.color = '#fabf8e'; data_total.type = 'column'
+                let data_new = {}; data_new.name = "New"; data_new.data = d_new_data; data_new.color = '#c25754'; data_new.type = 'line'
+                y_data2.push(data_total)
+                y_data2.push(data_new)
+                plotGraph(m_onths, "Period", y_data2, "Coverage", "Trend on Hypertension cases – New and Total", null, target3, "column", ['#fabf8e', '#c25754'])
+                /* *********Trend on Hypertension cases – New and Total******** */
+            });
+
+
+
+            
+            ( ()=>{
+                let this_date = new Date()
+                let this_yr = this_date.getFullYear()
+                let this_mn = this_date.getMonth()
+                if(this_mn<1){this_mn=12;this_yr-=1}
+                if(this_mn<10){this_mn="0"+this_mn}
+                let this_pe = this_yr+""+this_mn
+                let last_pe = this_yr-1+""+this_mn
+                
+                justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:hNyiGOxeAE0&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-2;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
+                .then(response=>{
+                    let data = [['County', "Values"]]
+                    response.metaData.dimensions.ou.map(o_ou=>{
+                        let val_arr = [response.metaData.items[o_ou].name]
+                        let v_alue_last = 0
+                        let v_alue_this = 0
+                        let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
+                        let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
+                        if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
+                        if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
+                        let v_alue_diff = 0
+                        v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
+                        val_arr.push(v_alue_diff)
+                        data.push(val_arr)
+                    })
+                    let period_string = response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[0]].name
+                    /* *********% change in hypertension cases by county******** */
+                    let x_array = []
+                    let y_data = []
+                    y_data[0] = {}
+                    y_data[0].name = "Change in confirmed hypertension cases"
+                    y_data[0].data = []
+                    y_data[0].color = "#d88842"
+                    let target4 = document.getElementById("perc_change_confirmed_hypertension_cases")
+                    let fta = data
+                    let fta_title = fta.shift()
+                    fta.map(dt=>{
+                        x_array.push(dt[0]);
+                        y_data[0].data.push(dt[1])
+                    })
+                    plotGraph(x_array, "County", y_data, "Difference", "% change in hypertension cases by county", period_string, target4, "column", ["#d88842"])
+                    /* *********% change in hypertension cases by county******** */
+                });
+            } )()
+        </script>
+        <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
+        
+    </body>
+</html>
