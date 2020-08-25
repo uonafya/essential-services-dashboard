@@ -17,7 +17,7 @@ const nav_template = `
         </a>
     </li>
     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa-small fa fa-th fcwhite hidden"></i><span class="hide-menu">RMNCAH </span></a>
-        <ul aria-expanded="false" class="collapse  first-level">
+        <ul aria-expanded="false" class="collapse show first-level">
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rmncah-anc1.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">ANC 1st Visit</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rmncah-skilledeliveries.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Skilled Deliveries</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rmncah-adole-rh.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Adolescent Reproductive Health</span></a></li>
@@ -27,7 +27,7 @@ const nav_template = `
         </ul>
     </li>
     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Communicable Diseases </span></a>
-        <ul aria-expanded="false" class="collapse  first-level">
+        <ul aria-expanded="false" class="collapse show first-level">
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="communicable-hiv.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">HIV</span></a></li>
 
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="communicable-tb.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Tuberculosis</span></a></li>
@@ -36,7 +36,7 @@ const nav_template = `
         </ul>
     </li>
     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Non-Communicable Diseases </span></a>
-        <ul aria-expanded="false" class="collapse  first-level">
+        <ul aria-expanded="false" class="collapse show first-level">
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="non-communicable-cancer.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Cancer</span></a></li>
 
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="non-communicable-diabetes.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Diabetes</span></a></li>

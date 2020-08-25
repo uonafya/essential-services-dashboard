@@ -378,4 +378,7 @@ input, select, textarea {
 .left-sidebar{
   position: fixed;
 }
+.scroll-sidebar{
+  overflow-y: auto;
+}
 /* covid */

@@ -1,3 +1,7 @@
+const toggleSidebar = ()=>{
+    $("#main-wrapper").toggleClass("show-sidebar");
+    $(".nav-toggler i").toggleClass("ti-menu");
+}
 $(function() {
     "use strict";
 
@@ -19,8 +23,8 @@ $(function() {
     );
     // this is for close icon when navigation open in mobile view
     $(".nav-toggler").on('click', function() {
-        $("#main-wrapper").toggleClass("show-sidebar");
-        $(".nav-toggler i").toggleClass("ti-menu");
+        // $("#main-wrapper").toggleClass("show-sidebar");
+        // $(".nav-toggler i").toggleClass("ti-menu");
     });
     $(".nav-lock").on('click', function() {
         $("body").toggleClass("lock-nav");

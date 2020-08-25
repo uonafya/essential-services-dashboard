@@ -1,7 +1,7 @@
 const header_template = `
 <nav class="navbar top-navbar navbar-expand-md navbar-dark">
     <div class="navbar-header" data-logobg="skin5">
-        <a class="nav-toggler waves-effect waves-light d-block  d-md-none" href="javascript:void(0)" >
+        <a class="nav-toggler waves-effect waves-light d-block  d-md-none" href="javascript:void(0)" onclick="toggleSidebar()" >
             <i class="ti-menu ti-close"></i>
         </a>
         <a class="navbar-brand" href="index.html">
