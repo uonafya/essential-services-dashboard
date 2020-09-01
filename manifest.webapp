@@ -1,5 +1,5 @@
 {
-    "version": "1.0.11",
+    "version": "1.0.14",
     "name": "Essential Services Report",
     "description": "An App to Visualize Essential Services data",
     "launch_path": "html/index.html",
