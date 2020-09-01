@@ -207,7 +207,7 @@
                 let data = [['Months', "Values"]]
                 response.metaData.dimensions.pe.map(o_pe=>{
                     let val_arr = [response.metaData.items[o_pe].name]
-                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    let v_ = response.rows.find(r_=>r_[1]===o_pe) || [0, 0, 0]; let v_alue = parseFloat(v_[2]) || 0;
                     val_arr.push(v_alue)
                     data.push(val_arr)
                 })
@@ -249,7 +249,7 @@
                 let data = [['Months', "Values"]]
                 response.metaData.dimensions.pe.map(o_pe=>{
                     let val_arr = [response.metaData.items[o_pe].name]
-                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    let v_ = response.rows.find(r_=>r_[1]===o_pe) || [0, 0, 0]; let v_alue = parseFloat(v_[2]) || 0;
                     val_arr.push(v_alue)
                     data.push(val_arr)
                 })
@@ -279,7 +279,7 @@
                 let data = [['County', "% Change"]]
                 response.metaData.dimensions.pe.map(o_pe=>{
                     let val_arr = [response.metaData.items[o_pe].name]
-                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][2]) || 0
+                    let v_ = response.rows.find(r_=>r_[1]===o_pe) || [0, 0, 0]; let v_alue = parseFloat(v_[2]) || 0;
                     val_arr.push(v_alue)
                     data.push(val_arr)
                 })
