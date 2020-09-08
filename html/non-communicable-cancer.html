@@ -281,6 +281,7 @@
                         val_arr.push(v_alue_diff)
                         data.push(val_arr)
                     })
+                    data.sort((a,b)=>b[1]-a[1])
                     let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
                     /* *********Utilization of Chemotherapy Centre by Cancer Patients******** */
                     let x_array = []
