@@ -108,7 +108,7 @@ let justFetch = async (endpoint, postoptions) => {
     let final_endpoint = endpoint
     if (!location.hostname.includes("hiskenya")){
         let encurl = window.btoa(endpoint);
-        final_endpoint = 'http://18.188.41.248:3000/request/'+encurl
+        final_endpoint = 'http://41.76.170.34:3000/request/'+encurl
     }
     req_hd.headers = headers;
     req_hd.method = req_method;
