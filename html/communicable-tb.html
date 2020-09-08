@@ -199,7 +199,7 @@
                         data.push(val_arr)
                         
                     })
-                    let period_string = response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[0]].name
+                    let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
                     /* ********* Comparison of TB Case Finding ******** */
                     let x_array = []
                     let y_data = []

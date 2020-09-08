@@ -245,7 +245,7 @@
                         val_arr.push(v_alue_diff)
                         data.push(val_arr)
                     })
-                    let period_string = response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[0]].name
+                    let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
                     /* *********Difference in violence cases by county******** */
                     let x_array = []
                     let y_data = []
