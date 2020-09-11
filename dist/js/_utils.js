@@ -107,7 +107,8 @@ let justFetch = async (endpoint, postoptions) => {
     let headers = {};
     let final_endpoint = endpoint
     if (!location.hostname.includes("hiskenya")){
-        let encurl = window.btoa(endpoint);
+        let encurl = window.encodeURIComponent(window.btoa(endpoint)); 
+        // console.log('encurl = '+encurl);
         final_endpoint = 'http://41.76.170.34:3000/request/'+encurl
     }
     req_hd.headers = headers;
@@ -126,3 +127,36 @@ let justFetch = async (endpoint, postoptions) => {
       return { error: true, msg: err.message };
     }
   };
+
+  window.addEventListener('hashchange', (hash_event)=>{
+    var hash = window.location.hash.substr(1);
+    var hashObj = munchHash(hash)
+    // exec fn to utilize new params
+    if(hashObj.ou){
+        let ou_ = hashObj.ou || "HfVjCurKxh2"
+        // window.sessionStorage.setItem("ess_ou", ou_)
+    }
+    if(hashObj.pe){
+        let pe_ = hashObj.pe || "LAST_6_MONTHS"
+        // window.sessionStorage.setItem("ess_pe", pe_)
+    }
+    console.log("hashchange: ",hashObj)
+    window.fetchData(hashObj)
+})
+
+const munchHash = (hash)=>{
+    return hash.split('&').reduce( (rs, itm)=>{
+        let pt = itm.split('=')
+        rs[pt[0]] = pt[1]
+        return rs
+    }, {})
+}
+
+const spreadHash = (hashObj)=>{
+    var str = "#";
+    for (var key in hashObj) {
+        if (str != "") { str += "&"; }
+        str += key + "=" + encodeURIComponent(hashObj[key]);
+    }
+    return str.replace("&","")
+}
