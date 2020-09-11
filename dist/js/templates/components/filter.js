@@ -173,13 +173,13 @@ function setPeriodVal(pv) {
 }
 
 const fetchSubcounties = county_id => {
+    $("#subcounty-dropdown").html('<option disabled selected value="">Select subcounty</option>')
     justFetch(`https://hiskenya.org/api/organisationUnits/${county_id}.json?includeChildren=true&fields=id,name`, {})
     .then(response=>{
         if( response.error ){
             throw JSON.stringify(response)
         }
         let subc = response.organisationUnits;
-        $("#subcounty-dropdown").html('<option disabled selected value="">Select subcounty</option>')
         subc.map(sc=>{
             $("#subcounty-dropdown").append('<option value="'+sc.id+'">'+sc.name+'</option>')
         })
