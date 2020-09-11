@@ -1,5 +1,4 @@
-const loading_template = `
-{{#is_loading}}
+const loading_template_plain = `
     <div class="loader-sp>
         <div class="loader loader--style3" title="2" >
             <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="80px" height="80px" viewBox="0 0 50 50" style="enable-background: new 0 0 50 50;" xml:space="preserve">
@@ -9,5 +8,9 @@ const loading_template = `
             </svg>
         </div>
     </div>
+`
+const loading_template = `
+{{#is_loading}}
+    ${loading_template_plain}
 {{/is_loading}}
 `

@@ -30,7 +30,7 @@
         
     </head>
 
-    <body onload="renderAll()">
+    <body onload="renderAll(); window.fetchData();">
         <div class="preloader">
             <div class="lds-ripple">
                 <div class="lds-pos"></div>
@@ -172,8 +172,8 @@
                 function renderAll() {
                     let page_title = {title: 'Non-Communicable Diseases - Diabetes'}
                     let page_filters = {
-                        is_county:false, 
-                        is_subcounty:false, 
+                        is_county:true, 
+                        is_subcounty:true, 
                         is_ward:false, 
                         is_facility:false, 
                         is_period:false, 
@@ -199,155 +199,165 @@
 
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
-            justFetch('https://hiskenya.org/api/26/analytics.json?dimension=dx:i37mflclEU6;A9KOgWrbCCY&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201908;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006;202007;202008&dimension=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID',{})
-            .then(response=>{
-                let data = [['Period', "Cases"]]
-                let data_totalcases = [['Period', "Cases"]]
-                let data_newcases = [['Period', "Cases"]]
-                response.metaData.dimensions.pe.map(o_pe=>{
-                    let val_arr = [response.metaData.items[o_pe].name]
-                    let val_arr_total = [response.metaData.items[o_pe].name]
-                    let val_arr_new = [response.metaData.items[o_pe].name]
-                    let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][3]) || 0
-                    let v_alue_total = parseFloat(response.rows.filter(o_rw=>o_rw[0]==response.metaData.dimensions.dx[0]&&o_rw[1]==o_pe)[0][3]) || 0
-                    let v_alue_new = parseFloat(response.rows.filter(o_rw=>o_rw[0]==response.metaData.dimensions.dx[1]&&o_rw[1]==o_pe)[0][3]) || 0
-                    val_arr.push(v_alue)
-                    val_arr_total.push(v_alue_total)
-                    val_arr_new.push(v_alue_new)
-                    data.push(val_arr)
-                    data_totalcases.push(val_arr_total)
-                    data_newcases.push(val_arr_new)
-                })
-                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
-                
-                /* *********Trend on Diabetes cases – New and Total******** */
-                let y_data02 = []
-
-                let target03 = document.getElementById("diabetes_cases_total_new_trend")
-                
-                let d_total_data = []
-                let d_tot = Array.from(
-                    response.metaData.dimensions.pe,
-                    tot_pe=>{
-                        let arra = [response.metaData.items[tot_pe].name]
-                        let v_alu = parseFloat(response.rows.find(rw=>rw[1]==tot_pe && rw[0]==response.metaData.dimensions.dx[0])[3])
-                        arra.push(v_alu)
-                        d_total_data.push(v_alu)
-                        return arra
+            window.fetchData = (prop) => {
+                    // let org_unit = window.sessionStorage.getItem('ess_ou') || "HfVjCurKxh2"
+                    let org_unit = "HfVjCurKxh2"
+                    if(prop && prop.ou){
+                        org_unit = prop.ou
                     }
-                )
-                
-                let d_new_data = []
-                let d_nu = Array.from(
-                    response.metaData.dimensions.pe,
-                    tot_nw=>{
-                        let arra = [response.metaData.items[tot_nw].name]
-                        let v_alu = parseFloat(response.rows.find(rw=>rw[1]==tot_nw && rw[0]==response.metaData.dimensions.dx[1])[3])
-                        arra.push(v_alu)
-                        d_new_data.push(v_alu)
-                        return arra
+                    if(prop && prop.pe){
+                        org_unit = prop.pe
                     }
-                )
-                
-                let m0_onths = Array.from( response.metaData.dimensions.pe, pe_=>response.metaData.items[pe_].name )
-                
-                let data_total = {}; data_total.name = "Total"; data_total.data = d_total_data; data_total.color = '#fabf8e'; data_total.type = 'column'
-                let data_new = {}; data_new.name = "New"; data_new.data = d_new_data; data_new.color = '#c25754'; data_new.type = 'line'
-                y_data02.push(data_total)
-                y_data02.push(data_new)
-                plotGraph(m0_onths, "Period", y_data02, "Coverage", "Trend on Diabetes cases – New and Total", null, target03, "column", ['#fabf8e', '#c25754'])
-                /* *********Trend on Diabetes cases – New and Total******** */
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:i37mflclEU6;A9KOgWrbCCY&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201908;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006;202007;202008&dimension=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{})
+                    .then(response=>{
+                        let data = [['Period', "Cases"]]
+                        let data_totalcases = [['Period', "Cases"]]
+                        let data_newcases = [['Period', "Cases"]]
+                        response.metaData.dimensions.pe.map(o_pe=>{
+                            let val_arr = [response.metaData.items[o_pe].name]
+                            let val_arr_total = [response.metaData.items[o_pe].name]
+                            let val_arr_new = [response.metaData.items[o_pe].name]
+                            let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][3]) || 0
+                            let v_alue_total = parseFloat(response.rows.filter(o_rw=>o_rw[0]==response.metaData.dimensions.dx[0]&&o_rw[1]==o_pe)[0][3]) || 0
+                            let v_alue_new = parseFloat(response.rows.filter(o_rw=>o_rw[0]==response.metaData.dimensions.dx[1]&&o_rw[1]==o_pe)[0][3]) || 0
+                            val_arr.push(v_alue)
+                            val_arr_total.push(v_alue_total)
+                            val_arr_new.push(v_alue_new)
+                            data.push(val_arr)
+                            data_totalcases.push(val_arr_total)
+                            data_newcases.push(val_arr_new)
+                        })
+                        let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+                        
+                        /* *********Trend on Diabetes cases – New and Total******** */
+                        let y_data02 = []
+
+                        let target03 = document.getElementById("diabetes_cases_total_new_trend")
+                        
+                        let d_total_data = []
+                        let d_tot = Array.from(
+                            response.metaData.dimensions.pe,
+                            tot_pe=>{
+                                let arra = [response.metaData.items[tot_pe].name]
+                                let v_alu = parseFloat(response.rows.find(rw=>rw[1]==tot_pe && rw[0]==response.metaData.dimensions.dx[0])[3])
+                                arra.push(v_alu)
+                                d_total_data.push(v_alu)
+                                return arra
+                            }
+                        )
+                        
+                        let d_new_data = []
+                        let d_nu = Array.from(
+                            response.metaData.dimensions.pe,
+                            tot_nw=>{
+                                let arra = [response.metaData.items[tot_nw].name]
+                                let v_alu = parseFloat(response.rows.find(rw=>rw[1]==tot_nw && rw[0]==response.metaData.dimensions.dx[1])[3])
+                                arra.push(v_alu)
+                                d_new_data.push(v_alu)
+                                return arra
+                            }
+                        )
+                        
+                        let m0_onths = Array.from( response.metaData.dimensions.pe, pe_=>response.metaData.items[pe_].name )
+                        
+                        let data_total = {}; data_total.name = "Total"; data_total.data = d_total_data; data_total.color = '#fabf8e'; data_total.type = 'column'
+                        let data_new = {}; data_new.name = "New"; data_new.data = d_new_data; data_new.color = '#c25754'; data_new.type = 'line'
+                        y_data02.push(data_total)
+                        y_data02.push(data_new)
+                        plotGraph(m0_onths, "Period", y_data02, "Coverage", "Trend on Diabetes cases – New and Total - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target03, "column", ['#fabf8e', '#c25754'])
+                        /* *********Trend on Diabetes cases – New and Total******** */
 
 
 
-                /* *********New diabetes cases by year******** */
-                let x_array2
-                let y_data2 = []
-                let target3 = document.getElementById("new_diabetes_cases_by_year")
-                let twenty_18 = data_newcases.filter(dt=>dt[0].includes(2018));
-                let twenty_19 = data_newcases.filter(dt=>dt[0].includes(2019));
-                let twenty_20 = data_newcases.filter(dt=>dt[0].includes(2020));
-                let m_onths = Array.from(twenty_18, x=>x[0].replace(" 2018","")).splice(0,7); x_array2 = m_onths
-                let data_18 = {}; data_18.name = "2018"; data_18.data = [];
-                let data_19 = {}; data_19.name = "2019"; data_19.data = [];
-                let data_20 = {}; data_20.name = "2020"; data_20.data = [];
-                m_onths.map(mo=>{
-                    twenty_18.map(t8=>{ if(t8[0].includes(mo)){ data_18.data.push(t8[1]) } })
-                    twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
-                    twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
-                })
-                y_data2.push(data_18)
-                y_data2.push(data_19)
-                y_data2.push(data_20)
-                plotGraph(m_onths, "Period", y_data2, "Cases", "New diabetes cases by year", null, target3, "line", null)
-                /* *********New diabetes cases by year******** */
+                        /* *********New diabetes cases by year******** */
+                        let x_array2
+                        let y_data2 = []
+                        let target3 = document.getElementById("new_diabetes_cases_by_year")
+                        let twenty_18 = data_newcases.filter(dt=>dt[0].includes(2018));
+                        let twenty_19 = data_newcases.filter(dt=>dt[0].includes(2019));
+                        let twenty_20 = data_newcases.filter(dt=>dt[0].includes(2020));
+                        let m_onths = Array.from(twenty_18, x=>x[0].replace(" 2018","")).splice(0,7); x_array2 = m_onths
+                        let data_18 = {}; data_18.name = "2018"; data_18.data = [];
+                        let data_19 = {}; data_19.name = "2019"; data_19.data = [];
+                        let data_20 = {}; data_20.name = "2020"; data_20.data = [];
+                        m_onths.map(mo=>{
+                            twenty_18.map(t8=>{ if(t8[0].includes(mo)){ data_18.data.push(t8[1]) } })
+                            twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
+                            twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
+                        })
+                        y_data2.push(data_18)
+                        y_data2.push(data_19)
+                        y_data2.push(data_20)
+                        plotGraph(m_onths, "Period", y_data2, "Cases", "New diabetes cases by year - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target3, "line", null)
+                        /* *********New diabetes cases by year******** */
 
 
-                /* *********Total number of diabetes cases******** */
-                let x_array8 = []
-                let y_data = []
-                y_data[0] = {}
-                y_data[0].name = "Total number of diabetes cases"
-                y_data[0].data = []
-                let target2 = document.getElementById("total_diabetes_cases_by_month")
-                let ota = data_totalcases
-                let ota_title = ota.shift()
-                ota.map(dt=>{
-                    x_array8.push(dt[0]);
-                    y_data[0].data.push(dt[1])
-                })
-                plotGraph(x_array8, "Period", y_data, "# Cases", "Total number of diabetes cases", null, target2, "line", null)
-                /* *********Total number of diabetes cases******** */
-            });
+                        /* *********Total number of diabetes cases******** */
+                        let x_array8 = []
+                        let y_data = []
+                        y_data[0] = {}
+                        y_data[0].name = "Total number of diabetes cases"
+                        y_data[0].data = []
+                        let target2 = document.getElementById("total_diabetes_cases_by_month")
+                        let ota = data_totalcases
+                        let ota_title = ota.shift()
+                        ota.map(dt=>{
+                            x_array8.push(dt[0]);
+                            y_data[0].data.push(dt[1])
+                        })
+                        plotGraph(x_array8, "Period", y_data, "# Cases", "Total number of diabetes cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        /* *********Total number of diabetes cases******** */
+                    });
 
 
 
-            
-            ( ()=>{
-                let this_date = new Date()
-                let this_yr = this_date.getFullYear()
-                let this_mn = this_date.getMonth()
-                if(this_mn<1){this_mn=12;this_yr-=1}
-                if(this_mn<10){this_mn="0"+this_mn}
-                let this_pe = this_yr+""+this_mn
-                let last_pe = this_yr-1+""+this_mn
-                
-                justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:i37mflclEU6&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-2;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
-                .then(response=>{
-                    let data = [['County', "Values"]]
-                    response.metaData.dimensions.ou.map(o_ou=>{
-                        let val_arr = [response.metaData.items[o_ou].name]
-                        let v_alue_last = 0
-                        let v_alue_this = 0
-                        let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
-                        let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
-                        if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
-                        if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
-                        let v_alue_diff = 0
-                        v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
-                        val_arr.push(v_alue_diff)
-                        data.push(val_arr)
-                    })
-                    data.sort((a,b)=>b[1]-a[1])
-                    let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
-                    /* *********% change in diabetes cases by county******** */
-                    let x_array = []
-                    let y_data = []
-                    y_data[0] = {}
-                    y_data[0].name = "Change in confirmed diabetes cases"
-                    y_data[0].data = []
-                    y_data[0].color = "#d88842"
-                    let target4 = document.getElementById("perc_change_confirmed_diabetes_cases")
-                    let fta = data
-                    let fta_title = fta.shift()
-                    fta.map(dt=>{
-                        x_array.push(dt[0]);
-                        y_data[0].data.push(dt[1])
-                    })
-                    plotGraph(x_array, "County", y_data, "Difference", "% change in diabetes cases by county", period_string, target4, "column", ["#d88842"])
-                    /* *********% change in diabetes cases by county******** */
-                });
-            } )()
+                    
+                    ( ()=>{
+                        let this_date = new Date()
+                        let this_yr = this_date.getFullYear()
+                        let this_mn = this_date.getMonth()
+                        if(this_mn<1){this_mn=12;this_yr-=1}
+                        if(this_mn<10){this_mn="0"+this_mn}
+                        let this_pe = this_yr+""+this_mn
+                        let last_pe = this_yr-1+""+this_mn
+                        
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:i37mflclEU6&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-2;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
+                        .then(response=>{
+                            let data = [['County', "Values"]]
+                            response.metaData.dimensions.ou.map(o_ou=>{
+                                let val_arr = [response.metaData.items[o_ou].name]
+                                let v_alue_last = 0
+                                let v_alue_this = 0
+                                let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
+                                let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
+                                if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
+                                if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
+                                let v_alue_diff = 0
+                                v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
+                                val_arr.push(v_alue_diff)
+                                data.push(val_arr)
+                            })
+                            data.sort((a,b)=>b[1]-a[1])
+                            let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
+                            /* *********% change in diabetes cases by county******** */
+                            let x_array = []
+                            let y_data = []
+                            y_data[0] = {}
+                            y_data[0].name = "Change in confirmed diabetes cases"
+                            y_data[0].data = []
+                            y_data[0].color = "#d88842"
+                            let target4 = document.getElementById("perc_change_confirmed_diabetes_cases")
+                            let fta = data
+                            let fta_title = fta.shift()
+                            fta.map(dt=>{
+                                x_array.push(dt[0]);
+                                y_data[0].data.push(dt[1])
+                            })
+                            plotGraph(x_array, "County", y_data, "Difference", "% change in diabetes cases by county", period_string, target4, "column", ["#d88842"])
+                            /* *********% change in diabetes cases by county******** */
+                        });
+                    } )()
+            }
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
         

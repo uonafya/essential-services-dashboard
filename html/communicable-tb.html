@@ -111,9 +111,9 @@
         <!-- *********** <Highcharts ************** -->
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script>-->
 		<script src="https://code.highcharts.com/highcharts.js"></script>
-		<script src="https://code.highcharts.com/modules/exporting.js"></script>		
-		<script src="https://code.highcharts.com/modules/export-data.js"></script>
-		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
         <!-- *********** Highcharts/> ************** -->
 
 
@@ -133,12 +133,12 @@
             <script src="../dist/js/templates/components/loading.js"></script>
             <script src="../dist/js/templates/components/status.js"></script>
             
-             <script src="../dist/js/_utils.js"></script>
-            <!-- templates -->
-
             <!-- renders -->
             <script src="../dist/js/templates/renders.js"></script>
             <!-- renders -->
+            
+             <script src="../dist/js/_utils.js"></script>
+            <!-- templates -->
 
             <!-- render Fn -->
             <script>
@@ -214,7 +214,7 @@
                         y_data[0].data.push(dt[1])
                     })
                 
-                    plotGraph(x_array, "County", y_data, "% Change in the counties", "Comparison of TB Case Finding", period_string, target4, "column", null)
+                    plotGraph(x_array, "County", y_data, "% Change in the counties", "Comparison of TB Case Finding", period_string, target4, "column", ["#d88842"])
                     /* *********Comparison of TB Case Finding******** */
                 });
             } )()
