@@ -209,7 +209,9 @@
                     if(prop && prop.pe){
                         org_unit = prop.pe
                     }
-
+                    let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
+                    let lvl = "2"
+                    if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
                     $.getJSON("../assets/json/rmncah/vit_a _supplement_age_category.json", function (data, textStatus, jqXHR) {
                         /* *********Vitamin A Supplementation Coverage by Age Category******** */
                         let x_array = []
@@ -283,7 +285,7 @@
                         let last_pe = this_yr-1+""+this_mn
                         
                         // $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
-                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-2;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                         .then(response=>{
                             let data = [['County', "Values"]]
                             response.metaData.dimensions.ou.map(o_ou=>{

@@ -209,7 +209,9 @@
                     if(prop && prop.pe){
                         org_unit = prop.pe
                     }
-                    // $.getJSON("../assets/json/rmncah/mother_counselled_exclusive_brestfeeding.json", function (data, textStatus, jqXHR) {
+                    let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
+                    let lvl = "2"
+                    if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
                     justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:GsqRulfqa8z&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201908;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006;202007;202008&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]

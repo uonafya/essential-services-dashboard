@@ -198,6 +198,9 @@
                     if(prop && prop.pe){
                         org_unit = prop.pe
                     }
+                    let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
+                    let lvl = "2"
+                    if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
                     justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:lQgReolCDjX&dimension=pe:2019W1;2019W2;2019W3;2019W4;2019W5;2019W6;2019W7;2019W8;2019W9;2019W10;2019W11;2019W12;2019W13;2019W14;2019W15;2019W16;2019W17;2019W18;2019W19;2019W20;2019W21;2019W22;2019W23;2019W24;2019W25;2019W26;2019W27;2019W28;2020W1;2020W2;2020W3;2020W4;2020W5;2020W6;2020W7;2020W8;2020W9;2020W10;2020W11;2020W12;2020W13;2020W14;2020W15;2020W16;2020W17;2020W18;2020W19;2020W20;2020W21;2020W22;2020W23;2020W24;2020W25;2020W26;2020W27;2020W28&dimension=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{})
                     .then(response=>{
                         let data = [['Period', "Malaria tests"]]
@@ -301,7 +304,7 @@
                         let this_pe = this_yr+""+this_mn
                         let last_pe = this_yr-1+""+this_mn
                         
-                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:ssmk1hgU4ok&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-2;HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:ssmk1hgU4ok&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                         .then(response=>{
                             let data = [['County', "Values"]]
                             response.metaData.dimensions.ou.map(o_ou=>{

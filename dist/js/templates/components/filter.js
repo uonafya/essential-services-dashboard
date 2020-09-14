@@ -112,8 +112,12 @@ const filter_template = `
 
 $(document).ready(function () {
     $("#subcounty-dropdown").attr('disabled', true)
+    window.sessionStorage.setItem("ouFilterType", "national")
     $("#county-dropdown").on('change', function (ev) {
         let v_al = $(this).val()
+        if(v_al != "HfVjCurKxh2"){
+            window.sessionStorage.setItem("ouFilterType", "county")
+        }
         changeHashOnFilter({ou:v_al})
         if(v_al != 'HfVjCurKxh2' && v_al != ''){
             $("#subcounty-dropdown").removeAttr('disabled')
@@ -125,6 +129,7 @@ $(document).ready(function () {
     
     $("#subcounty-dropdown").on('change', function (ev) {
         let v_al = $(this).val()
+        window.sessionStorage.setItem("ouFilterType", "subcounty")
         changeHashOnFilter({ou:v_al})
     })
     
