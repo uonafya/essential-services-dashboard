@@ -30,7 +30,7 @@
         
     </head>
 
-    <body onload="renderAll()">
+    <body onload="renderAll(); window.fetchData();">
         <div class="preloader">
             <div class="lds-ripple">
                 <div class="lds-pos"></div>
@@ -172,52 +172,64 @@
 
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
-            ( ()=>{
-                let this_date = new Date()
-                let this_yr = this_date.getFullYear()
-                let this_mn = this_date.getMonth()
-                if(this_mn<1){this_mn=12;this_yr-=1}
-                if(this_mn<10){this_mn="0"+this_mn}
-                let this_pe = this_yr+""+'Q2'
-                let last_pe = this_yr-1+""+'Q2'
-                
-                // $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
-                justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:OVMhCuFXB7s&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
-                .then(response=>{
-                    let data = [['County', "Values"]]
-                    response.metaData.dimensions.ou.map(o_ou=>{
-                        let val_arr = [response.metaData.items[o_ou].name]
-                        let v_alue_last = 0
-                        let v_alue_this = 0
-                        let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
-                        let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
-                        if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
-                        if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
-                        let v_alue_diff = 0
-                        v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
-                        val_arr.push(v_alue_diff)
-                        data.push(val_arr)
-                    })
-                    data.sort((a,b)=>b[1]-a[1])  
-                    let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
-                    /* ********* Comparison of TB Case Finding ******** */
-                    let x_array = []
-                    let y_data = []
-                    y_data[0] = {}
-                    y_data[0].name = "Comparison of TB Case Finding"
-                    y_data[0].data = []
-                    let target4 = document.getElementById("TBcases_comparison")
-                    let fta = data
-                    let fta_title = fta.shift()
-                    fta.map(dt=>{
-                        x_array.push(dt[0]);
-                        y_data[0].data.push(dt[1])
-                    })
-                
-                    plotGraph(x_array, "County", y_data, "% Change in the counties", "Comparison of TB Case Finding", period_string, target4, "column", ["#d88842"])
-                    /* *********Comparison of TB Case Finding******** */
-                });
-            } )()
+            window.fetchData = (prop) => {
+                    let org_unit = "HfVjCurKxh2"
+                    if(prop && prop.ou){
+                        org_unit = prop.ou
+                    }
+                    if(prop && prop.pe){
+                        org_unit = prop.pe
+                    }
+                    let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
+                    let lvl = "2"
+                    if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
+                    ( ()=>{
+                        let this_date = new Date()
+                        let this_yr = this_date.getFullYear()
+                        let this_mn = this_date.getMonth()
+                        if(this_mn<1){this_mn=12;this_yr-=1}
+                        if(this_mn<10){this_mn="0"+this_mn}
+                        let this_pe = this_yr+""+'Q2'
+                        let last_pe = this_yr-1+""+'Q2'
+                        
+                        // $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:OVMhCuFXB7s&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                        .then(response=>{
+                            let data = [['County', "Values"]]
+                            response.metaData.dimensions.ou.map(o_ou=>{
+                                let val_arr = [response.metaData.items[o_ou].name]
+                                let v_alue_last = 0
+                                let v_alue_this = 0
+                                let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
+                                let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
+                                if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
+                                if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
+                                let v_alue_diff = 0
+                                v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
+                                val_arr.push(v_alue_diff)
+                                data.push(val_arr)
+                            })
+                            data.sort((a,b)=>b[1]-a[1])  
+                            let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
+                            /* ********* Comparison of TB Case Finding ******** */
+                            let x_array = []
+                            let y_data = []
+                            y_data[0] = {}
+                            y_data[0].name = "Comparison of TB Case Finding"
+                            y_data[0].data = []
+                            let target4 = document.getElementById("TBcases_comparison")
+                            let fta = data
+                            let fta_title = fta.shift()
+                            fta.map(dt=>{
+                                x_array.push(dt[0]);
+                                y_data[0].data.push(dt[1])
+                            })
+                        
+                            plotGraph(x_array, "County", y_data, "% Change in the counties", "Comparison of TB Case Finding", period_string, target4, "column", ["#d88842"])
+                            /* *********Comparison of TB Case Finding******** */
+                        });
+                    } )()
+            }
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
     </body>
