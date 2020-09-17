@@ -80,35 +80,117 @@ const filter_template = `
     </div> 
 {{/is_facility}}
 {{#is_period}}
-    <div class="col-md-3 col-sm-3 col-xs-12">
+    <div class="col-md-3 col-sm-3 col-xs-12 hidden">
         <div class="dropdown w-100">
             <button class="btn btn-light btn-lg dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid #ccc;">
                 &nbsp;<small>Period</small>&nbsp;
             </button>
             <div class="dropdown-menu w-100 text-center p-3 shadow-sm" aria-labelledby="triggerId">
-                <div class="row m-b-5">
+                <!-- <div class="row m-b-5">
                     <div class="col-md-6"><button class="btn-info btn-xs btn-block btn-rounded" onclick="setPeriodVal('THIS_WEEK')"><b>This Week</b></button></div>
                     <div class="col-md-6"><button class="btn-info btn-xs btn-block btn-rounded" onclick="setPeriodVal('LAST_WEEK')"><b>Last Week</b></button></div>
                 </div>
                 <div class="row m-b-5">
                     <div class="col-md-6"><button class="btn-info btn-xs btn-block btn-rounded" onclick="setPeriodVal('LAST_4_WEEKS')"><b>Last 4 Weeks</b></button></div>
                     <div class="col-md-6"><button class="btn-info btn-xs btn-block btn-rounded" onclick="setPeriodVal('LAST_12_WEEKS')"><b>Last 12 Weeks</b></button></div>
-                </div>
+                </div> -->
                 <div class="row m-t-10">
                     <div class="col-md-6">
-                        <input type="text" class="form-control p-1" id="period-dropdownFrom" placeholder="Period {{#is_period_range}} from {{/is_period_range}}"/>
+                        <input type="month" class="form-control p-1" id="period-dropdownFromz" placeholder="Period {{#is_period_range}} from {{/is_period_range}}"/>
                     </div>
                     {{#is_period_range}}
                         <div class="col-md-6">
-                            <input type="text" class="form-control p-1" id="period-dropdownTo" placeholder="Period to"/>
+                            <input type="month" class="form-control p-1" id="period-dropdownToz" placeholder="Period to"/>
                         </div> 
                     {{/is_period_range}}
                 </div>
             </div>
         </div>
     </div> 
+
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-6">
+                <select class="form-control yearsfilt" id="period-dropdownFrom">
+                    <option value="" disabled selected>Period {{#is_period_range}} from {{/is_period_range}}</option>
+                </select>
+            </div>
+            {{#is_period_range}}
+                <div class="col-md-6">
+                    <select class="form-control yearsfilt" id="period-dropdownTo" disabled>
+                        <option value="" disabled selected>Period to</option>
+                    </select>
+                </div> 
+            {{/is_period_range}}
+        </div>
+    </div>
 {{/is_period}}
 `;
+
+const gMonthsInYear = (year) => {
+    let this_yr = new Date().getFullYear()
+    let mnths = []
+    let latest_mnth = 12
+    let pop = false
+    if(parseFloat(year) >= this_yr){
+        latest_mnth = new Date().getMonth()+1
+        year = this_yr
+        pop = true
+    }
+    for (let mn = 1; mn <= latest_mnth; mn++) {
+        if(mn < 10){mn = '0'+mn}
+        mnths.push(year+''+mn)
+    }
+    if(pop){ let ms = mnths.pop(); return mnths.join(';') }else{ return mnths.join(';') }
+}
+
+const gWeeksInYear = (year) => {
+    let this_yr = new Date().getFullYear()
+    let wks = []
+    let latest_wk = 52
+    let pop = false
+    if(parseFloat(year) >= this_yr){
+        latest_wk = new Date().gWeek()
+        year = this_yr
+        pop = true
+    }
+    for(let wk = 1; wk <= latest_wk; wk++){
+        wks.push(year+'W'+wk)
+    }
+    // if(pop){let ws = wks.pop(); return wks.join(';')}else{return wks.join(';')}
+    return wks.join(';')
+}
+
+window.Date.prototype.gWeek = function (dowOffset) {
+    dowOffset = typeof dowOffset == "int" ? dowOffset : 0; //default dowOffset to zero
+    var newYear = new Date(this.getFullYear(), 0, 1);
+    var day = newYear.getDay() - dowOffset; //the day of week the year begins on
+    day = day >= 0 ? day : day + 7;
+    var daynum =
+        Math.floor(
+            (this.getTime() -
+                newYear.getTime() -
+                (this.getTimezoneOffset() - newYear.getTimezoneOffset()) *
+                    60000) /
+                86400000
+        ) + 1;
+    var weeknum;
+    //if the year starts before the middle of a week
+    if (day < 4) {
+        weeknum = Math.floor((daynum + day - 1) / 7) + 1;
+        if (weeknum > 52) {
+            nYear = new Date(this.getFullYear() + 1, 0, 1);
+            nday = nYear.getDay() - dowOffset;
+            nday = nday >= 0 ? nday : nday + 7;
+            /*if the next year starts before the middle of
+                  the week, it is week #1 of that year*/
+            weeknum = nday < 4 ? 1 : 53;
+        }
+    } else {
+        weeknum = Math.floor((daynum + day - 1) / 7);
+    }
+    return weeknum;
+};
 
 $(document).ready(function () {
     $("#subcounty-dropdown").attr('disabled', true)
@@ -147,25 +229,44 @@ $(document).ready(function () {
         let v_al = $(this).val();
         if(v_al.includes('/')){ v_al = v_al.replace('/', 'W') }
         changeHashOnFilter({pe:v_al})
+        $('#period-dropdownTo').removeAttr('disabled')
+        $($('#period-dropdownTo option')).each(function (ix, ele) {
+            if(ele.getAttribute('value') <= v_al){
+                ele.setAttribute('disabled', true)
+            }
+        });
     })
     
     $("#period-dropdownTo").on('change', function (ev) {
         let v_al = $(this).val();
+        let v_al_fr = $('#period-dropdownFrom').val();
         if(v_al.includes('/')){ v_al = v_al.replace('/', 'W') }
-        changeHashOnFilter({pe:v_al})
+        if(v_al_fr.includes('/')){ v_al_fr = v_al_fr.replace('/', 'W') }
+
+        changeHashOnFilter({pe: v_al_fr, pe_to:v_al})
     })
+
+    let this_yr = new Date().getFullYear()
+    for (let l = 0; l <= 4; l++) {
+        let y_r = this_yr - l
+        $('.yearsfilt').append('<option value="'+y_r+'">'+y_r+'</option>')
+    }
 });
 
 
 function changeHashOnFilter(new_param){ //new_param = {ou: 'Hfvgj5...'} OR {pe: '2020W12'}
 
     let curr_hash = window.location.hash.substr(1)
+    let curr_hash_obj = munchHash(curr_hash)
     let newHash = {}
     if(new_param.pe){ newHash.pe = new_param.pe }else{
-        if(curr_hash.pe) newHash.pe = curr_hash.pe
+        if(curr_hash_obj.pe) newHash.pe = curr_hash_obj.pe
+    }
+    if(new_param.pe_to){ newHash.pe_to = new_param.pe_to }else{
+        if(curr_hash_obj.pe_to) newHash.pe_to = curr_hash_obj.pe_to
     }
     if(new_param.ou){ newHash.ou = new_param.ou }else{
-        if(curr_hash.ou) newHash.ou = curr_hash.ou
+        if(curr_hash_obj.ou) newHash.ou = curr_hash_obj.ou
     }
     let enc_hash = spreadHash(newHash)
     const new_url = `${window.location.origin}${window.location.pathname}${enc_hash}`
@@ -176,6 +277,34 @@ function setPeriodVal(pv) {
     $('#period-dropdownFrom').val(pv)
     $('#period-dropdownFrom').change()
 }
+
+const getPeBtwnYears = (y1, y2, returntype) => {
+    let bg = Math.max(parseFloat(y1), parseFloat(y2))
+    let sm = Math.min(parseFloat(y1), parseFloat(y2))
+    let diff = bg - sm
+    let yrs = []
+    for (let k = 0; k <= diff; k++) {
+         yrs.push( sm + k )
+    }
+
+    if(returntype && returntype == 'months'){
+        let mnths = ''
+        yrs.map(yr=>{
+            mnths += ''+gMonthsInYear(yr)+';'
+        })
+        return mnths
+    } else if(returntype && returntype == 'weeks'){
+        let wks = ''
+        yrs.map(yr=>{
+            wks += ''+gWeeksInYear(yr)+';'
+        })
+        return wks
+    }else{
+        return yrs
+    }
+}
+// console.log('getPeBtwnYears(2017,2020, "m")');
+// console.log( getPeBtwnYears(2017,2020, 'w') );
 
 const fetchSubcounties = county_id => {
     $("#subcounty-dropdown").html('<option disabled selected value="">Select subcounty</option>')

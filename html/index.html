@@ -244,8 +244,8 @@
                         is_subcounty:true, 
                         is_ward:false, 
                         is_facility:false, 
-                        is_period:false, 
-                        is_period_range:false}
+                        is_period:true, 
+                        is_period_range:true}
                     let is_loading = {is_loading: false}
                     let footer_yr = { yr: new Date().getFullYear()}
                     let page_status = {title: '', message: '', type: 'info', hidden: true} //type: info, success, danger
@@ -275,14 +275,18 @@
                     if(prop && prop.ou){
                         org_unit = prop.ou
                     }
-                    if(prop && prop.pe){
-                        org_unit = prop.pe
-                    }
                     let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
                     let lvl = "2"
                     if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
-                    // $.getJSON("../assets/json/essential/opd-attendance-kenya.json", function (data, textStatus, jqXHR) {
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:Rsus0ojKqPe&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201908;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006;202007;202008&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    
+                    let prd = default3YearPeriod()
+                    if(prop && prop.pe){
+                        prd = getMonthsInYear(prop.pe)
+                    }
+                    if(prop && prop.pe_to){
+                        prd = getPeriodBtwnYears(prop.pe, prop.pe_to, 'months')
+                    }
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:Rsus0ojKqPe&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "OPD Visits"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
@@ -318,27 +322,24 @@
                         /* *********OPD visits - Kenya******** */
                         
                         /* *********OPD visits by year******** */
-                        let x_array2
                         let y_data2 = []
 
                         // console.log(data.filter(dt=>dt[0].includes(2019)))
                         let target3 = document.getElementById("opd_visits_by_year")
-                        let twenty_18 = data.filter(dt=>dt[0].includes(2018));
-                        let twenty_19 = data.filter(dt=>dt[0].includes(2019));
-                        let twenty_20 = data.filter(dt=>dt[0].includes(2020));
-                        let m_onths = Array.from(twenty_18, x=>x[0].replace(" 2018","")).splice(0,8); x_array2 = m_onths
-                        // console.log(m_onths)
-                        let data_18 = {}; data_18.name = "2018"; data_18.data = [];
-                        let data_19 = {}; data_19.name = "2019"; data_19.data = [];
-                        let data_20 = {}; data_20.name = "2020"; data_20.data = [];
-                        m_onths.map(mo=>{
-                            twenty_18.map(t8=>{ if(t8[0].includes(mo)){ data_18.data.push(t8[1]) } })
-                            twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
-                            twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
+
+                        let m_onths = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                        let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
+                        uniq_yrs.map(unq_yr => {
+                            let yr_data = data.filter(dt=>dt[0].includes(unq_yr))
+                            let yr_data2plot = {}
+                            yr_data2plot.name = unq_yr
+                            yr_data2plot.data = []
+                            m_onths.map(mo=>{
+                                yr_data.map(yd=>{if(yd[0].includes(mo)){yr_data2plot.data.push(yd[1])}})
+                            })
+                            y_data2.push(yr_data2plot)
                         })
-                        y_data2.push(data_18)
-                        y_data2.push(data_19)
-                        y_data2.push(data_20)
+
                         plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits by year "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target3, "line", null)
                         /* *********OPD visits by year******** */
                     });
@@ -349,7 +350,7 @@
 
 
                     // $.getJSON("../assets/json/essential/opd-visits-children-under5.json", function (data, textStatus, jqXHR) {
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MRllWHKmVua&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201908;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006;202007;202008&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MRllWHKmVua&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
@@ -385,24 +386,20 @@
                         /* *********OPD Visits for Children Under 5 by year******** */
 
                         /* *********OPD Visits for Children Under 5 by year table******** */
-                        let x_array2
                         let y_data2 = []
                         let target3 = document.getElementById("opd_visits_under5_by_year")
-                        let twenty_18 = data.filter(dt=>dt[0].includes(2018));
-                        let twenty_19 = data.filter(dt=>dt[0].includes(2019));
-                        let twenty_20 = data.filter(dt=>dt[0].includes(2020));
-                        let m_onths = Array.from(twenty_18, x=>x[0].replace(" 2018","")).splice(0,8); x_array2 = m_onths
-                        let data_18 = {}; data_18.name = "2018"; data_18.data = [];
-                        let data_19 = {}; data_19.name = "2019"; data_19.data = [];
-                        let data_20 = {}; data_20.name = "2020"; data_20.data = [];
-                        m_onths.map(mo=>{
-                            twenty_18.map(t8=>{ if(t8[0].includes(mo)){ data_18.data.push(t8[1]) } })
-                            twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
-                            twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
+                        let m_onths = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                        let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
+                        uniq_yrs.map(unq_yr => {
+                            let yr_data = data.filter(dt=>dt[0].includes(unq_yr))
+                            let yr_data2plot = {}
+                            yr_data2plot.name = unq_yr
+                            yr_data2plot.data = []
+                            m_onths.map(mo=>{
+                                yr_data.map(yd=>{if(yd[0].includes(mo)){yr_data2plot.data.push(yd[1])}})
+                            })
+                            y_data2.push(yr_data2plot)
                         })
-                        y_data2.push(data_18)
-                        y_data2.push(data_19)
-                        y_data2.push(data_20)
                         plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits for children under 5 years by year", null, target3, "line", null)
                         /* *********OPD Visits for Children Under 5 by year table******** */
                     });
@@ -462,7 +459,7 @@
 
 
                     // $.getJSON("../assets/json/essential/bed-occupancy-kenya.json", function (data, textStatus, jqXHR) {
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MRllWHKmVua&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201908;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006;202007;202008&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MRllWHKmVua&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
@@ -498,24 +495,20 @@
                         /* *********Bed occupancy rate - Kenya table******** */
 
                         /* *********Bed occupancy rate by year by year table******** */
-                        let x_array2
                         let y_data2 = []
                         let target6 = document.getElementById("bed_occupancy_rate_kenya")
-                        let twenty_18 = data.filter(dt=>dt[0].includes(2018));
-                        let twenty_19 = data.filter(dt=>dt[0].includes(2019));
-                        let twenty_20 = data.filter(dt=>dt[0].includes(2020));
-                        let m_onths = Array.from(twenty_18, x=>x[0].replace(" 2018","")).splice(0,8); x_array2 = m_onths
-                        let data_18 = {}; data_18.name = "2018"; data_18.data = [];
-                        let data_19 = {}; data_19.name = "2019"; data_19.data = [];
-                        let data_20 = {}; data_20.name = "2020"; data_20.data = [];
-                        m_onths.map(mo=>{
-                            twenty_18.map(t8=>{ if(t8[0].includes(mo)){ data_18.data.push(t8[1]) } })
-                            twenty_19.map(t9=>{ if(t9[0].includes(mo)){ data_19.data.push(t9[1]) } })
-                            twenty_20.map(t2=>{ if(t2[0].includes(mo)){ data_20.data.push(t2[1]) } })
+                        let m_onths = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                        let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
+                        uniq_yrs.map(unq_yr => {
+                            let yr_data = data.filter(dt=>dt[0].includes(unq_yr))
+                            let yr_data2plot = {}
+                            yr_data2plot.name = unq_yr
+                            yr_data2plot.data = []
+                            m_onths.map(mo=>{
+                                yr_data.map(yd=>{if(yd[0].includes(mo)){yr_data2plot.data.push(yd[1])}})
+                            })
+                            y_data2.push(yr_data2plot)
                         })
-                        y_data2.push(data_18)
-                        y_data2.push(data_19)
-                        y_data2.push(data_20)
                         plotGraph(m_onths, "Period", y_data2, "Occupied Bed Rate", "Bed occupancy rate by year - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target6, "line", null)
                         /* *********Bed occupancy rate by year by year table******** */
                     });
@@ -554,7 +547,7 @@
                             let y_data = []
                             y_data[0] = {}
                             y_data[0].name = "Difference in bed occupancy by county"
-                            y_data.color = '#d88842'
+                            y_data[0].color = '#d88842'
                             y_data[0].data = []
                             let target4 = document.getElementById("perc_difference_bed_occupancy_by_county")
                             let fta = data

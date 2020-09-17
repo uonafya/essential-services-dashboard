@@ -145,8 +145,8 @@
                         is_subcounty:true, 
                         is_ward:false, 
                         is_facility:false, 
-                        is_period:false, 
-                        is_period_range:false}
+                        is_period:true, 
+                        is_period_range:true}
                     let is_loading = {is_loading: false}
                     let footer_yr = { yr: new Date().getFullYear()}
                     let page_status = {title: '', message: '', type: 'info', hidden: true} //type: info, success, danger
@@ -174,13 +174,17 @@
                     if(prop && prop.ou){
                         org_unit = prop.ou
                     }
+                    let prd = default3YearPeriod()
                     if(prop && prop.pe){
-                        org_unit = prop.pe
+                        prd = getMonthsInYear(prop.pe)
+                    }
+                    if(prop && prop.pe_to){
+                        prd = getPeriodBtwnYears(prop.pe, prop.pe_to, 'months')
                     }
                     let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
                     let lvl = "2"
                     if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:qNqKmxk27MU&dimension=pe:201801;201802;201803;201804;201805;201806;201807;201808;201809;201810;201811;201812;201901;201902;201903;201904;201905;201906;201907;201908;201909;201910;201911;201912;202001;202002;202003;202004;202005;202006;202007;202008&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:qNqKmxk27MU&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{

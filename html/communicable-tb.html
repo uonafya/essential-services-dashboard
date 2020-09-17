@@ -149,8 +149,8 @@
                         is_subcounty:false, 
                         is_ward:false, 
                         is_facility:false, 
-                        is_period:false, 
-                        is_period_range:false}
+                        is_period:true, 
+                        is_period_range:true}
                     let is_loading = {is_loading: false}
                     let footer_yr = { yr: new Date().getFullYear()}
                     let page_status = {title: '', message: '', type: 'info', hidden: true} //type: info, success, danger
@@ -177,8 +177,12 @@
                     if(prop && prop.ou){
                         org_unit = prop.ou
                     }
+                    let prd = default3YearPeriod()
                     if(prop && prop.pe){
-                        org_unit = prop.pe
+                        prd = getMonthsInYear(prop.pe)
+                    }
+                    if(prop && prop.pe_to){
+                        prd = getPeriodBtwnYears(prop.pe, prop.pe_to, 'months')
                     }
                     let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
                     let lvl = "2"
@@ -217,6 +221,7 @@
                             y_data[0] = {}
                             y_data[0].name = "Comparison of TB Case Finding"
                             y_data[0].data = []
+                            y_data[0].color = '#d88842'
                             let target4 = document.getElementById("TBcases_comparison")
                             let fta = data
                             let fta_title = fta.shift()

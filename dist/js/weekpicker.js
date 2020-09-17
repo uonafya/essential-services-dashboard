@@ -1,6 +1,6 @@
 $(document).ready(function () {
     let period_from_config = {
-        field: document.getElementById("period-dropdownFrom"),
+        field: document.getElementById("period-dropdownFromz"),
         pickWholeWeek: true,
         showWeekNumber: true,
         format: "yyyy/WW",
@@ -10,7 +10,7 @@ $(document).ready(function () {
         },
     };
     let period_to_config = {
-        field: document.getElementById("period-dropdownTo"),
+        field: document.getElementById("period-dropdownToz"),
         pickWholeWeek: true,
         showWeekNumber: true,
         format: "yyyy/WW",

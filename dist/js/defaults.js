@@ -5,7 +5,7 @@ function myOU() {
     var my_county;
     var my_subcounty;
     $.ajax({
-        url:`https://hiskenya.org/api/me.json',
+        url:`https://hiskenya.org/api/me.json`,
         // url:'https://json.link/oXqJ2CQ4c1.json',
         async: false,
         data: '',
