@@ -226,7 +226,7 @@
                         
                         let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
                         let m_onths = Array.from( response.metaData.dimensions.pe.filter(p_e_=>x_ = p_e_.includes(uniq_yrs[0])), xy_=>xy_.replace(uniq_yrs[0], ''))
-                        let clrs = ['#00b050', '#ff0000', '#ecbe08', '#d88842', '#2578ec']
+                        let clrs = ['#00b050', '#ff0000', '#2578ec', '#d88842', '#6882aa']
                         uniq_yrs.map((unq_yr,ix) => {
                             let yr_data2plot = {}
                             yr_data2plot.name = unq_yr
