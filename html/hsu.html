@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
+        <title>
+            Health Service Utilization | Essential Services Report
+        </title>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
+        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" />
+        <link href="../dist/css/style.min.css" rel="stylesheet" />
+        <link href="../dist/css/custom.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/DataTables/DataTables-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="../dist/css/datatables/buttons.dataTables.min.css" rel="stylesheet" />
+        <link href="../dist/css/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/monthpicker/MonthPicker.css" rel="stylesheet" />
+        <link href="../assets/extra-libs/monthpicker/jquery-ui.css" rel="stylesheet" />
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/css/highcharts.min.css">
+        
+    </head>
+
+    <body onload="renderAll(); window.fetchData()">
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <div id="main-wrapper">
+            <header class="topbar" data-navbarbg="skin5" id="header_target"></header>
+            <aside class="left-sidebar" data-sidebarbg="skin5">
+                <div class="scroll-sidebar">
+                    <nav class="sidebar-nav" id="nav_target"></nav>
+                </div>
+            </aside>
+            <div class="page-wrapper">
+                <div class="page-breadcrumb">
+                    <div class="row">
+                        <div class="col-12 d-flex no-block align-items-center" id="filter_target">
+                            <!-- <small class="text-bold">Filter:</small> -->
+                                <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 p-0" id="status_target"> </div>
+                        <div class="col-md-12 p-0" id="loading_target"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD visits - Kenya</h4>
+                                    <div class="graph" id="opd_visits_kenya">
+                                        <p class="card-text">Line graph, Jan 2018 - June 2020, monthly disaggregation, National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits by year</h4>
+                                    <div class="graph" id="opd_visits_by_year">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style = display:none>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits by year table</h4>
+                                    <div class="table-container" id="opd_visits_by_year_table">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits for Children Under 5 Years</h4>
+                                    <div class="graph" id="opd_visits_under5">
+                                        <p class="card-text">Line graph from jan 2018 to June 2020, monthly disaggregation, National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card" >
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits for Children Under 5 by year</h4>
+                                    <div class="graph" id="opd_visits_under5_by_year">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style = display:none>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">OPD Visits for Children Under 5 by year table</h4>
+                                    <div class="table-container" id="opd_visits_under5_by_year_table">
+                                        <p class="card-text">Table showing above data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">% of change in under 5 OPD attendance</h4>
+                                    <div class="graph" id="perc_change_under5_opd">
+                                        <p class="card-text">Bar graph showing all counties</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Bed Occupancy Rate (%)</h4>
+                                    <div class="graph" id="bed_occupancy_rate_perc">
+                                        <p class="card-text">Line graph from Jan 2018 - June 2020, monthly disaggregation, National (Kenya)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Bed occupancy rate - Kenya</h4>
+                                    <div class="graph" id="bed_occupancy_rate_kenya">
+                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style = display:none>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Bed occupancy rate - Kenya table</h4>
+                                    <div class="table-container" id="bed_occupancy_rate_kenya_table">
+                                        <p class="card-text">Table showing above data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">% difference in bed occupancy by county</h4>
+                                    <div class="graph" id="perc_difference_bed_occupancy_by_county">
+                                        <p class="card-text">Bar graph showing all counties</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer_target" class="p-0 m-0 w-100"></div>
+        
+        <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+        <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+        <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+        <script src="../dist/js/sidebarmenu.js"></script>
+        <script src="../dist/js/custom.js"></script>
+        <script src="../assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+        <script src="../assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+        <script src="../assets/extra-libs/DataTables/datatables.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/dataTables.buttons.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.flash.min.js"></script>
+        <script src="../assets/extra-libs/jszip/jszip.min.js"></script>
+        <script src="../assets/extra-libs/pdfmake/pdfmake.min.js"></script>
+        <script src="../assets/extra-libs/pdfmake/vfs_fonts.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.html5.min.js"></script>
+        <script src="../assets/extra-libs/DataTables/buttons.print.min.js"></script>
+
+        <!-- *********** <MonthPicker ************** -->
+        <script src="../assets/extra-libs/monthpicker/jquery-migrate-3.0.1.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/jquery.maskedinput.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/jquery-ui.min.js"></script>
+        <script src="../assets/extra-libs/monthpicker/MonthPicker.js"></script>
+        <!-- *********** MonthPicker/> ************** -->
+
+        <!-- *********** <WeekPicker ************** -->
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.26.0/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+        <script src="../dist/js/weekpicker.js"></script>
+        <!-- *********** WeekPicker/> ************** -->
+        
+        <!-- *********** <Highcharts ************** -->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script>-->
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>		
+		<script src="https://code.highcharts.com/modules/export-data.js"></script>
+		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <!-- *********** Highcharts/> ************** -->
+
+
+
+
+        <!-- TEMPLATING -->
+        <script src="../dist/js/templates/mustache.js"></script>
+
+            <!-- templates -->
+            <!-- <script id="header_template" type="x-tmpl-mustache">
+                //html here
+            </script> -->
+            <script src="../dist/js/templates/components/footer.js"></script>
+            <script src="../dist/js/templates/components/header.js"></script>
+            <script src="../dist/js/templates/components/nav.js"></script>
+            <script src="../dist/js/templates/components/filter.js"></script>
+            <script src="../dist/js/templates/components/loading.js"></script>
+            <script src="../dist/js/templates/components/status.js"></script>
+            <!-- templates -->
+
+            <!-- renders -->
+            <script src="../dist/js/templates/renders.js"></script>
+            <!-- renders -->
+
+            <!-- render Fn -->
+            <script>
+                function renderAll() {
+                    let page_title = {title: 'Health Service Utilization'}
+                    let page_filters = {
+                        is_county:true, 
+                        is_subcounty:true, 
+                        is_ward:false, 
+                        is_facility:false, 
+                        is_period:true, 
+                        is_period_range:true}
+                    let is_loading = {is_loading: false}
+                    let footer_yr = { yr: new Date().getFullYear()}
+                    let page_status = {title: '', message: '', type: 'info', hidden: true} //type: info, success, danger
+
+                    renderNav()
+                    renderHeader(page_title)
+                    renderFooter(footer_yr)
+                    renderLoader(is_loading)
+                    renderFilter(page_filters)
+                    renderStatus(page_status)
+                }
+            </script>
+            <!-- render Fn -->
+        <!-- TEMPLATING -->
+
+
+        <script src="../dist/js/_utils.js"></script>
+
+
+        
+        
+        <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
+        <script>
+            window.fetchData = (prop) => {
+                    // let org_unit = window.sessionStorage.getItem('ess_ou') || "HfVjCurKxh2"
+                    let org_unit = "HfVjCurKxh2"
+                    if(prop && prop.ou){
+                        org_unit = prop.ou
+                    }
+                    let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
+                    let lvl = "2"
+                    if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
+                    
+                    let prd = default3YearPeriod()
+                    if(prop && prop.pe){
+                        prd = getMonthsInYear(prop.pe)
+                    }
+                    if(prop && prop.pe_to){
+                        prd = getPeriodBtwnYears(prop.pe, prop.pe_to, 'months')
+                    }
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:Rsus0ojKqPe&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    .then(response=>{
+                        let data = [['Period', "OPD Visits"]]
+                        response.metaData.dimensions.pe.map(o_pe=>{
+                            let val_arr = [response.metaData.items[o_pe].name]
+                            let v_ = response.rows.find(r_=>r_[1]===o_pe) || [0, 0, 0]
+                            let v_alue = parseFloat(v_[2]) || 0
+                            val_arr.push(v_alue)
+                            data.push(val_arr)
+                        })
+                        let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+                        /* *********OPD Visits by year table******** */
+                        $("#opd_visits_by_year_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
+                        let target_head = $("#opd_visits_by_year_table table thead")
+                        let target = $("#opd_visits_by_year_table table tbody")
+                        let theads = data[0]; let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                        let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
+                        /* *********OPD Visits by year table******** */
+                        
+                        /* *********OPD visits - Kenya******** */
+                        let x_array = []
+                        let y_data = []
+                        y_data[0] = {}
+                        y_data[0].name = "OPD Visits"
+                        y_data[0].data = []
+                        let target2 = document.getElementById("opd_visits_kenya")
+                        let sta = data
+                        let sta_titles = sta.shift()
+                        sta.map(dt=>{
+                            x_array.push(dt[0]);
+                            y_data[0].data.push(dt[1])
+                        })
+                        plotGraph(x_array, "Period", y_data, "OPD Visits", "OPD Visits - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        /* *********OPD visits - Kenya******** */
+                        
+                        /* *********OPD visits by year******** */
+                        let y_data2 = []
+
+                        // console.log(data.filter(dt=>dt[0].includes(2019)))
+                        let target3 = document.getElementById("opd_visits_by_year")
+
+                        let m_onths = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                        let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
+                        uniq_yrs.map(unq_yr => {
+                            let yr_data = data.filter(dt=>dt[0].includes(unq_yr))
+                            let yr_data2plot = {}
+                            yr_data2plot.name = unq_yr
+                            yr_data2plot.data = []
+                            m_onths.map(mo=>{
+                                yr_data.map(yd=>{if(yd[0].includes(mo)){yr_data2plot.data.push(yd[1])}})
+                            })
+                            y_data2.push(yr_data2plot)
+                        })
+
+                        plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits by year "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target3, "line", null)
+                        /* *********OPD visits by year******** */
+                    });
+
+
+
+
+
+
+                    // $.getJSON("../assets/json/essential/opd-visits-children-under5.json", function (data, textStatus, jqXHR) {
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MRllWHKmVua&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    .then(response=>{
+                        let data = [['Period', "Value"]]
+                        response.metaData.dimensions.pe.map(o_pe=>{
+                            let val_arr = [response.metaData.items[o_pe].name]
+                            let v_ = response.rows.find(r_=>r_[1]===o_pe) || [0, 0, 0]
+                            let v_alue = parseFloat(v_[2]) || 0
+                            val_arr.push(v_alue)
+                            data.push(val_arr)
+                        })
+                        let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+                        /* *********OPD Visits for Children Under 5 Years******** */
+                        $("#opd_visits_under5_by_year_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
+                        let target_head = $("#opd_visits_under5_by_year_table table thead")
+                        let target = $("#opd_visits_under5_by_year_table table tbody")
+                        let theads = data[0]; let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                        let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
+                        /* *********OPD Visits for Children Under 5 Years******** */
+                        
+                        /* *********OPD Visits for Children Under 5 by year******** */
+                        let x_array = []
+                        let y_data = []
+                        y_data[0] = {}
+                        y_data[0].name = "OPD Visits for children under 5 years"
+                        y_data[0].data = []
+                        let target2 = document.getElementById("opd_visits_under5")
+                        let ota = data
+                        let ota_title = ota.shift()
+                        ota.map(dt=>{
+                            x_array.push(dt[0]);
+                            y_data[0].data.push(dt[1])
+                        })
+                        plotGraph(x_array, "Period", y_data, "OPD Visits", "OPD Visits for children under 5 years", null, target2, "line", null)
+                        /* *********OPD Visits for Children Under 5 by year******** */
+
+                        /* *********OPD Visits for Children Under 5 by year table******** */
+                        let y_data2 = []
+                        let target3 = document.getElementById("opd_visits_under5_by_year")
+                        let m_onths = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                        let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
+                        uniq_yrs.map(unq_yr => {
+                            let yr_data = data.filter(dt=>dt[0].includes(unq_yr))
+                            let yr_data2plot = {}
+                            yr_data2plot.name = unq_yr
+                            yr_data2plot.data = []
+                            m_onths.map(mo=>{
+                                yr_data.map(yd=>{if(yd[0].includes(mo)){yr_data2plot.data.push(yd[1])}})
+                            })
+                            y_data2.push(yr_data2plot)
+                        })
+                        plotGraph(m_onths, "Period", y_data2, "OPD Visits", "OPD Visits for children under 5 years by year", null, target3, "line", null)
+                        /* *********OPD Visits for Children Under 5 by year table******** */
+                    });
+
+
+
+
+                    ( ()=>{
+                        let this_date = new Date()
+                        let this_yr = this_date.getFullYear()
+                        let this_mn = this_date.getMonth()
+                        if(this_mn<1){this_mn=12;this_yr-=1}
+                        if(this_mn<10){this_mn="0"+this_mn}
+                        let this_pe = this_yr+""+this_mn
+                        let last_pe = this_yr-1+""+this_mn
+                        
+                        // $.getJSON("../assets/json/essential/perc-change-opd-attn-under5.json", function (data, textStatus, jqXHR) {
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:r7WOa2TrWSr&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                        .then(response=>{
+                            let data = [['County', "Values"]]
+                            response.metaData.dimensions.ou.map(o_ou=>{
+                                let val_arr = [response.metaData.items[o_ou].name]
+                                let v_alue_last = 0
+                                let v_alue_this = 0
+                                let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
+                                let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
+                                if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
+                                if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
+                                let v_alue_diff = 0
+                                v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
+                                val_arr.push(v_alue_diff)
+                                data.push(val_arr)
+                            })
+                            data.sort((a,b)=>b[1]-a[1])
+                            let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
+                            /* *********% of change in under 5 OPD attendance******** */
+                            let x_array = []
+                            let y_data = []
+                            y_data[0] = {}
+                            y_data[0].name = "Change in under 5 OPD attendance"
+                            y_data[0].data = []
+                            y_data[0].color = '#d88842'
+                            let target4 = document.getElementById("perc_change_under5_opd")
+                            let fta = data
+                            let fta_title = fta.shift()
+                            fta.map(dt=>{
+                                x_array.push(dt[0]);
+                                y_data[0].data.push(dt[1])
+                            })
+                            plotGraph(x_array, "County", y_data, "Difference", "Change in under 5 OPD attendance", period_string, target4, "column", ["#d88842"])
+                            /* *********% of change in under 5 OPD attendance******** */
+                        });
+                    } )()
+
+
+
+
+
+                    // $.getJSON("../assets/json/essential/bed-occupancy-kenya.json", function (data, textStatus, jqXHR) {
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MRllWHKmVua&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    .then(response=>{
+                        let data = [['Period', "Value"]]
+                        response.metaData.dimensions.pe.map(o_pe=>{
+                            let val_arr = [response.metaData.items[o_pe].name]
+                            let v_ = response.rows.find(r_=>r_[1]===o_pe) || [0, 0, 0]
+                            let v_alue = parseFloat(v_[2]) || 0
+                            val_arr.push(v_alue)
+                            data.push(val_arr)
+                        })
+                        let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+                        /* *********Bed Occupancy Rate (%)******** */
+                        let x_array = []
+                        let y_data = []
+                        y_data[0] = {}
+                        y_data[0].name = "Bed Occupancy Rate (%)"
+                        y_data[0].data = []
+                        let target5 = document.getElementById("bed_occupancy_rate_perc")
+                        let dta2_ = data
+                        let dta2_title = dta2_.shift()
+                        dta2_.map(dt=>{
+                            x_array.push(dt[0]);
+                            y_data[0].data.push(dt[1])
+                        })
+                        plotGraph(x_array, "Period", y_data, "Percentage (%)", "Bed Occupancy Rate (%) - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target5, "line", null)
+                        /* *********Bed Occupancy Rate (%)******** */
+
+                        /* *********Bed occupancy rate - Kenya table******** */
+                        $("#bed_occupancy_rate_kenya_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
+                        let target_head = $("#bed_occupancy_rate_kenya_table table thead")
+                        let target = $("#bed_occupancy_rate_kenya_table table tbody")
+                        let theads = data[0]; let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
+                        let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
+                        /* *********Bed occupancy rate - Kenya table******** */
+
+                        /* *********Bed occupancy rate by year by year table******** */
+                        let y_data2 = []
+                        let target6 = document.getElementById("bed_occupancy_rate_kenya")
+                        let m_onths = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                        let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
+                        uniq_yrs.map(unq_yr => {
+                            let yr_data = data.filter(dt=>dt[0].includes(unq_yr))
+                            let yr_data2plot = {}
+                            yr_data2plot.name = unq_yr
+                            yr_data2plot.data = []
+                            m_onths.map(mo=>{
+                                yr_data.map(yd=>{if(yd[0].includes(mo)){yr_data2plot.data.push(yd[1])}})
+                            })
+                            y_data2.push(yr_data2plot)
+                        })
+                        plotGraph(m_onths, "Period", y_data2, "Occupied Bed Rate", "Bed occupancy rate by year - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target6, "line", null)
+                        /* *********Bed occupancy rate by year by year table******** */
+                    });
+
+
+                    /* *********Bed occupancy by county******** */
+                    ( ()=>{
+                        let this_date = new Date()
+                        let this_yr = this_date.getFullYear()
+                        let this_mn = this_date.getMonth()
+                        if(this_mn<1){this_mn=12;this_yr-=1}
+                        if(this_mn<10){this_mn="0"+this_mn}
+                        let this_pe = this_yr+""+this_mn
+                        let last_pe = this_yr-1+""+this_mn
+                        
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MRllWHKmVua&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                        .then(response=>{
+                            let data = [['County', "Values"]]
+                            response.metaData.dimensions.ou.map(o_ou=>{
+                                let val_arr = [response.metaData.items[o_ou].name]
+                                let v_alue_last = 0
+                                let v_alue_this = 0
+                                let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
+                                let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
+                                if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
+                                if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
+                                let v_alue_diff = 0
+                                v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
+                                val_arr.push(v_alue_diff)
+                                data.push(val_arr)
+                            })
+                            data.sort((a,b)=>b[1]-a[1])
+                            let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
+                            /* *********Difference in bed occupancy by county******** */
+                            let x_array = []
+                            let y_data = []
+                            y_data[0] = {}
+                            y_data[0].name = "Difference in bed occupancy by county"
+                            y_data[0].color = '#d88842'
+                            y_data[0].data = []
+                            let target4 = document.getElementById("perc_difference_bed_occupancy_by_county")
+                            let fta = data
+                            let fta_title = fta.shift()
+                            fta.map(dt=>{
+                                x_array.push(dt[0]);
+                                y_data[0].data.push(dt[1])
+                            })
+                            plotGraph(x_array, "County", y_data, "Difference", "Difference in bed occupancy by county", period_string, target4, "column", ["#d88842"])
+                            /* *********Difference in bed occupancy by county******** */
+                        });
+                    } )()
+            }
+            /* *********Bed occupancy by county******** */
+        </script>
+        <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
+    </body>
+</html>

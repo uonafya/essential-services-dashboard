@@ -13,7 +13,13 @@ const nav_template = `
     <li class="sidebar-item">
         <a class="sidebar-link" href="index.html" aria-expanded="false">
             <small class="text-muted text-smaller"><i class="fa-small fa fa-th fcwhite hidden"></i></small>&nbsp;
-            <span class="hide-menu">Essential Health Services</span>
+            <span class="hide-menu">Dashboard</span>
+        </a>
+    </li>
+    <li class="sidebar-item">
+        <a class="sidebar-link" href="hsu.html" aria-expanded="false">
+            <small class="text-muted text-smaller"><i class="fa-small fa fa-th fcwhite hidden"></i></small>&nbsp;
+            <span class="hide-menu">Health Services Utilization</span>
         </a>
     </li>
     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa-small fa fa-th fcwhite hidden"></i><span class="hide-menu">RMNCAH </span></a>
