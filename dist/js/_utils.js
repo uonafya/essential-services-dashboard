@@ -45,9 +45,14 @@ let plotGraph = (
     subtitle,
     container,
     chartype,
-    colours
+    colours,
+    enableLegend
 ) => {
     let colo = colours || ["#1e77bf", "#8B0000", "#008000", "#2A2E79"];
+    let legendable = true
+    if(enableLegend == 'false'){
+        legendable = false
+    }
     // if((chartype == 'column' || chartype == 'bar') && !JSON.stringify(colours).includes('#d88842')){colo.unshift('#d88842')}
 
     Highcharts.chart(container, {
@@ -55,7 +60,10 @@ let plotGraph = (
             type: chartype,
         },
         title: {
-            text: title,
+            text: title || null,
+        },
+        legend: {
+            enabled: legendable
         },
         subtitle: {
             text: subtitle || null,

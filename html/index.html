@@ -490,7 +490,7 @@
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#opd_visits_summary').html(formatNumber(summry))
                         $('.latest_month').html(x_array[x_array.length - 1])
-                        plotGraph(x_array, "Period", y_data, "OPD Visits", "Trend in OPD visits - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trend in OPD visits - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* *********OPD visits - Kenya******** */
                     });
 
@@ -524,7 +524,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#ch_dpt3_doses_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Doses administered", "  DPT3 doses administered - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "DPT3 doses administered - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* *********DPT 3 doses administered Kenya trends******** */
                     });
 
@@ -559,7 +559,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#nut_cwc_attendance_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends in Child Welfare Clinic attendance - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends in Child Welfare Clinic attendance - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* *********Number of children attending CWC by year******** */
                     })
 
@@ -593,7 +593,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#mh_anc1_attendance_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends of first ANC attendance - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends of first ANC attendance - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* *********Trends of first ANC attendance ******** */
                     });
 
@@ -627,7 +627,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#mh_skilledeliveries_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends in number of skilled deliveries - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends in number of skilled deliveries - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* *********Number of skilled deliveries- Kenya, by year******** */
                     });
 
@@ -661,7 +661,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#hiv_plhiv_on_art_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends in number of people living with HIV receiving ART - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends in number of people living with HIV receiving ART - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* *********number of people living with HIV receiving ART ******** */
                     });
 
@@ -695,7 +695,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#tb_case_trends_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends in TB case finding - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends in TB case finding - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* ********* TB case finding ******** */
                     });
 
@@ -731,7 +731,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#malaria_cases_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends in confirmed malaria cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends in confirmed malaria cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* ********* confirmed malaria cases ******** */
                     });
 
@@ -767,7 +767,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#ncd_cervical_screening_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends in cervical cancer screening - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends in cervical cancer screening - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* ********* cervical cancer screening ******** */
                     });
 
@@ -802,7 +802,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#ncd_diabetes_cases_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends in new diabetes cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends in new diabetes cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* ********* diabetes cases ******** */
                     });
 
@@ -837,7 +837,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#ncd_hypertension_cases_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends in new hypertension cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends in new hypertension cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* ********* hypertension cases ******** */
                     });
 
@@ -872,7 +872,7 @@
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#ncd_violence_cases_summary').html(formatNumber(summry))
-                        plotGraph(x_array, "Period", y_data, "Number", "Trends in violence cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                        plotGraph(x_array, null, y_data, null, null, "Trends in violence cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, target2, "line", null, "false")
                         /* ********* violence cases ******** */
                     });
 
