@@ -111,15 +111,35 @@ const filter_template = `
     <div class="col-md-4">
         <div class="row">
             <div class="col-md-6">
-                <select class="form-control yearsfilt" id="period-dropdownFrom">
-                    <option value="" disabled selected>Period {{#is_period_range}} from {{/is_period_range}}</option>
-                </select>
+                <div class="input-group">
+                    <select class="form-control yearsfilt" id="period-dropdownFrom">
+                        <option value="" disabled selected>Year {{#is_period_range}} from {{/is_period_range}}</option>
+                    </select>
+                    
+                    <select class="form-control" id="period-dropdownFromQs" disabled>
+                        <option value="" selected>All year</option>
+                        <option value="1" >Q1 (Jan-Mar)</option>
+                        <option value="2" >Q2 (Apr-Jun)</option>
+                        <option value="3" >Q3 (Jul-Sept)</option>
+                        <option value="4" >Q4 (Oct-Dec)</option>
+                    </select>
+                </div>
             </div>
             {{#is_period_range}}
                 <div class="col-md-6">
-                    <select class="form-control yearsfilt" id="period-dropdownTo" disabled>
-                        <option value="" disabled selected>Period to</option>
-                    </select>
+                    <div class="input-group">
+                        <select class="form-control yearsfilt" id="period-dropdownTo" disabled>
+                            <option value="" disabled selected>Period to</option>
+                        </select>
+
+                        <select class="form-control" id="period-dropdownToQs" disabled>
+                            <option value="" selected>All year</option>
+                            <option value="1" >Q1 (Jan-Mar)</option>
+                            <option value="2" >Q2 (Apr-Jun)</option>
+                            <option value="3" >Q3 (Jul-Sept)</option>
+                            <option value="4" >Q4 (Oct-Dec)</option>
+                        </select>
+                    </div> 
                 </div> 
             {{/is_period_range}}
         </div>
@@ -229,7 +249,9 @@ $(document).ready(function () {
         let v_al = $(this).val();
         if(v_al.includes('/')){ v_al = v_al.replace('/', 'W') }
         changeHashOnFilter({pe:v_al})
+        $('#period-dropdownFromQs').removeAttr('disabled')
         $('#period-dropdownTo').removeAttr('disabled')
+        sessionStorage.removeItem("periodIsQuarters")
         $($('#period-dropdownTo option')).each(function (ix, ele) {
             if(ele.getAttribute('value') <= v_al){
                 ele.setAttribute('disabled', true)
@@ -237,13 +259,40 @@ $(document).ready(function () {
         });
     })
     
+    $("#period-dropdownFromQs").on('change', function (ev) {
+        let p_val = $("#period-dropdownFrom").val()
+        let v_al = $(this).val();
+        let v_alq = ""//p_val+"Q"+v_al;
+        if(v_al != null && v_al != ""){
+            for (let d = 1; d <= parseFloat(v_al); d++) {
+                v_alq += p_val+"Q"+d+";"
+            }
+            v_alq = v_alq.substr(0,v_alq.length-1)
+        }
+        console.log("fromQs = ", v_alq);
+        sessionStorage.setItem("periodIsQuarters", true)
+        if(v_alq.includes('/')){ v_alq = v_alq.replace('/', 'W') }
+        changeHashOnFilter({pe:v_alq})
+        $('#period-dropdownToQs').removeAttr('disabled')
+    })
+    
     $("#period-dropdownTo").on('change', function (ev) {
         let v_al = $(this).val();
         let v_al_fr = $('#period-dropdownFrom').val();
         if(v_al.includes('/')){ v_al = v_al.replace('/', 'W') }
         if(v_al_fr.includes('/')){ v_al_fr = v_al_fr.replace('/', 'W') }
-
         changeHashOnFilter({pe: v_al_fr, pe_to:v_al})
+    })
+
+
+    $("#period-dropdownToQs").on('change', function (ev) {
+        let p_val = $("#period-dropdownTo").val()
+        let v_al = $(this).val();
+        let v_alq = p_val+""+v_al;
+        let v_al_fr = $('#period-dropdownFrom').val();
+        let v_al_fr_qs = $('#period-dropdownFromQs').val();
+        if(v_alq.includes('/')){ v_alq = v_alq.replace('/', 'W') }
+        changeHashOnFilter({pe: v_al_fr+""+v_al_fr_qs, pe_to:v_alq})
     })
 
     let this_yr = new Date().getFullYear()

@@ -13,7 +13,7 @@ const nav_template = `
     <li class="sidebar-item">
         <a class="sidebar-link" href="index.html" aria-expanded="false">
             <small class="text-muted text-smaller"><i class="fa-small fa fa-th fcwhite hidden"></i></small>&nbsp;
-            <span class="hide-menu">Dashboard</span>
+            <span class="hide-menu">High Level Dashboard</span>
         </a>
     </li>
     <li class="sidebar-item">
