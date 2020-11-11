@@ -218,7 +218,7 @@ const getMonthsInYear = (year) => {
         if(mn < 10){mn = '0'+mn}
         mnths.push(year+''+mn)
     }
-    if(pop){ let ms = mnths.pop(); return mnths.join(';') }else{ return mnths.join(';') }
+    if(pop){ let ms = mnths.pop(); return mnths.join(';')+';' }else{ return mnths.join(';')+';' }
 }
 
 const getWeeksInYear = (year) => {
@@ -235,7 +235,7 @@ const getWeeksInYear = (year) => {
         wks.push(year+'W'+wk)
     }
     // if(pop){let ws = wks.pop(); return wks.join(';')}else{return wks.join(';')}
-    return wks.join(';')
+    return wks.join(';')+';'
 }
 
 const default3YearPeriod = (return_what) => {
