@@ -350,7 +350,7 @@
 
 
                     // $.getJSON("../assets/json/essential/opd-visits-children-under5.json", function (data, textStatus, jqXHR) {
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MRllWHKmVua&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:r7WOa2TrWSr&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
