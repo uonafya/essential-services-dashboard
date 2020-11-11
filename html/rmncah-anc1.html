@@ -228,13 +228,6 @@
                             data.push(val_arr)
                         })
                         let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
-                        /* *********First antenatal care attendants (ANC1) by year table******** */
-                        $("#anc1_attendants_by_year_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
-                        let target_head = $("#anc1_attendants_by_year_table table thead")
-                        let target = $("#anc1_attendants_by_year_table table tbody")
-                        let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
-                        let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
-                        /* *********First antenatal care attendants (ANC1) by year table******** */
                         
                         /* *********First antenatal care attendants (ANC1) by year******** */
                         let y_data2 = []

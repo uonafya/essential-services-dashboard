@@ -243,14 +243,6 @@
                         })
                         plotGraph(x_array, "Period", y_data, "Percentage (%)", "% Proportion of adolesent pregnancy among ANC clients over the last 3 years - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target5, "line", null)
                         /* *********% Proportion of adolesent pregnancy among ANC clients over the last 3 years******** */
-
-                        /* *********% Proportion of adolesent pregnancy among ANC clients by year table******** */
-                        $("#perc_adolesc_anc_clients_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
-                        let target_head = $("#perc_adolesc_anc_clients_table table thead")
-                        let target = $("#perc_adolesc_anc_clients_table table tbody")
-                        let theads = data.shift(); let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
-                        let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
-                        /* *********% Proportion of adolesent pregnancy among ANC clients by year table******** */
                         
                         /* *********% Proportion of adolesent pregnancy among ANC clients by year******** */
                         let x_array2

@@ -297,13 +297,6 @@
                             data.push(val_arr)
                         })
                         let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
-                        /* *********OPD Visits by year table******** */
-                        $("#opd_visits_by_year_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
-                        let target_head = $("#opd_visits_by_year_table table thead")
-                        let target = $("#opd_visits_by_year_table table tbody")
-                        let theads = data[0]; let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
-                        let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
-                        /* *********OPD Visits by year table******** */
                         
                         /* *********OPD visits - Kenya******** */
                         let x_array = []
@@ -361,13 +354,6 @@
                             data.push(val_arr)
                         })
                         let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
-                        /* *********OPD Visits for Children Under 5 Years******** */
-                        $("#opd_visits_under5_by_year_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
-                        let target_head = $("#opd_visits_under5_by_year_table table thead")
-                        let target = $("#opd_visits_under5_by_year_table table tbody")
-                        let theads = data[0]; let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
-                        let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
-                        /* *********OPD Visits for Children Under 5 Years******** */
                         
                         /* *********OPD Visits for Children Under 5 by year******** */
                         let x_array = []
@@ -485,14 +471,6 @@
                         })
                         plotGraph(x_array, "Period", y_data, "Percentage (%)", "Bed Occupancy Rate (%) - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target5, "line", null)
                         /* *********Bed Occupancy Rate (%)******** */
-
-                        /* *********Bed occupancy rate - Kenya table******** */
-                        $("#bed_occupancy_rate_kenya_table").html('<table class="table table-condensed slimtable"><thead><tr></tr></thead><tbody></tbody></table>')
-                        let target_head = $("#bed_occupancy_rate_kenya_table table thead")
-                        let target = $("#bed_occupancy_rate_kenya_table table tbody")
-                        let theads = data[0]; let t_head = '<tr>'; theads.map(th=>{t_head += '<th>'+th+'</td>'}); t_head+='</tr>'; target_head.html(t_head)
-                        let t_able = ''; data.map(td=>{t_able += '<tr>'; td.map(_d=>{t_able += '<td>'+_d+'</td>'}); t_able += '</tr>' }); target.html(t_able)
-                        /* *********Bed occupancy rate - Kenya table******** */
 
                         /* *********Bed occupancy rate by year by year table******** */
                         let y_data2 = []
