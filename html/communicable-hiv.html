@@ -246,6 +246,7 @@
                         org_unit = prop.ou
                     }
                     let prd = default3YearPeriod()
+                    prd = prd.split(';').filter(p=>!p.includes('2018')).join(';')
                     if(prop && prop.pe){
                         prd = getMonthsInYear(prop.pe)
                     }

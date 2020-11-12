@@ -360,7 +360,7 @@ input, select, textarea {
 
 .card-body .table-container,
 .card-body .graph{
-  min-height: 450px;
+  min-height: 550px;
 }
 
 .text-smaller i{
