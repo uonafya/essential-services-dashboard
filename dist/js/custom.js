@@ -155,4 +155,10 @@ function formatNumber(x) {
 $('#period-dropdown, input[name="period-dropdown"], input[name="period"]').attr('autocomplete', 'off');
 
 
+
+$(() => {
+    $('input[type="month"]').datepicker({dateFormat: 'yy-M'});
+});
+  
+
 //---------------------------end custom---------------------------//

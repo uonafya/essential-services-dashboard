@@ -27,6 +27,10 @@
 
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/css/highcharts.min.css">
+
+        <link href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css'>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
         
     </head>
 
@@ -133,7 +137,37 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Change in PLWHIV on ART by county</h4>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left">
+                                            <h4>Change in PLWHIV on ART by county</h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="text-right">
+                                            <form action="#" id="plhiv_county">
+                                                <select id="plhiv_month" style="width: auto; display: inline; padding: 3px" name="month"> 
+                                                    <option value="01">January</option> 
+                                                    <option value="02">February</option> 
+                                                    <option value="03">March</option> 
+                                                    <option value="04">April</option> 
+                                                    <option value="05">May</option> 
+                                                    <option value="06">June</option> 
+                                                    <option value="07">July</option> 
+                                                    <option value="08">August</option> 
+                                                    <option value="09">September</option> 
+                                                    <option value="10">October</option> 
+                                                    <option value="11">November</option> 
+                                                    <option value="12">December</option>
+                                                </select> 
+                                                <select id="plhiv_year" style="width: auto; display: inline; padding: 3px" name="month"> 
+                                                    <option>2020</option> 
+                                                    <option>2019</option> 
+                                                    <option>2018</option> 
+                                                </select>
+                                                 vs. similar period in previous year. <button class="btn btn-info" type="submit">Compare</button></h4>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <hr class="m-t-0 m-b-0"/>
                                     <div class="graph" id="change_plhiv_on_art_bycounty">
                                         <p class="card-text">counties bar graph</p>
                                     </div>
@@ -240,6 +274,7 @@
         <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
         <script>
             window.fetchData = (prop) => {
+                console.log('fetchData..ing');
                     // let org_unit = window.sessionStorage.getItem('ess_ou') || "HfVjCurKxh2"
                     let org_unit = "HfVjCurKxh2"
                     if(prop && prop.ou){
@@ -439,7 +474,6 @@
                     });
 
                     
-                    ( ()=>{
                         let this_date = new Date()
                         let this_yr = this_date.getFullYear()
                         let this_mn = this_date.getMonth()
@@ -447,43 +481,61 @@
                         if(this_mn<10){this_mn="0"+this_mn}
                         let this_pe = this_yr+""+this_mn
                         let last_pe = this_yr-1+""+this_mn
+
+                        $('#plhiv_year').html('');
+                        for (let z = 0; z < 10; z++) {                        
+                            let xd = this_yr-z
+                            $('#plhiv_year').append('<option value="'+xd+'">'+xd+'</option>');
+                        }
                         
-                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:nVx4FiV8hXq&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
-                        .then(response=>{
-                            let data = [['County', "Values"]]
-                            response.metaData.dimensions.ou.map(o_ou=>{
-                                let val_arr = [response.metaData.items[o_ou].name]
-                                let v_alue_last = 0
-                                let v_alue_this = 0
-                                let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
-                                let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
-                                if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
-                                if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
-                                let v_alue_diff = 0
-                                v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
-                                val_arr.push(v_alue_diff)
-                                data.push(val_arr)
-                            })
-                            data.sort((a,b)=>b[1]-a[1])
-                            let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
-                            /* *********Change in PLWHIV on ART by county level******** */
-                            let x_array = []
-                            let y_data = []
-                            y_data[0] = {}
-                            y_data[0].name = "Change in PLWHIV on ART by county level"
-                            y_data[0].data = []
-                            y_data[0].color = "#d88842"
-                            let target4 = document.getElementById("change_plhiv_on_art_bycounty")
-                            let fta = data
-                            let fta_title = fta.shift()
-                            fta.map(dt=>{
-                                x_array.push(dt[0]);
-                                y_data[0].data.push(dt[1])
-                            })
-                            plotGraph(x_array, "County", y_data, "Difference", "Change in PLWHIV on ART by county level", period_string, target4, "column", ["#d88842"])
-                            /* *********Change in PLWHIV on ART by county level******** */
+                        const plotBar = (last_per, this_per) => {
+
+                            justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:nVx4FiV8hXq&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
+                            .then(response=>{
+                                let data = [['County', "Values"]]
+                                response.metaData.dimensions.ou.map(o_ou=>{
+                                    let val_arr = [response.metaData.items[o_ou].name]
+                                    let v_alue_last = 0
+                                    let v_alue_this = 0
+                                    let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
+                                    let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
+                                    if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
+                                    if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
+                                    let v_alue_diff = 0
+                                    v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
+                                    val_arr.push(v_alue_diff)
+                                    data.push(val_arr)
+                                })
+                                data.sort((a,b)=>b[1]-a[1])
+                                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
+                                /* *********Change in PLWHIV on ART by county level******** */
+                                let x_array = []
+                                let y_data = []
+                                y_data[0] = {}
+                                y_data[0].name = "Change in PLWHIV on ART by county level"
+                                y_data[0].data = []
+                                y_data[0].color = "#d88842"
+                                let target4 = document.getElementById("change_plhiv_on_art_bycounty")
+                                let fta = data
+                                let fta_title = fta.shift()
+                                fta.map(dt=>{
+                                    x_array.push(dt[0]);
+                                    y_data[0].data.push(dt[1])
+                                })
+                                plotGraph(x_array, "County", y_data, "Difference", "Change in PLWHIV on ART by county level", period_string, target4, "column", ["#d88842"])
+                                /* *********Change in PLWHIV on ART by county level******** */
+                            });
+                        }
+
+                        plotBar(last_pe, this_pe)
+                        $('#plhiv_county').submit(function (e) { 
+                            e.preventDefault();
+                            let new_last_per = parseFloat($('#plhiv_year').val())-1+''+$('#plhiv_month').val()
+                            let new_this_per = $('#plhiv_year').val()+''+$('#plhiv_month').val()
+                            plotBar(new_last_per, new_this_per)
+                            return true
                         });
-                    } )()
+
             }
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->

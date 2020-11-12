@@ -110,9 +110,12 @@ let plotGraph = (
 };
 
 let justFetch = async (endpoint, postoptions) => {
-    $(".graph").html(
-        `<div class="col-md-12 text-center p-t-15">${loading_template_plain}</div>`
-    );
+    let showLoading = postoptions.showLoading
+    if( showLoading != 'false'){
+        $(".graph").html(
+            `<div class="col-md-12 text-center p-t-15">${loading_template_plain}</div>`
+        );
+    }
     if (endpoint == null || endpoint.length < 4) {
         return { error: true, type: "url", message: "Invalid endpoint URL" };
     }
