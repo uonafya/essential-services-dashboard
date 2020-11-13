@@ -73,9 +73,17 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">% change in hypertension cases by County</h4>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left">
+                                            <h4>% change in hypertension cases by County</h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="#" class="bar-chart-filter" id="hyper_county"></form>
+                                        </div>
+                                    </div>
+                                    <hr class="m-t-0 m-b-0"/>
                                     <div class="graph" id="perc_change_confirmed_hypertension_cases">
-                                        <p class="card-text">Counties bar graph...</p>
+                                        <p class="card-text">Counties bar graph</p>
                                     </div>
                                 </div>
                             </div>
@@ -317,16 +325,17 @@
 
 
                     
-                    ( ()=>{
-                        let this_date = new Date()
-                        let this_yr = this_date.getFullYear()
-                        let this_mn = this_date.getMonth()
-                        if(this_mn<1){this_mn=12;this_yr-=1}
-                        if(this_mn<10){this_mn="0"+this_mn}
-                        let this_pe = this_yr+""+this_mn
-                        let last_pe = this_yr-1+""+this_mn
-                        
-                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:hNyiGOxeAE0&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    let this_date = new Date()
+                    let this_yr = this_date.getFullYear()
+                    let this_mn = this_date.getMonth()
+                    if(this_mn<1){this_mn=12;this_yr-=1}
+                    if(this_mn<10){this_mn="0"+this_mn}
+                    let this_pe = this_yr+""+this_mn
+                    let last_pe = this_yr-1+""+this_mn
+                    
+                    const plotBar = (last_per, this_per) => {
+                        $('#ldng').html(loading_svg_small)
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:hNyiGOxeAE0&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
                         .then(response=>{
                             let data = [['County', "Values"]]
                             response.metaData.dimensions.ou.map(o_ou=>{
@@ -344,7 +353,7 @@
                             })
                             data.sort((a,b)=>b[1]-a[1])
                             let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
-                            /* *********% change in hypertension cases by county******** */
+                            /* ********* % change in hypertension cases by county ******** */
                             let x_array = []
                             let y_data = []
                             y_data[0] = {}
@@ -358,10 +367,22 @@
                                 x_array.push(dt[0]);
                                 y_data[0].data.push(dt[1])
                             })
+                            $('#ldng').html('')
                             plotGraph(x_array, "County", y_data, "Difference", "% change in hypertension cases by county", period_string, target4, "column", ["#d88842"])
-                            /* *********% change in hypertension cases by county******** */
+                            /* ********* % change in hypertension cases by county ******** */
                         });
-                    } )()
+                    }
+
+                    plotBar(last_pe, this_pe)
+                    $('#hyper_county').submit(function (e) { 
+                        e.preventDefault();
+                        let yr_ = $('#hyper_county :input[name="year"]').val()
+                        let mn_ = $('#hyper_county :input[name="month"]').val()
+                        let new_last_per = parseFloat(yr_)-1+''+mn_
+                        let new_this_per = yr_+''+mn_
+                        plotBar(new_last_per, new_this_per)
+                        return false
+                    });
             }
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->

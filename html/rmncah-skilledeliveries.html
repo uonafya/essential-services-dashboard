@@ -80,20 +80,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6" style = display:none>>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Number of skilled deliveries - Kenya, by year table</h4>
-                                    <div class="table-container" id="no_of_skilledeliveries_table">
-                                        <p class="card-text">Table showing above data</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">% change in skilled deliveries - All counties</h4>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left">
+                                            <h4>% change in skilled deliveries - All counties</h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="#" class="bar-chart-filter" id="skdl_county"></form>
+                                        </div>
+                                    </div>
+                                    <hr class="m-t-0 m-b-0"/>
                                     <div class="graph" id="perc_change_skilledeliveries">
                                         <p class="card-text">Bar graph showing all counties</p>
                                     </div>
@@ -273,45 +271,20 @@
                     });
 
 
-                    //$.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&filter=ou:LEVEL-${lvl};${org_unit}&dimension=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID`, {})
-                    .then(response=>{
-                        let data = [['County', "% Change"]]
-                        response.metaData.dimensions.pe.map(o_pe=>{
-                            let val_arr = [response.metaData.items[o_pe].name]
-                            let v_ = response.rows.find(r_=>r_[1]===o_pe) || [0, 0, 0]; let v_alue = parseFloat(v_[2]) || 0;
-                            val_arr.push(v_alue)
-                            data.push(val_arr)
-                        })
-                        data.sort((a,b)=>b[1]-a[1])
-                        let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
-                        
-                        /* *********% change in skilled deliveries******** */
-                        let x_array = []
-                        let y_data = []
-                        y_data[0] = {}
-                        y_data[0].name = "% change in skilled deliveries"
-                        y_data[0].data = []
-                        y_data[0].color = "#d88842"
-                        let target4 = document.getElementById("perc_change_skilledeliveries")
-                        let t_itles = data.shift()
-                        data.map(dt=>{
-                            x_array.push(dt[0]);
-                            y_data[0].data.push(dt[1])
-                        })
-                        plotGraph(x_array, "County", y_data, "% Change", "% change in skilled deliveries", null, target4, "column", ["#d88842"])
-                        /* *********% change in skilled deliveries******** */
-                    });
-                        let this_date = new Date()
-                        let this_yr = this_date.getFullYear()
-                        let this_mn = this_date.getMonth()
-                        if(this_mn<1){this_mn=12;this_yr-=1}
-                        if(this_mn<10){this_mn="0"+this_mn}
-                        let this_pe = this_yr+""+this_mn
-                        let last_pe = this_yr-1+""+this_mn
-                        
-                        // $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
-                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+
+
+
+                    let this_date = new Date()
+                    let this_yr = this_date.getFullYear()
+                    let this_mn = this_date.getMonth()
+                    if(this_mn<1){this_mn=12;this_yr-=1}
+                    if(this_mn<10){this_mn="0"+this_mn}
+                    let this_pe = this_yr+""+this_mn
+                    let last_pe = this_yr-1+""+this_mn
+                    
+                    const plotBar = (last_per, this_per) => {
+                        $('#ldng').html(loading_svg_small)
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:s2rzbCX6URx&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
                         .then(response=>{
                             let data = [['County', "Values"]]
                             response.metaData.dimensions.ou.map(o_ou=>{
@@ -343,10 +316,23 @@
                                 x_array.push(dt[0]);
                                 y_data[0].data.push(dt[1])
                             })
-                            plotGraph(x_array, "County", y_data, "Difference", "Change in skilled deliveries by county", period_string, target4, "column", null)
+                            $('#ldng').html('')
+                            plotGraph(x_array, "County", y_data, "Difference", "Change in skilled deliveries by county", period_string, target4, "column", ["#d88842"])
                             /* *********% change in skilled deliveries******** */
                         });
-                }  
+                    }
+
+                    plotBar(last_pe, this_pe)
+                    $('#skdl_county').submit(function (e) { 
+                        e.preventDefault();
+                        let yr_ = $('#skdl_county :input[name="year"]').val()
+                        let mn_ = $('#skdl_county :input[name="month"]').val()
+                        let new_last_per = parseFloat(yr_)-1+''+mn_
+                        let new_this_per = yr_+''+mn_
+                        plotBar(new_last_per, new_this_per)
+                        return false
+                    });
+                }
                 
                 
         </script>

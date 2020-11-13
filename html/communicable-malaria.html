@@ -83,9 +83,17 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Change in confirmed malaria cases by County</h4>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left">
+                                            <h4>Change in confirmed malaria cases by County</h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="#" class="bar-chart-filter" id="mal_county"></form>
+                                        </div>
+                                    </div>
+                                    <hr class="m-t-0 m-b-0"/>
                                     <div class="graph" id="perc_change_confirmed_malaria_cases">
-                                        <p class="card-text">Bar charts for all counties</p>
+                                        <p class="card-text">counties bar graph</p>
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +244,8 @@
                                 response.metaData.dimensions.pe.filter(p_e=>p_e.substring(0, 4) == unq_yr),
                                 dt_yr=>{
                                     let arra = [response.metaData.items[dt_yr].name]
-                                    let v_alu = parseFloat(response.rows.find(rw=>rw[1]==dt_yr)[3])
+                                    let v_aluu = response.rows.find(rw=>rw[1]==dt_yr) || [0,0,0,0]
+                                    let v_alu = parseFloat(v_aluu[3])
                                     arra.push(v_alu)
                                     yr_data2plot.data.push(v_alu)
                                     return arra
@@ -283,17 +292,20 @@
                         /* *********Confirmed malaria cases******** */
                     });
 
+
+
                     
-                    ( ()=>{
-                        let this_date = new Date()
-                        let this_yr = this_date.getFullYear()
-                        let this_mn = this_date.getMonth()
-                        if(this_mn<1){this_mn=12;this_yr-=1}
-                        if(this_mn<10){this_mn="0"+this_mn}
-                        let this_pe = this_yr+""+this_mn
-                        let last_pe = this_yr-1+""+this_mn
-                        
-                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:ssmk1hgU4ok&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    let this_date = new Date()
+                    let this_yr = this_date.getFullYear()
+                    let this_mn = this_date.getMonth()
+                    if(this_mn<1){this_mn=12;this_yr-=1}
+                    if(this_mn<10){this_mn="0"+this_mn}
+                    let this_pe = this_yr+""+this_mn
+                    let last_pe = this_yr-1+""+this_mn
+                    
+                    const plotBar = (last_per, this_per) => {
+                        $('#ldng').html(loading_svg_small)
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:ssmk1hgU4ok&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
                         .then(response=>{
                             let data = [['County', "Values"]]
                             response.metaData.dimensions.ou.map(o_ou=>{
@@ -315,7 +327,7 @@
                             let x_array = []
                             let y_data = []
                             y_data[0] = {}
-                            y_data[0].name = "Change in confirmed malaria cases"
+                            y_data[0].name = "Difference in confirmed malaria cases"
                             y_data[0].data = []
                             y_data[0].color = "#d88842"
                             let target4 = document.getElementById("perc_change_confirmed_malaria_cases")
@@ -325,10 +337,22 @@
                                 x_array.push(dt[0]);
                                 y_data[0].data.push(dt[1])
                             })
-                            plotGraph(x_array, "County", y_data, "Difference", "Change in confirmed malaria cases by county", period_string, target4, "column", ["#d88842"])
+                            $('#ldng').html('')
+                            plotGraph(x_array, "County", y_data, "Difference", "Difference in confirmed malaria cases by county", period_string, target4, "column", ["#d88842"])
                             /* *********Difference in confirmed malaria cases by county******** */
                         });
-                    } )()
+                    }
+
+                    plotBar(last_pe, this_pe)
+                    $('#mal_county').submit(function (e) { 
+                        e.preventDefault();
+                        let yr_ = $('#mal_county :input[name="year"]').val()
+                        let mn_ = $('#mal_county :input[name="month"]').val()
+                        let new_last_per = parseFloat(yr_)-1+''+mn_
+                        let new_this_per = yr_+''+mn_
+                        plotBar(new_last_per, new_this_per)
+                        return false
+                    });
             }
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->

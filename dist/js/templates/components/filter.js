@@ -147,6 +147,18 @@ const filter_template = `
 {{/is_period}}
 `;
 
+let this_yr = new Date().getFullYear();let ls_yrs = '';
+for (let z = 0; z < 10; z++) { let f=this_yr-z; ls_yrs += '<option>'+f+'</option>'; };
+const barchart_filter_template = `
+<div class="col-md-12 p-0 text-right font-20 p-1">
+    <div id="ldng" class="d-inline align-content-center justify-content-center align-items-center w-auto p-1">&nbsp;</div>
+    <select id="month" class="d-inline w-auto p-1" name="month"><option value="01">January</option><option value="02">February</option><option value="03">March</option><option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option><option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select> 
+    <select id="year" class="d-inline w-auto p-1" name="year">${ls_yrs}</select>
+    vs. similar period in previous year. <button class="btn btn-info" type="submit">Compare</button>
+</div>
+`
+$('.bar-chart-filter').html(barchart_filter_template)
+
 const gMonthsInYear = (year) => {
     let this_yr = new Date().getFullYear()
     let mnths = []

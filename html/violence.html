@@ -73,7 +73,15 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Violence cases by County</h4>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left">
+                                            <h4> Violence cases by County</h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="#" class="bar-chart-filter" id="violence_county"></form>
+                                        </div>
+                                    </div>
+                                    <hr class="m-t-0 m-b-0"/>
                                     <div class="graph" id="violence_cases_by_county">
                                         <p class="card-text">Bar charts for all counties</p>
                                     </div>
@@ -226,9 +234,10 @@
                         /* *********Trends in violence******** */
                     });
 
-                    
-                    ( ()=>{
-                        let this_date = new Date()
+
+
+
+                    let this_date = new Date()
                         let this_yr = this_date.getFullYear()
                         let this_mn = this_date.getMonth()
                         if(this_mn<1){this_mn=12;this_yr-=1}
@@ -236,42 +245,56 @@
                         let this_pe = this_yr+""+this_mn
                         let last_pe = this_yr-1+""+this_mn
                         
-                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
-                        .then(response=>{
-                            let data = [['County', "Values"]]
-                            response.metaData.dimensions.ou.map(o_ou=>{
-                                let val_arr = [response.metaData.items[o_ou].name]
-                                let v_alue_last = 0
-                                let v_alue_this = 0
-                                let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
-                                let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
-                                if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
-                                if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
-                                let v_alue_diff = 0
-                                v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
-                                val_arr.push(v_alue_diff)
-                                data.push(val_arr)
-                            })
-                            data.sort((a,b)=>b[1]-a[1])
-                            let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
-                            /* *********Difference in violence cases by county******** */
-                            let x_array = []
-                            let y_data = []
-                            y_data[0] = {}
-                            y_data[0].name = "Difference in violence cases"
-                            y_data[0].data = []
-                            y_data[0].color = "#d88842"
-                            let target4 = document.getElementById("violence_cases_by_county")
-                            let fta = data
-                            let fta_title = fta.shift()
-                            fta.map(dt=>{
-                                x_array.push(dt[0]);
-                                y_data[0].data.push(dt[1])
-                            })
-                            plotGraph(x_array, "County", y_data, "Difference", "Difference in violence cases by county", period_string, target4, "column", ["#d88842"])
-                            /* *********Difference in violence cases by county******** */
+                        const plotBar = (last_per, this_per) => {
+                            $('#ldng').html(loading_svg_small)
+                            justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
+                            .then(response=>{
+                                let data = [['County', "Values"]]
+                                response.metaData.dimensions.ou.map(o_ou=>{
+                                    let val_arr = [response.metaData.items[o_ou].name]
+                                    let v_alue_last = 0
+                                    let v_alue_this = 0
+                                    let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
+                                    let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
+                                    if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
+                                    if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
+                                    let v_alue_diff = 0
+                                    v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
+                                    val_arr.push(v_alue_diff)
+                                    data.push(val_arr)
+                                })
+                                data.sort((a,b)=>b[1]-a[1])
+                                let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
+                                /* *********Difference in violence cases******** */
+                                let x_array = []
+                                let y_data = []
+                                y_data[0] = {}
+                                y_data[0].name = "Difference in violence cases"
+                                y_data[0].data = []
+                                y_data[0].color = "#d88842"
+                                let target4 = document.getElementById("violence_cases_by_county")
+                                let fta = data
+                                let fta_title = fta.shift()
+                                fta.map(dt=>{
+                                    x_array.push(dt[0]);
+                                    y_data[0].data.push(dt[1])
+                                })
+                                $('#ldng').html('')
+                                plotGraph(x_array, "County", y_data, "Difference", "Difference in violence cases by county", period_string, target4, "column", ["#d88842"])
+                                /* *********Difference in violence cases by county******** */
+                            });
+                        }
+
+                        plotBar(last_pe, this_pe)
+                        $('#violence_county').submit(function (e) { 
+                            e.preventDefault();
+                            let yr_ = $('#violence_county :input[name="year"]').val()
+                            let mn_ = $('#violence_county :input[name="month"]').val()
+                            let new_last_per = parseFloat(yr_)-1+''+mn_
+                            let new_this_per = yr_+''+mn_
+                            plotBar(new_last_per, new_this_per)
+                            return false
                         });
-                    } )()
             }
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->

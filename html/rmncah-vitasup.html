@@ -60,33 +60,12 @@
                         <div class="col-md-12 p-0" id="loading_target"> </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12" style="display: none;">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Vitamin A Supplementation Coverage by Age Category</h4>
-                                    <div class="graph" id="vit_a_suppl_by_agecat">
-                                        <p class="card-text">Bar charts age category (6-11 months, 12-59 months, 6-59 months), Jan - June 2020</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Trends in Vitamin A Supplementation for Children aged between 6 to 59 Months</h4>
                                     <div class="graph" id="vit_a_sup_trends_age_6_to_59_months">
-                                        <!-- <p class="card-text">Line graph with 3 lines for each year (2017, 2018, 2019, 2020), monthly disaggregation (Jan - June for each year), National (Kenya)...</p> -->
                                         <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - June for each year), National (Kenya)...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style = display:none>>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Trends in Vitamin A Supplementation for Children aged between 6 to 59 Months table</h4>
-                                    <div class="table-container" id="vit_a_sup_trends_age_6_to_59_months_table">
-                                        <p class="card-text">Table showing above data</p>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +73,15 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Vitamin A Supplementation Coverage for Children (6 -59 Months) by County</h4>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left">
+                                            <h4>Vitamin A Supplementation Coverage for Children (6 -59 Months) by County</h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="#" class="bar-chart-filter" id="vsup_county"></form>
+                                        </div>
+                                    </div>
+                                    <hr class="m-t-0 m-b-0"/>
                                     <div class="graph" id="vit_a_sup_age_6_to_59_months_by_county">
                                         <p class="card-text">Bar charts for all counties</p>
                                     </div>
@@ -216,26 +203,10 @@
                     let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
                     let lvl = "2"
                     if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
-                    $.getJSON("../assets/json/rmncah/vit_a _supplement_age_category.json", function (data, textStatus, jqXHR) {
-                        /* *********Vitamin A Supplementation Coverage by Age Category******** */
-                        let x_array = []
-                        let y_data = []
-                        y_data[0] = {}
-                        y_data[0].name = "Vitamin A Supplementation Coverage by Age Category"
-                        y_data[0].data = []
-                        y_data[0].color = "#d88842"
-                        let target4 = document.getElementById("vit_a_suppl_by_agecat")
-                        let t_itles = data.shift()
-                        data.map(dt=>{
-                            x_array.push(dt[0]);
-                            y_data[0].data.push(dt[1])
-                        })
-                        plotGraph(x_array, "Period", y_data, "% Coverage", "Vitamin A Supplementation Coverage by Age Category", "(6-11 months, 12-59 months, 6-59 months)", target4, "column", ["#d88842"])
-                        /* *********Vitamin A Supplementation Coverage by Age Category******** */
-                    });
 
-                    // $.getJSON("../assets/json/rmncah/vit_a_coverage_percounty.json", function (data, textStatus, jqXHR) {
-                    // justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:AEwBkehhvpY&dimension=pe:201701;201702;201703;201704;201705;201706;201801;201802;201803;201804;201805;201806;201901;201902;201903;201904;201905;201906;202001;202002;202003;202004;202005;202006;202007;202008&filter=ou:HfVjCurKxh2&displayProperty=NAME&outputIdScheme=UID`, {})
+                    
+
+                    
                     justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{})
                     .then(response=>{
                         let data = [['Period', "Trends in Vitamin A Supplementation for Children aged between 6 to 59 Months"]]
@@ -251,7 +222,6 @@
 
                         let y_data2 = []
 
-                        // console.log(data.filter(dt=>dt[0].includes(2019)))
                         let target3 = document.getElementById("vit_a_sup_trends_age_6_to_59_months")
                         let m_onths = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
                         let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
@@ -269,18 +239,20 @@
                         /* *********Vitamin A Supplementation Coverage for Children (6 -59 Months) by County******** */
                     });
 
-                    // $.getJSON("../assets/json/rmncah/vit_a_coverage_percounty.json", function (data, textStatus, jqXHR) {
-                    ( ()=>{
-                        let this_date = new Date()
-                        let this_yr = this_date.getFullYear()
-                        let this_mn = this_date.getMonth()
-                        if(this_mn<1){this_mn=12;this_yr-=1}
-                        if(this_mn<10){this_mn="0"+this_mn}
-                        let this_pe = this_yr+""+this_mn
-                        let last_pe = this_yr-1+""+this_mn
-                        
-                        // $.getJSON("../assets/json/rmncah/change_skilleddelivery_percounty.json", function (data, textStatus, jqXHR) {
-                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:${last_pe};${this_pe}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+            
+                    
+
+                    let this_date = new Date()
+                    let this_yr = this_date.getFullYear()
+                    let this_mn = this_date.getMonth()
+                    if(this_mn<1){this_mn=12;this_yr-=1}
+                    if(this_mn<10){this_mn="0"+this_mn}
+                    let this_pe = this_yr+""+this_mn
+                    let last_pe = this_yr-1+""+this_mn
+                    
+                    const plotBar = (last_per, this_per) => {
+                        $('#ldng').html(loading_svg_small)
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:MifkeL55fBg&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
                         .then(response=>{
                             let data = [['County', "Values"]]
                             response.metaData.dimensions.ou.map(o_ou=>{
@@ -298,11 +270,11 @@
                             })
                             data.sort((a,b)=>b[1]-a[1])
                             let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
-                            /* *********% change in skilled deliveries******** */
+                            /* *********Difference in vitamin A doses(12-59 Months) by county******** */
                             let x_array = []
                             let y_data = []
                             y_data[0] = {}
-                            y_data[0].name = "Difference in vitamin A doses(12-59 Months) by county"
+                            y_data[0].name = "Difference in vitamin A doses(12-59 Months)"
                             y_data[0].data = []
                             y_data[0].color = "#d88842"
                             let target4 = document.getElementById("vit_a_sup_age_6_to_59_months_by_county")
@@ -312,10 +284,22 @@
                                 x_array.push(dt[0]);
                                 y_data[0].data.push(dt[1])
                             })
-                            plotGraph(x_array, "County", y_data, "Difference", "Difference in vitamin A doses(12-59 Months) by county", period_string, target4, "column", null)
-                            /* *********% change in skilled deliveries******** */
+                            $('#ldng').html('')
+                            plotGraph(x_array, "County", y_data, "Difference", "Difference in vitamin A doses(12-59 Months) by county", period_string, target4, "column", ["#d88842"])
+                            /* *********Difference in vitamin A doses(12-59 Months) by county******** */
                         });
-                    } )()
+                    }
+
+                    plotBar(last_pe, this_pe)
+                    $('#vsup_county').submit(function (e) { 
+                        e.preventDefault();
+                        let yr_ = $('#vsup_county :input[name="year"]').val()
+                        let mn_ = $('#vsup_county :input[name="month"]').val()
+                        let new_last_per = parseFloat(yr_)-1+''+mn_
+                        let new_this_per = yr_+''+mn_
+                        plotBar(new_last_per, new_this_per)
+                        return false
+                    });
             }
         </script>
         <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
