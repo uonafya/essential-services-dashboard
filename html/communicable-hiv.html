@@ -139,31 +139,33 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6 text-left">
-                                            <h4>Change in PLWHIV on ART by county</h4>
+                                            <h4> Change in PLWHIV on ART by county</h4>
                                         </div>
                                         <div class="col-md-6">
-                                            <h4 class="text-right">
                                             <form action="#" id="plhiv_county">
-                                                <select id="plhiv_month" style="width: auto; display: inline; padding: 3px" name="month"> 
-                                                    <option value="01">January</option> 
-                                                    <option value="02">February</option> 
-                                                    <option value="03">March</option> 
-                                                    <option value="04">April</option> 
-                                                    <option value="05">May</option> 
-                                                    <option value="06">June</option> 
-                                                    <option value="07">July</option> 
-                                                    <option value="08">August</option> 
-                                                    <option value="09">September</option> 
-                                                    <option value="10">October</option> 
-                                                    <option value="11">November</option> 
-                                                    <option value="12">December</option>
-                                                </select> 
-                                                <select id="plhiv_year" style="width: auto; display: inline; padding: 3px" name="month"> 
-                                                    <option>2020</option> 
-                                                    <option>2019</option> 
-                                                    <option>2018</option> 
-                                                </select>
-                                                 vs. similar period in previous year. <button class="btn btn-info" type="submit">Compare</button></h4>
+                                                <div class="col-md-12 p-0 text-right font-22 p-1">
+                                                    <div id="ldng" class="d-inline align-content-center justify-content-center align-items-center w-auto p-1">&nbsp;</div>
+                                                    <select id="plhiv_month" class="d-inline w-auto p-1" name="month"> 
+                                                        <option value="01">January</option> 
+                                                        <option value="02">February</option> 
+                                                        <option value="03">March</option> 
+                                                        <option value="04">April</option> 
+                                                        <option value="05">May</option> 
+                                                        <option value="06">June</option> 
+                                                        <option value="07">July</option> 
+                                                        <option value="08">August</option> 
+                                                        <option value="09">September</option> 
+                                                        <option value="10">October</option> 
+                                                        <option value="11">November</option> 
+                                                        <option value="12">December</option>
+                                                    </select> 
+                                                    <select id="plhiv_year" class="d-inline w-auto p-1" name="month"> 
+                                                        <option>2020</option> 
+                                                        <option>2019</option> 
+                                                        <option>2018</option> 
+                                                    </select>
+                                                    vs. similar period in previous year. <button class="btn btn-info" type="submit">Compare</button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -489,7 +491,7 @@
                         }
                         
                         const plotBar = (last_per, this_per) => {
-
+                            $('#ldng').html(loading_svg_small)
                             justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:nVx4FiV8hXq&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
                             .then(response=>{
                                 let data = [['County', "Values"]]
@@ -522,6 +524,7 @@
                                     x_array.push(dt[0]);
                                     y_data[0].data.push(dt[1])
                                 })
+                                $('#ldng').html('')
                                 plotGraph(x_array, "County", y_data, "Difference", "Change in PLWHIV on ART by county level", period_string, target4, "column", ["#d88842"])
                                 /* *********Change in PLWHIV on ART by county level******** */
                             });
