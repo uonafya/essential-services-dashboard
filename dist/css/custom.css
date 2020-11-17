@@ -168,7 +168,7 @@
     min-width: 100% !important;
     max-width: 100% !important;
   }
-  .highcharts-data-table-7{
+  table:not(.unstyled){
     width: 100%;
   }
   .disabledTab{
