@@ -278,6 +278,7 @@
                             val_arr.push(v_alue)
                             data.push(val_arr)
                         })
+                        
                         let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
                         /* *********Trend of people living with HIV accessing ART******** */
                         let x_array = []
@@ -292,7 +293,11 @@
                             x_array.push(dt[0]);
                             y_data[0].data.push(dt[1])
                         })
-                        plotGraph(x_array, "Period", y_data, "Percentage (%)", "Trend of people living with HIV accessing ART - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target5, "line", null)
+                        let clrs = ["#1e77bf", "#8B0000", "#008000", "#2A2E79"]
+                        if(response.metaData.dimensions.pe.length < 3){
+                            clrs = ["#8B0000", "#008000"]
+                        }
+                        plotGraph(x_array, "Period", y_data, "Percentage (%)", "Trend of people living with HIV accessing ART - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target5, "line", clrs)
                         /* *********Trend of people living with HIV accessing ART******** */
                     });
 
@@ -320,7 +325,11 @@
                             x_array.push(dt[0]);
                             y_data[0].data.push(dt[1])
                         })
-                        plotGraph(x_array, "Period", y_data, "Percentage (%)", "Trend of the number of HIV positive pregnant women on HAART - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target5, "line", null)
+                        let clrs = ["#1e77bf", "#8B0000", "#008000", "#2A2E79"]
+                        if(response.metaData.dimensions.pe.length < 3){
+                            clrs = ["#8B0000", "#008000"]
+                        }
+                        plotGraph(x_array, "Period", y_data, "Percentage (%)", "Trend of the number of HIV positive pregnant women on HAART - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target5, "line", clrs)
                         /* *********Trend of the number of HIV positive pregnant women on HAART******** */
 
                         /* *********Comparison of PLHIV accessing ART annually in Kenya******** */
@@ -338,7 +347,7 @@
                             })
                             y_data2.push(yr_data2plot)
                         })
-                        plotGraph(m_onths, "Period", y_data2, "# PLHIV", "Comparison of PLHIV accessing ART annually - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target6, "line", null)
+                        plotGraph(m_onths, "Period", y_data2, "# PLHIV", "Comparison of PLHIV accessing ART annually - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target6, "line", clrs)
                         /* *********Comparison of PLHIV accessing ART annually in Kenya******** */
                     });
 
@@ -366,7 +375,11 @@
                             x_array.push(dt[0]);
                             y_data[0].data.push(dt[1])
                         })
-                        plotGraph(x_array, "Period", y_data, "# Patients", "Trend of enrolment on ART for HIV+ patients", null, target5, "line", null)
+                        let clrs = ["#1e77bf", "#8B0000", "#008000", "#2A2E79"]
+                        if(response.metaData.dimensions.pe.length < 3){
+                            clrs = ["#8B0000", "#008000"]
+                        }
+                        plotGraph(x_array, "Period", y_data, "# Patients", "Trend of enrolment on ART for HIV+ patients", null, target5, "line", clrs)
                         /* *********Trend of enrolment on ART for HIV+ patients******** */
 
                         /* *********Trends of newly enrolled patients on ART******** */
@@ -384,7 +397,7 @@
                             })
                             y_data2.push(yr_data2plot)
                         })
-                        plotGraph(m_onths, "Period", y_data2, "Occupied Bed Rate", "Trends of newly enrolled patients on ART - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target6, "line", null)
+                        plotGraph(m_onths, "Period", y_data2, "Occupied Bed Rate", "Trends of newly enrolled patients on ART - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target6, "line", clrs)
                         /* *********Trends of newly enrolled patients on ART******** */
                     });
 
@@ -415,7 +428,11 @@
                             })
                             y_data2.push(yr_data2plot)
                         })
-                        plotGraph(m_onths, "Period", y_data2, "# Tests", "Trends in HIV test performed in Kenya - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target6, "line", null)
+                        let clrs = ["#1e77bf", "#8B0000", "#008000", "#2A2E79"]
+                        if(response.metaData.dimensions.pe.length < 3){
+                            clrs = ["#8B0000", "#008000"]
+                        }
+                        plotGraph(m_onths, "Period", y_data2, "# Tests", "Trends in HIV test performed in Kenya - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target6, "line", clrs)
                         /* *********Trends in HIV test performed in Kenya******** */
                     });
 
@@ -447,7 +464,11 @@
                             })
                             y_data2.push(yr_data2plot)
                         })
-                        plotGraph(m_onths, "Period", y_data2, "Coverage", "Comparison of PLHIV accessing ART annually - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target3, "line", null)
+                        let clrs = ["#1e77bf", "#8B0000", "#008000", "#2A2E79"]
+                        if(response.metaData.dimensions.pe.length < 3){
+                            clrs = ["#8B0000", "#008000"]
+                        }
+                        plotGraph(m_onths, "Period", y_data2, "Coverage", "Comparison of PLHIV accessing ART annually - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target3, "line", clrs)
                         /* *********Comparison of PLHIV accessing ART annually******** */
                     });
 
