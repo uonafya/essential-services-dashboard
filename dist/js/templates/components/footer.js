@@ -18,6 +18,11 @@ const footer_template = `
                         <img src="../assets/images/logos/healthit.png" alt="HealthIT" style="max-height: 37px"/>
                     </a>
                 </li>
+                <li class="list-inline-item">
+                    <a href="https://ke.usembassy.gov/our-relationship/pepfar/" class="bcwhite ws-nowrap bdr-3 p-3">
+                        <img src="../assets/images/logos/pepfar.png" alt="PEPFAR" style="max-height: 37px"/>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
