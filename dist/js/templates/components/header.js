@@ -8,6 +8,7 @@ const header_template = `
             <span class="logo-text">
                 <img src="../assets/images/logo.png" style="max-height: 56px" alt="homepage" class="light-logo" />
             </span>
+        </a>
         <a class="topbartoggler d-block d-md-none waves-effect  waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="ti-more"></i>
         </a>
