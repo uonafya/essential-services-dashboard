@@ -127,7 +127,7 @@ let justFetch = async (endpoint, postoptions) => {
     if (!location.hostname.includes("hiskenya")) {
         let encurl = window.encodeURIComponent(window.btoa(endpoint));
         // console.log('encurl = '+encurl);
-        final_endpoint = "http://41.76.170.34:3000/request/" + encurl;
+        final_endpoint = "http://localhost:3000/request/" + encurl;
     }
     req_hd.headers = headers;
     req_hd.method = req_method;
