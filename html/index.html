@@ -451,8 +451,12 @@
                     let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
                     let lvl = "2"
                     if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
-                    
-                    let prd = getMonthsInYear(2020); prd = prd.split(';'); let prd1 = prd.shift(); let prd2 = prd.shift(); prd = prd.join(';')
+                    let yr = new Date().getFullYear()
+                    let prd = getMonthsInYear(yr); 
+                    let prd_ = prd.split(';'); 
+                    if(prd_.length > 1 && prd_[1] != ""){
+                        let prd1 = prd.shift(); let prd2 = prd.shift(); prd = prd.join(';')
+                    }
                     if(prop && prop.pe){
                         prd = getMonthsInYear(prop.pe)
                     }
