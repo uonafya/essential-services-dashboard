@@ -244,7 +244,7 @@ const getWeeksInYear = (year) => {
 const default3YearPeriod = (return_what) => {
     let this_yr = new Date().getFullYear()
     let yrs = []
-    for (let i = 0; i <= 2; i++){
+    for (let i = 0; i <= 3; i++){
         yrs.push(this_yr - i)
     }
     let pstr = ''
