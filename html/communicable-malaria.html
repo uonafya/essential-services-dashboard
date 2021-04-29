@@ -63,7 +63,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Relative reduction in the number of Malaria Tests done</h4>
+                                    <h4 class="card-title">Total number of Malaria Tests done</h4>
                                     <div class="graph" id="relative_reduction_2_years">
                                         <p class="card-text">Bar charts comparing 2019 and 2020 per month from January to July</p>
                                     </div>
@@ -216,45 +216,75 @@
                     let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
                     let lvl = "2"
                     if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:lQgReolCDjX&dimension=pe:${prd_wk}&dimension=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{})
-                    .then(response=>{
-                        let data = [['Period', "Malaria tests"]]
-                        response.metaData.dimensions.pe.map(o_pe=>{
-                            let val_arr = [response.metaData.items[o_pe].name]
-                            let v_ = response.rows.find(r_=>r_[1]===o_pe) || [0, 0, 0, 0]; let v_alue = parseFloat(v_[3]) || 0;
-                            val_arr.push(v_alue)
-                            data.push(val_arr)
-                        })
-                        let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
-                        
-                        /* *********Relative reduction in the number of Malaria Tests done******** */
-                        let y_data2 = []
-
-                        let target3 = document.getElementById("relative_reduction_2_years")
-                        
-                        let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
-                        let m_onths = Array.from( response.metaData.dimensions.pe.filter(p_e_=>x_ = p_e_.includes(uniq_yrs[0])), xy_=>xy_.replace(uniq_yrs[0], ''))
-                        let clrs = ['#00b050', '#ff0000', '#2578ec', '#d88842', '#6882aa']
-                        uniq_yrs.map((unq_yr,ix) => {
-                            let yr_data2plot = {}
-                            yr_data2plot.name = unq_yr
-                            yr_data2plot.data = []
-                            yr_data2plot.color = clrs[ix] || '#4f92cc'
-                            let yr_data = Array.from(
-                                response.metaData.dimensions.pe.filter(p_e=>p_e.substring(0, 4) == unq_yr),
-                                dt_yr=>{
-                                    let arra = [response.metaData.items[dt_yr].name]
-                                    let v_aluu = response.rows.find(rw=>rw[1]==dt_yr) || [0,0,0,0]
-                                    let v_alu = parseFloat(v_aluu[3])
-                                    arra.push(v_alu)
-                                    yr_data2plot.data.push(v_alu)
-                                    return arra
+                    let dx_pre = 'lQgReolCDjX'
+                    let prd_wk_pre = prd_wk.split('2020W42;')[0]+'2020W42;'
+                    let dx_post2020rev = 'lQgReolCDjX'
+                    let prd_wk_post2020_rev = prd_wk.split('2020W42;')[1]
+                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:${dx_pre}&dimension=pe:${prd_wk_pre}&dimension=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{})
+                    .then(reply=>{
+                        let response = reply
+                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:${dx_post2020rev}&dimension=pe:${prd_wk_post2020_rev}&dimension=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{showLoading: 'false'})
+                        .then(reply2=>{
+                            Object.keys(reply2.metaData.items).map(tr=>{
+                                if(!Object.keys(response.metaData.items).includes(tr)){
+                                    response.metaData.items[tr] = reply2.metaData.items[tr]
                                 }
-                            )
-                            y_data2.push(yr_data2plot)
-                        })
-                        plotGraph(m_onths, "Period", y_data2, "Coverage", "Relative reduction in the number of Malaria Tests done - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target3, "column", ['#00b050', '#ff0000'])
-                        /* *********Relative reduction in the number of Malaria Tests done******** */
+                            })
+                            reply2.metaData.dimensions.dx.map(d_x_=>{
+                                if(!response.metaData.dimensions.dx.includes(d_x_)){
+                                    response.metaData.dimensions.dx.push(d_x_)
+                                }
+                            })
+                            reply2.metaData.dimensions.pe.map(p_e_=>{
+                                if(!response.metaData.dimensions.pe.includes(p_e_)){
+                                    response.metaData.dimensions.pe.push(p_e_)
+                                }
+                            })
+                            reply2.metaData.dimensions.ou.map(o_u_=>{
+                                if(!response.metaData.dimensions.ou.includes(o_u_)){
+                                    response.metaData.dimensions.ou.push(o_u_)
+                                }
+                            })
+                            reply2.rows.map(r_w_s=>response.rows.push(r_w_s))
+
+                            let data = [['Period', "Malaria tests"]]
+                            response.metaData.dimensions.pe.map(o_pe=>{
+                                let val_arr = [response.metaData.items[o_pe].name]
+                                let v_ = response.rows.find(r_=>r_[1]===o_pe) || [0, 0, 0, 0]; let v_alue = parseFloat(v_[3]) || 0;
+                                val_arr.push(v_alue)
+                                data.push(val_arr)
+                            })
+                            let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+                            
+                            /* *********Relative reduction in the number of Malaria Tests done******** */
+                            let y_data2 = []
+
+                            let target3 = document.getElementById("relative_reduction_2_years")
+                            
+                            let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
+                            let m_onths = Array.from( response.metaData.dimensions.pe.filter(p_e_=>x_ = p_e_.includes(uniq_yrs[0])), xy_=>xy_.replace(uniq_yrs[0], ''))
+                            let clrs = ['#00b050', '#ff0000', '#2578ec', '#d88842', '#6882aa']
+                            uniq_yrs.map((unq_yr,ix) => {
+                                let yr_data2plot = {}
+                                yr_data2plot.name = unq_yr
+                                yr_data2plot.data = []
+                                yr_data2plot.color = clrs[ix] || '#4f92cc'
+                                let yr_data = Array.from(
+                                    response.metaData.dimensions.pe.filter(p_e=>p_e.substring(0, 4) == unq_yr),
+                                    dt_yr=>{
+                                        let arra = [response.metaData.items[dt_yr].name]
+                                        let v_aluu = response.rows.find(rw=>rw[1]==dt_yr) || [0,0,0,0]
+                                        let v_alu = parseFloat(v_aluu[3])
+                                        arra.push(v_alu)
+                                        yr_data2plot.data.push(v_alu)
+                                        return arra
+                                    }
+                                )
+                                y_data2.push(yr_data2plot)
+                            })
+                            plotGraph(m_onths, "Period", y_data2, "Coverage", "Total number of Malaria Tests done - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target3, "column", ['#00b050', '#ff0000'])
+                            /* *********Relative reduction in the number of Malaria Tests done******** */
+                        });
                     });
 
 

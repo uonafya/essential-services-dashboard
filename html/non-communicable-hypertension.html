@@ -75,7 +75,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6 text-left">
-                                            <h4>% change in hypertension cases by County</h4>
+                                            <h4>Total hypertension cases by county</h4>
                                         </div>
                                         <div class="col-md-6">
                                             <form action="#" class="bar-chart-filter" id="hyper_county"></form>
@@ -91,7 +91,7 @@
                         <div class="col-md-12">
                             <div class="card" >
                                 <div class="card-body">
-                                    <h4 class="card-title">New hypertension cases by year</h4>
+                                    <h4 class="card-title">Total hypertension cases by year</h4>
                                     <div class="graph" id="new_hypertension_cases_by_year">
                                         <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
                                     </div>
@@ -301,7 +301,7 @@
                             })
                             y_data20.push(yr_data2plot)
                         })
-                        plotGraph(m1_onths, "Period", y_data20, "Cases", "New hypertension cases by year - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target30, "line", null)
+                        plotGraph(m1_onths, "Period", y_data20, "Cases", "Total hypertension cases by year - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target30, "line", null)
                         /* *********New hypertension cases by year******** */
 
 
@@ -368,7 +368,7 @@
                                 y_data[0].data.push(dt[1])
                             })
                             $('#ldng').html('')
-                            plotGraph(x_array, "County", y_data, "Difference", "% change in hypertension cases by county", period_string, target4, "column", ["#d88842"])
+                            plotGraph(x_array, "County", y_data, "Difference", "Total hypertension cases by county", period_string, target4, "column", ["#d88842"])
                             /* ********* % change in hypertension cases by county ******** */
                         });
                     }
