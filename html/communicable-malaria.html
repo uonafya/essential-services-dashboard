@@ -218,7 +218,7 @@
                     if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
                     let dx_pre = 'lQgReolCDjX'
                     let prd_wk_pre = prd_wk.split('2020W42;')[0]+'2020W42;'
-                    let dx_post2020rev = 'lQgReolCDjX'
+                    let dx_post2020rev = 'q3zSDDKBjqL'
                     let prd_wk_post2020_rev = prd_wk.split('2020W42;')[1]
                     justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:${dx_pre}&dimension=pe:${prd_wk_pre}&dimension=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{})
                     .then(reply=>{
