@@ -216,7 +216,7 @@
                     let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
                     let lvl = "2"
                     if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:GsqRulfqa8z&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:GsqRulfqa8z&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
@@ -253,7 +253,7 @@
 
                     
                     // $.getJSON("../assets/json/rmncah/children_under5_attending_cwc.json", function (data, textStatus, jqXHR) {
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:D0dZJRB71Sn&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:D0dZJRB71Sn&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Trends in Child Welfare Clinic (CWC) Attendance"]]
                         response.metaData.dimensions.pe.map(o_pe=>{

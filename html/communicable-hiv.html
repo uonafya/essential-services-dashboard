@@ -269,7 +269,7 @@
                     let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
                     let lvl = "2"
                     if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:nVx4FiV8hXq&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:nVx4FiV8hXq&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
@@ -302,7 +302,7 @@
                     });
 
 
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:xfdnpoNEkKG&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:xfdnpoNEkKG&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
@@ -352,7 +352,7 @@
                     });
 
 
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:RsGHNwSlhrR&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:RsGHNwSlhrR&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
@@ -402,7 +402,7 @@
                     });
 
 
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:BmWlyhX3ERL&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                    justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:BmWlyhX3ERL&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
@@ -437,7 +437,7 @@
                     });
 
 
-                    justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:nVx4FiV8hXq&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{})
+                    justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:nVx4FiV8hXq&dimension=pe:${prd}&filter=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{})
                     .then(response=>{
                         let data = [['Period', "Value"]]
                         response.metaData.dimensions.pe.map(o_pe=>{
@@ -483,7 +483,7 @@
                     
                     const plotBar = (last_per, this_per) => {
                         $('#ldng').html(loading_svg_small)
-                        justFetch(`https://hiskenya.org/api/26/analytics.json?dimension=dx:nVx4FiV8hXq&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
+                        justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:nVx4FiV8hXq&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
                         .then(response=>{
                             let data = [['County', "Values"]]
                             response.metaData.dimensions.ou.map(o_ou=>{
