@@ -452,10 +452,10 @@
                     let lvl = "2"
                     if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
                     let yr = new Date().getFullYear()
-                    let prd = getMonthsInYear(yr); 
+                    let prd = getMonthsInYear(yr);
                     let prd_ = prd.split(';'); 
                     if(prd_.length > 1 && prd_[1] != ""){
-                        let prd1 = prd.shift(); let prd2 = prd.shift(); prd = prd.join(';')
+                        let prd1 = prd_.shift(); let prd2 = prd_.shift(); prd = prd_.join(';')
                     }
                     if(prop && prop.pe){
                         prd = getMonthsInYear(prop.pe)
@@ -695,7 +695,7 @@
                         let sta_titles = sta.shift()
                         sta.map(dt=>{
                             x_array.push(dt[0]);
-                            y_data[0].data.push(dt[1])
+                            y_data[0].data.push(parseFloat(dt[1]))
                         })
                         let summry = y_data[0].data[y_data[0].data.length - 1]
                         $('#tb_case_trends_summary').html(formatNumber(summry))
