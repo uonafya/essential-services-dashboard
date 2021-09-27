@@ -5,6 +5,9 @@ function renderNav(options) {
 function renderFooter(options) {
     var rendered = Mustache.render(footer_template, options);
     document.getElementById('footer_target').innerHTML = rendered;
+    if(typeof window !== "undefined") window.fetch('../../../manifest.webapp').then(r=> r.json() ).then(r=>{
+        document.getElementById('version_tag').innerHTML = 'Version '+r.version;
+    });
 }
 function renderHeader(options) {
     // var header_template = document.getElementById('header_template').innerHTML;

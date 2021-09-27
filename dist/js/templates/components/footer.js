@@ -1,7 +1,9 @@
 const footer_template = `
 <footer class="footer text-center">
     <div class="row">
-        <div class="col-md-4 text-center"></div>
+        <div class="col-md-4 text-center">
+            <p class="m-t-10" id="version_tag"></p>
+        </div>
         <div class="col-md-3 text-center">
             <p class="m-t-10">All Rights Reserved. Ministry of Health, Government of Kenya. &copy;
             {{yr}}</p>
