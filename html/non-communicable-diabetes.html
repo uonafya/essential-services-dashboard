@@ -1,387 +1,422 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <!-- Tell the browser to be responsive to screen width -->
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <!-- Favicon icon -->
-        <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
-        <title>
-            Diabetes - Non-Communicable Diseases | Essential Services Report
-        </title>
-        <!-- Custom CSS -->
-        <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
-        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
-        <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" />
-        <link href="../dist/css/style.min.css" rel="stylesheet" />
-        <link href="../dist/css/custom.css" rel="stylesheet" />
-        <link href="../assets/extra-libs/DataTables/DataTables-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
-        <link href="../dist/css/datatables/buttons.dataTables.min.css" rel="stylesheet" />
-        <link href="../dist/css/datatables/jquery.dataTables.min.css" rel="stylesheet" />
-        <link href="../assets/extra-libs/monthpicker/MonthPicker.css" rel="stylesheet" />
-        <link href="../assets/extra-libs/monthpicker/jquery-ui.css" rel="stylesheet" />
 
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/css/highcharts.min.css">
-        
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png" />
+    <title>
+        Diabetes - Non-Communicable Diseases | Essential Services Report
+    </title>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="../assets/extra-libs/multicheck/multicheck.css" />
+    <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" />
+    <link href="../dist/css/style.min.css" rel="stylesheet" />
+    <link href="../dist/css/custom.css" rel="stylesheet" />
+    <link href="../assets/extra-libs/DataTables/DataTables-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="../dist/css/datatables/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="../dist/css/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="../assets/extra-libs/monthpicker/MonthPicker.css" rel="stylesheet" />
+    <link href="../assets/extra-libs/monthpicker/jquery-ui.css" rel="stylesheet" />
 
-    <body onload="renderAll(); window.fetchData();">
-        <div class="preloader">
-            <div class="lds-ripple">
-                <div class="lds-pos"></div>
-                <div class="lds-pos"></div>
-            </div>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/css/highcharts.min.css">
+
+</head>
+
+<body onload="renderAll(); window.fetchData();">
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
         </div>
-        <div id="main-wrapper">
-            <header class="topbar" data-navbarbg="skin5" id="header_target"></header>
-            <aside class="left-sidebar" data-sidebarbg="skin5">
-                <div class="scroll-sidebar">
-                    <nav class="sidebar-nav" id="nav_target"></nav>
-                </div>
-            </aside>
-            <div class="page-wrapper">
-                <div class="page-breadcrumb">
-                    <div class="row">
-                        <div class="col-12 d-flex no-block align-items-center" id="filter_target"></div>
-                    </div>
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12 p-0" id="status_target"> </div>
-                        <div class="col-md-12 p-0" id="loading_target"> </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Trend on Diabetes cases – New and Total</h4>
-                                    <div class="graph" id="diabetes_cases_total_new_trend">
-                                        <p class="card-text">Bar graph of total cases per month in comparison with line graph of new cases (october 2018 - june 2020)</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6 text-left">
-                                            <h4>% change in diabetes cases by County</h4>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <form action="#" class="bar-chart-filter" id="diabt_county"></form>
-                                        </div>
-                                    </div>
-                                    <hr class="m-t-0 m-b-0"/>
-                                    <div class="graph" id="perc_change_confirmed_diabetes_cases">
-                                        <p class="card-text">counties bar graph</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="card" >
-                                <div class="card-body">
-                                    <h4 class="card-title">New diabetes cases by year</h4>
-                                    <div class="graph" id="new_diabetes_cases_by_year">
-                                        <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020), monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="card" >
-                                <div class="card-body">
-                                    <h4 class="card-title">Total number of diabetes cases</h4>
-                                    <div class="graph" id="total_diabetes_cases_by_month">
-                                        <p class="card-text">Line graph from jan 2018 to June 2020, monthly disaggregation, National (Kenya)...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    </div>
+    <div id="main-wrapper">
+        <header class="topbar" data-navbarbg="skin5" id="header_target"></header>
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav" id="nav_target"></nav>
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center" id="filter_target"></div>
                 </div>
             </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 p-0" id="status_target"> </div>
+                    <div class="col-md-12 p-0" id="loading_target"> </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Trend on Diabetes cases – New and Total</h4>
+                                <div class="graph" id="diabetes_cases_total_new_trend">
+                                    <p class="card-text">Bar graph of total cases per month in comparison with line
+                                        graph of new cases (october 2018 - june 2020)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <h4>% change in diabetes cases by County</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <form action="#" class="bar-chart-filter" id="diabt_county"></form>
+                                    </div>
+                                </div>
+                                <hr class="m-t-0 m-b-0" />
+                                <div class="graph" id="perc_change_confirmed_diabetes_cases">
+                                    <p class="card-text">counties bar graph</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">New diabetes cases by year</h4>
+                                <div class="graph" id="new_diabetes_cases_by_year">
+                                    <p class="card-text">Line graph with 3 lines for each year (2018, 2019, 2020),
+                                        monthly disaggregation (Jan - May for each year), National (Kenya)...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Total number of diabetes cases</h4>
+                                <div class="graph" id="total_diabetes_cases_by_month">
+                                    <p class="card-text">Line graph from jan 2018 to June 2020, monthly disaggregation,
+                                        National (Kenya)...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="footer_target" class="p-0 m-0 w-100"></div>
-        
-        <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-        <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-        <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-        <script src="../dist/js/sidebarmenu.js"></script>
-        <script src="../dist/js/custom.js"></script>
-        <script src="../assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
-        <script src="../assets/extra-libs/multicheck/jquery.multicheck.js"></script>
-        <script src="../assets/extra-libs/DataTables/datatables.min.js"></script>
-        <script src="../assets/extra-libs/DataTables/dataTables.buttons.min.js"></script>
-        <script src="../assets/extra-libs/DataTables/buttons.flash.min.js"></script>
-        <script src="../assets/extra-libs/jszip/jszip.min.js"></script>
-        <script src="../assets/extra-libs/pdfmake/pdfmake.min.js"></script>
-        <script src="../assets/extra-libs/pdfmake/vfs_fonts.js"></script>
-        <script src="../assets/extra-libs/DataTables/buttons.html5.min.js"></script>
-        <script src="../assets/extra-libs/DataTables/buttons.print.min.js"></script>
+    </div>
+    <div id="footer_target" class="p-0 m-0 w-100"></div>
 
-        <!-- *********** <MonthPicker ************** -->
-        <script src="../assets/extra-libs/monthpicker/jquery-migrate-3.0.1.min.js"></script>
-        <script src="../assets/extra-libs/monthpicker/jquery.maskedinput.min.js"></script>
-        <script src="../assets/extra-libs/monthpicker/jquery-ui.min.js"></script>
-        <script src="../assets/extra-libs/monthpicker/MonthPicker.js"></script>
-        <!-- *********** MonthPicker/> ************** -->
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../dist/js/sidebarmenu.js"></script>
+    <script src="../dist/js/custom.js"></script>
+    <script src="../assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+    <script src="../assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+    <script src="../assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="../assets/extra-libs/DataTables/dataTables.buttons.min.js"></script>
+    <script src="../assets/extra-libs/DataTables/buttons.flash.min.js"></script>
+    <script src="../assets/extra-libs/jszip/jszip.min.js"></script>
+    <script src="../assets/extra-libs/pdfmake/pdfmake.min.js"></script>
+    <script src="../assets/extra-libs/pdfmake/vfs_fonts.js"></script>
+    <script src="../assets/extra-libs/DataTables/buttons.html5.min.js"></script>
+    <script src="../assets/extra-libs/DataTables/buttons.print.min.js"></script>
 
-        <!-- *********** <WeekPicker ************** -->
-        <script src="https://cdn.jsdelivr.net/npm/moment@2.26.0/moment.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
-        <script src="../dist/js/weekpicker.js"></script>
-        <!-- *********** WeekPicker/> ************** -->
-        
-        <!-- *********** <Highcharts ************** -->
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script>-->
-		<script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/export-data.js"></script>
-        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-        <!-- *********** Highcharts/> ************** -->
+    <!-- *********** <MonthPicker ************** -->
+    <script src="../assets/extra-libs/monthpicker/jquery-migrate-3.0.1.min.js"></script>
+    <script src="../assets/extra-libs/monthpicker/jquery.maskedinput.min.js"></script>
+    <script src="../assets/extra-libs/monthpicker/jquery-ui.min.js"></script>
+    <script src="../assets/extra-libs/monthpicker/MonthPicker.js"></script>
+    <!-- *********** MonthPicker/> ************** -->
+
+    <!-- *********** <WeekPicker ************** -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.26.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+    <script src="../dist/js/weekpicker.js"></script>
+    <!-- *********** WeekPicker/> ************** -->
+
+    <!-- *********** <Highcharts ************** -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.1.1/es-modules/highcharts.src.min.js"></script>-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <!-- *********** Highcharts/> ************** -->
 
 
 
 
-        <!-- TEMPLATING -->
-        <script src="../dist/js/templates/mustache.js"></script>
+    <!-- TEMPLATING -->
+    <script src="../dist/js/templates/mustache.js"></script>
 
-            <!-- templates -->
-            <!-- <script id="header_template" type="x-tmpl-mustache">
+    <!-- templates -->
+    <!-- <script id="header_template" type="x-tmpl-mustache">
                 //html here
             </script> -->
-            <script src="../dist/js/templates/components/footer.js"></script>
-            <script src="../dist/js/templates/components/header.js"></script>
-            <script src="../dist/js/templates/components/nav.js"></script>
-            <script src="../dist/js/templates/components/filter.js"></script>
-            <script src="../dist/js/templates/components/loading.js"></script>
-            <script src="../dist/js/templates/components/status.js"></script>
-            <!-- templates -->
+    <script src="../dist/js/templates/components/footer.js"></script>
+    <script src="../dist/js/templates/components/header.js"></script>
+    <script src="../dist/js/templates/components/nav.js"></script>
+    <script src="../dist/js/templates/components/filter.js"></script>
+    <script src="../dist/js/templates/components/loading.js"></script>
+    <script src="../dist/js/templates/components/status.js"></script>
+    <!-- templates -->
 
-            <!-- renders -->
-            <script src="../dist/js/templates/renders.js"></script>
-            <script src="../dist/js/_utils.js"></script>
-            <!-- renders -->
+    <!-- renders -->
+    <script src="../dist/js/templates/renders.js"></script>
+    <script src="../dist/js/_utils.js"></script>
+    <!-- renders -->
 
-            <!-- render Fn -->
-            <script>
-                function renderAll() {
-                    let page_title = {title: 'Non-Communicable Diseases - Diabetes'}
-                    let page_filters = {
-                        is_county:true, 
-                        is_subcounty:true, 
-                        is_ward:false, 
-                        is_facility:false, 
-                        is_period:true, 
-                        is_period_range:true}
-                    let is_loading = {is_loading: false}
-                    let footer_yr = { yr: new Date().getFullYear()}
-                    let page_status = {title: '', message: '', type: 'info', hidden: true} //type: info, success, danger
+    <!-- render Fn -->
+    <script>
+        function renderAll() {
+            let page_title = { title: 'Non-Communicable Diseases - Diabetes' }
+            let page_filters = {
+                is_county: true,
+                is_subcounty: true,
+                is_ward: false,
+                is_facility: false,
+                is_period: true,
+                is_period_range: true
+            }
+            let is_loading = { is_loading: false }
+            let footer_yr = { yr: new Date().getFullYear() }
+            let page_status = { title: '', message: '', type: 'info', hidden: true } //type: info, success, danger
 
-                    renderNav()
-                    renderHeader(page_title)
-                    renderFooter(footer_yr)
-                    renderLoader(is_loading)
-                    renderFilter(page_filters)
-                    renderStatus(page_status)
-                }
-            </script>
-            <!-- render Fn -->
-        <!-- TEMPLATING -->
-
-
-
+            renderNav()
+            renderHeader(page_title)
+            renderFooter(footer_yr)
+            renderLoader(is_loading)
+            renderFilter(page_filters)
+            renderStatus(page_status)
+        }
+    </script>
+    <!-- render Fn -->
+    <!-- TEMPLATING -->
 
 
-        <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
-        <script>
-            window.fetchData = (prop) => {
-                    // let org_unit = window.sessionStorage.getItem('ess_ou') || "HfVjCurKxh2"
-                    let org_unit = "HfVjCurKxh2"
-                    if(prop && prop.ou){
-                        org_unit = prop.ou
-                    }
-                    let prd = default3YearPeriod()
-                    if(prop && prop.pe){
-                        prd = getMonthsInYear(prop.pe)
-                    }
-                    if(prop && prop.pe_to){
-                        prd = getPeriodBtwnYears(prop.pe, prop.pe_to, 'months')
-                    }
-                    let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
-                    let lvl = "2"
-                    if(ouFilterType == "county"){ lvl = "3" } else if(ouFilterType == "subcounty"){ lvl = "4" }else{ lvl = "2" }
-                    justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:i37mflclEU6;A9KOgWrbCCY&dimension=pe:${prd}&dimension=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`,{})
-                    .then(response=>{
-                        let data = [['Period', "Cases"]]
-                        let data_totalcases = [['Period', "Cases"]]
-                        let data_newcases = [['Period', "Cases"]]
-                        response.metaData.dimensions.pe.map(o_pe=>{
-                            let val_arr = [response.metaData.items[o_pe].name]
-                            let val_arr_total = [response.metaData.items[o_pe].name]
-                            let val_arr_new = [response.metaData.items[o_pe].name]
-                            let v_alue = parseFloat(response.rows.filter(o_rw=>o_rw[1]==o_pe)[0][3]) || 0
-                            let v_alue_total = parseFloat(response.rows.filter(o_rw=>o_rw[0]==response.metaData.dimensions.dx[0]&&o_rw[1]==o_pe)[0][3]) || 0
-                            let v_alue_new = parseFloat(response.rows.filter(o_rw=>o_rw[0]==response.metaData.dimensions.dx[1]&&o_rw[1]==o_pe)[0][3]) || 0
-                            val_arr.push(v_alue)
-                            val_arr_total.push(v_alue_total)
-                            val_arr_new.push(v_alue_new)
+
+
+
+    <!-- ++++++++++++++++++++++++ PAGE DATA LOGIC ++++++++++++++++++++++++ -->
+    <script>
+        window.fetchData = (prop) => {
+            // let org_unit = window.sessionStorage.getItem('ess_ou') || "HfVjCurKxh2"
+            let org_unit = "HfVjCurKxh2"
+            if (prop && prop.ou) {
+                org_unit = prop.ou
+            }
+            let prd = default3YearPeriod()
+            if (prop && prop.pe) {
+                prd = getMonthsInYear(prop.pe)
+            }
+            if (prop && prop.pe_to) {
+                prd = getPeriodBtwnYears(prop.pe, prop.pe_to, 'months')
+            }
+            let ouFilterType = window.sessionStorage.getItem("ouFilterType") || "national"
+            let lvl = "2"
+            if (ouFilterType == "county") { lvl = "3" } else if (ouFilterType == "subcounty") { lvl = "4" } else { lvl = "2" }
+            justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:i37mflclEU6;A9KOgWrbCCY&dimension=pe:${prd}&dimension=ou:${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {})
+                .then(response => {
+                    let data = [['Period', "Cases"]]
+                    let data_totalcases = [['Period', "Cases"]]
+                    let data_newcases = [['Period', "Cases"]]
+                    response.metaData.dimensions.pe.map((o_pe,inx) => {
+                        let val_arr = [response.metaData.items[o_pe].name]
+                        let val_arr_total = [response.metaData.items[o_pe].name]
+                        let val_arr_new = [response.metaData.items[o_pe].name]
+                        let v_alue = 0
+                        let v_alue_total = 0
+                        let v_alue_new = 0
+                        if (response.rows.length > 0) {
+                            let row_dx_0 = response.rows.find(rw=>rw[
+                                response.headers.findIndex(jk=>jk.name=="pe")
+                            ]==o_pe && rw[
+                                response.headers.findIndex(jk=>jk.name=="dx")
+                            ]==response.metaData.dimensions.dx[0]) || [0,0,0,0]
+                            
+                            let row_dx_1 = response.rows.find(rw=>rw[
+                                response.headers.findIndex(jk=>jk.name=="pe")
+                            ]==o_pe && rw[
+                                response.headers.findIndex(jk=>jk.name=="dx")
+                            ]==response.metaData.dimensions.dx[1]) || [0,0,0,0]
+
+                            v_alue = parseFloat(response.rows.filter(o_rw => o_rw[
+                                response.headers.findIndex(jk=>jk.name=="pe")
+                            ] == o_pe)[0][response.headers.findIndex(jk => jk.name == "value")]) || 0;
+
+                            v_alue_total = parseFloat(row_dx_0[response.headers.findIndex(jk=>jk.name=="value")]) || 0;
+                            
+                            v_alue_new = parseFloat(row_dx_1[response.headers.findIndex(jk=>jk.name=="value")]) || 0;
+                        }
+
+                        val_arr.push(v_alue)
+                        val_arr_total.push(v_alue_total)
+                        val_arr_new.push(v_alue_new)
+                        data.push(val_arr)
+                        data_totalcases.push(val_arr_total)
+                        data_newcases.push(val_arr_new)
+                    })
+                    let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
+
+                    /* *********Trend on Diabetes cases – New and Total******** */
+                    let y_data02 = []
+
+                    let target03 = document.getElementById("diabetes_cases_total_new_trend")
+
+                    let d_total_data = []
+                    let d_tot = Array.from(
+                        response.metaData.dimensions.pe,
+                        tot_pe => {
+                            let arra = [response.metaData.items[tot_pe].name]
+                            let v_alu = parseFloat(response.rows.find(rw => rw[1] == tot_pe && rw[0] == response.metaData.dimensions.dx[0])[3])
+                            arra.push(v_alu)
+                            d_total_data.push(v_alu)
+                            return arra
+                        }
+                    )
+
+                    let d_new_data = []
+                    let d_nu = Array.from(
+                        response.metaData.dimensions.pe,
+                        tot_nw => {
+                            let arra = [response.metaData.items[tot_nw].name]
+                            // --
+                            let vp = response.rows.find(rw=>rw[
+                                response.headers.findIndex(jk=>jk.name=="pe")
+                            ]==tot_nw && rw[
+                                response.headers.findIndex(jk=>jk.name=="dx")
+                            ]==response.metaData.dimensions.dx[1]) || [0,0,0,0]
+                            // --
+                            let v_alu = parseFloat(vp[response.headers.findIndex(jk=>jk.name=="value")])
+                            arra.push(v_alu)
+                            d_new_data.push(v_alu)
+                            return arra
+                        }
+                    )
+
+                    let m0_onths = Array.from(response.metaData.dimensions.pe, pe_ => response.metaData.items[pe_].name)
+
+                    let data_total = {}; data_total.name = "Total"; data_total.data = d_total_data; data_total.color = '#fabf8e'; data_total.type = 'column'
+                    let data_new = {}; data_new.name = "New"; data_new.data = d_new_data; data_new.color = '#c25754'; data_new.type = 'line'
+                    y_data02.push(data_total)
+                    y_data02.push(data_new)
+                    plotGraph(m0_onths, "Period", y_data02, "Coverage", "Trend on Diabetes cases – New and Total - " + response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target03, "column", ['#fabf8e', '#c25754'])
+                    /* *********Trend on Diabetes cases – New and Total******** */
+
+
+
+                    /* *********New diabetes cases by year******** */
+                    let y_data2 = []
+                    let target3 = document.getElementById("new_diabetes_cases_by_year")
+                    let m_onths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                    let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
+                    uniq_yrs.map(unq_yr => {
+                        let yr_data = data.filter(dt => dt[0].includes(unq_yr))
+                        let yr_data2plot = {}
+                        yr_data2plot.name = unq_yr
+                        yr_data2plot.data = []
+                        m_onths.map(mo => {
+                            yr_data.map(yd => { if (yd[0].includes(mo)) { yr_data2plot.data.push(yd[1]) } })
+                        })
+                        y_data2.push(yr_data2plot)
+                    })
+
+                    plotGraph(m_onths, "Period", y_data2, "Cases", "New diabetes cases by year - " + response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target3, "line", null)
+                    /* *********New diabetes cases by year******** */
+
+
+                    /* *********Total number of diabetes cases******** */
+                    let x_array8 = []
+                    let y_data = []
+                    y_data[0] = {}
+                    y_data[0].name = "Total number of diabetes cases"
+                    y_data[0].data = []
+                    let target2 = document.getElementById("total_diabetes_cases_by_month")
+                    let ota = data_totalcases
+                    let ota_title = ota.shift()
+                    ota.map(dt => {
+                        x_array8.push(dt[0]);
+                        y_data[0].data.push(dt[1])
+                    })
+                    plotGraph(x_array8, "Period", y_data, "# Cases", "Total number of diabetes cases - " + response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
+                    /* *********Total number of diabetes cases******** */
+                });
+
+
+
+
+
+            let this_date = new Date()
+            let this_yr = this_date.getFullYear()
+            let this_mn = this_date.getMonth()
+            if (this_mn < 1) { this_mn = 12; this_yr -= 1 }
+            if (this_mn < 10) { this_mn = "0" + this_mn }
+            let this_pe = this_yr + "" + this_mn
+            let last_pe = this_yr - 1 + "" + this_mn
+
+            const plotBar = (last_per, this_per) => {
+                $('#ldng').html(loading_svg_small)
+                justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:i37mflclEU6&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, { 'showLoading': 'false' })
+                    .then(response => {
+                        let data = [['County', "Values"]]
+                        response.metaData.dimensions.ou.map(o_ou => {
+                            let val_arr = [response.metaData.items[o_ou].name]
+                            let v_alue_last = 0
+                            let v_alue_this = 0
+                            let v_alue_last_arr = response.rows.filter(o_rw => o_rw[2] == o_ou && o_rw[1] == response.metaData.dimensions.pe[0])
+                            let v_alue_this_arr = response.rows.filter(o_rw => o_rw[2] == o_ou && o_rw[1] == response.metaData.dimensions.pe[1])
+                            if (v_alue_last_arr.length > 0) { v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
+                            if (v_alue_this_arr.length > 0) { v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
+                            let v_alue_diff = 0
+                            v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
+                            val_arr.push(v_alue_diff)
                             data.push(val_arr)
-                            data_totalcases.push(val_arr_total)
-                            data_newcases.push(val_arr_new)
                         })
+                        data.sort((a, b) => b[1] - a[1])
                         let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length - 1]].name
-                        
-                        /* *********Trend on Diabetes cases – New and Total******** */
-                        let y_data02 = []
-
-                        let target03 = document.getElementById("diabetes_cases_total_new_trend")
-                        
-                        let d_total_data = []
-                        let d_tot = Array.from(
-                            response.metaData.dimensions.pe,
-                            tot_pe=>{
-                                let arra = [response.metaData.items[tot_pe].name]
-                                let v_alu = parseFloat(response.rows.find(rw=>rw[1]==tot_pe && rw[0]==response.metaData.dimensions.dx[0])[3])
-                                arra.push(v_alu)
-                                d_total_data.push(v_alu)
-                                return arra
-                            }
-                        )
-                        
-                        let d_new_data = []
-                        let d_nu = Array.from(
-                            response.metaData.dimensions.pe,
-                            tot_nw=>{
-                                let arra = [response.metaData.items[tot_nw].name]
-                                let v_alu = parseFloat(response.rows.find(rw=>rw[1]==tot_nw && rw[0]==response.metaData.dimensions.dx[1])[3])
-                                arra.push(v_alu)
-                                d_new_data.push(v_alu)
-                                return arra
-                            }
-                        )
-                        
-                        let m0_onths = Array.from( response.metaData.dimensions.pe, pe_=>response.metaData.items[pe_].name )
-                        
-                        let data_total = {}; data_total.name = "Total"; data_total.data = d_total_data; data_total.color = '#fabf8e'; data_total.type = 'column'
-                        let data_new = {}; data_new.name = "New"; data_new.data = d_new_data; data_new.color = '#c25754'; data_new.type = 'line'
-                        y_data02.push(data_total)
-                        y_data02.push(data_new)
-                        plotGraph(m0_onths, "Period", y_data02, "Coverage", "Trend on Diabetes cases – New and Total - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target03, "column", ['#fabf8e', '#c25754'])
-                        /* *********Trend on Diabetes cases – New and Total******** */
-
-
-
-                        /* *********New diabetes cases by year******** */
-                        let y_data2 = []
-                        let target3 = document.getElementById("new_diabetes_cases_by_year")
-                        let m_onths = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-                        let uniq_yrs = getUniqueYears(response.metaData.dimensions.pe)
-                        uniq_yrs.map(unq_yr => {
-                            let yr_data = data.filter(dt=>dt[0].includes(unq_yr))
-                            let yr_data2plot = {}
-                            yr_data2plot.name = unq_yr
-                            yr_data2plot.data = []
-                            m_onths.map(mo=>{
-                                yr_data.map(yd=>{if(yd[0].includes(mo)){yr_data2plot.data.push(yd[1])}})
-                            })
-                            y_data2.push(yr_data2plot)
-                        })
-                        
-                        plotGraph(m_onths, "Period", y_data2, "Cases", "New diabetes cases by year - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target3, "line", null)
-                        /* *********New diabetes cases by year******** */
-
-
-                        /* *********Total number of diabetes cases******** */
-                        let x_array8 = []
+                        /* *********% change in diabetes cases by county******** */
+                        let x_array = []
                         let y_data = []
                         y_data[0] = {}
-                        y_data[0].name = "Total number of diabetes cases"
+                        y_data[0].name = "Change in confirmed diabetes cases"
                         y_data[0].data = []
-                        let target2 = document.getElementById("total_diabetes_cases_by_month")
-                        let ota = data_totalcases
-                        let ota_title = ota.shift()
-                        ota.map(dt=>{
-                            x_array8.push(dt[0]);
+                        y_data[0].color = "#d88842"
+                        let target4 = document.getElementById("perc_change_confirmed_diabetes_cases")
+                        let fta = data
+                        let fta_title = fta.shift()
+                        fta.map(dt => {
+                            x_array.push(dt[0]);
                             y_data[0].data.push(dt[1])
                         })
-                        plotGraph(x_array8, "Period", y_data, "# Cases", "Total number of diabetes cases - "+response.metaData.items[response.metaData.dimensions.ou[0]].name, null, target2, "line", null)
-                        /* *********Total number of diabetes cases******** */
-                    });
-
-
-
-
-                    
-                    let this_date = new Date()
-                    let this_yr = this_date.getFullYear()
-                    let this_mn = this_date.getMonth()
-                    if(this_mn<1){this_mn=12;this_yr-=1}
-                    if(this_mn<10){this_mn="0"+this_mn}
-                    let this_pe = this_yr+""+this_mn
-                    let last_pe = this_yr-1+""+this_mn
-                    
-                    const plotBar = (last_per, this_per) => {
-                        $('#ldng').html(loading_svg_small)
-                        justFetch(`https://hiskenya.org/api/analytics.json?dimension=dx:i37mflclEU6&dimension=pe:${last_per};${this_per}&dimension=ou:LEVEL-${lvl};${org_unit}&displayProperty=NAME&outputIdScheme=UID`, {'showLoading':'false'})
-                        .then(response=>{
-                            let data = [['County', "Values"]]
-                            response.metaData.dimensions.ou.map(o_ou=>{
-                                let val_arr = [response.metaData.items[o_ou].name]
-                                let v_alue_last = 0
-                                let v_alue_this = 0
-                                let v_alue_last_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[0])
-                                let v_alue_this_arr = response.rows.filter(o_rw=>o_rw[2]==o_ou && o_rw[1]==response.metaData.dimensions.pe[1])
-                                if(v_alue_last_arr.length > 0){ v_alue_last = parseFloat(v_alue_last_arr[0][3]) }
-                                if(v_alue_this_arr.length > 0){ v_alue_this = parseFloat(v_alue_this_arr[0][3]) }
-                                let v_alue_diff = 0
-                                v_alue_diff = parseFloat(v_alue_this) - parseFloat(v_alue_last) || 0
-                                val_arr.push(v_alue_diff)
-                                data.push(val_arr)
-                            })
-                            data.sort((a,b)=>b[1]-a[1])
-                            let period_string = response.metaData.items[response.metaData.dimensions.pe[0]].name + ' - ' + response.metaData.items[response.metaData.dimensions.pe[response.metaData.dimensions.pe.length-1]].name
-                            /* *********% change in diabetes cases by county******** */
-                            let x_array = []
-                            let y_data = []
-                            y_data[0] = {}
-                            y_data[0].name = "Change in confirmed diabetes cases"
-                            y_data[0].data = []
-                            y_data[0].color = "#d88842"
-                            let target4 = document.getElementById("perc_change_confirmed_diabetes_cases")
-                            let fta = data
-                            let fta_title = fta.shift()
-                            fta.map(dt=>{
-                                x_array.push(dt[0]);
-                                y_data[0].data.push(dt[1])
-                            })
-                            $('#ldng').html('')
-                            plotGraph(x_array, "County", y_data, "Difference", "% change in diabetes cases by county", period_string, target4, "column", ["#d88842"])
-                            /* *********% change in diabetes cases by county******** */
-                        });
-                    }
-
-                    plotBar(last_pe, this_pe)
-                    $('#diabt_county').submit(function (e) { 
-                        e.preventDefault();
-                        let yr_ = $('#diabt_county :input[name="year"]').val()
-                        let mn_ = $('#diabt_county :input[name="month"]').val()
-                        let new_last_per = parseFloat(yr_)-1+''+mn_
-                        let new_this_per = yr_+''+mn_
-                        plotBar(new_last_per, new_this_per)
-                        return false
+                        $('#ldng').html('')
+                        plotGraph(x_array, "County", y_data, "Difference", "% change in diabetes cases by county", period_string, target4, "column", ["#d88842"])
+                        /* *********% change in diabetes cases by county******** */
                     });
             }
-        </script>
-        <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
-        
-    </body>
+
+            plotBar(last_pe, this_pe)
+            $('#diabt_county').submit(function (e) {
+                e.preventDefault();
+                let yr_ = $('#diabt_county :input[name="year"]').val()
+                let mn_ = $('#diabt_county :input[name="month"]').val()
+                let new_last_per = parseFloat(yr_) - 1 + '' + mn_
+                let new_this_per = yr_ + '' + mn_
+                plotBar(new_last_per, new_this_per)
+                return false
+            });
+        }
+    </script>
+    <!-- ------------------------ PAGE DATA LOGIC ------------------------ -->
+
+</body>
+
 </html>
