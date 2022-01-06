@@ -207,26 +207,14 @@ window.Date.prototype.getWeek = function (dowOffset) {
 
 
 
-// const getMonthsInYear = (year) => {
-//     let this_yr = new Date().getFullYear()
-//     let mnths = []
-//     let latest_mnth = 12
-//     let pop = false
-//     if(parseFloat(year) >= this_yr){
-//         latest_mnth = parseFloat(new Date().getMonth())+1
-//         year = this_yr
-//         pop = true
-//     }
-//     for (let mn = 1; mn <= latest_mnth; mn++) {
-//         if(mn < 10){mn = '0'+mn}
-//         mnths.push(year+''+mn)
-//     }
-//     if(pop){ let ms = mnths.pop(); return mnths.join(';')+';' }else{ return mnths.join(';')+';' }
-// }
-
 
 
 const getMonthsInYear = (year) => {
+    console.log('getMonthsInYear: '+year);
+    // if(year.includes('Q')){
+    //     console.log('looksLikeQs: '+year);
+    //     return year
+    // }
     let this_yr = new Date().getFullYear()
     let all_mnths = Array.from({length: 12}, (_, i) => i + 1)
     let mnths = []
@@ -243,7 +231,6 @@ const getMonthsInYear = (year) => {
     }
     if(incl_last_yr){
         let pr = all_mnths.filter(g=>g > latest_mnth)
-        console.log(pr)
         pr.forEach(mn=>{
             if(mn < 10){mn = '0'+mn}
             mnths.push((year-1)+''+mn)
@@ -253,7 +240,6 @@ const getMonthsInYear = (year) => {
         if(mn < 10){mn = '0'+mn}
         mnths.push(year+''+mn)
     }
-    console.log(mnths)
     // if(pop && mnths.length>1){ 
     //     let ms = mnths.pop();
     //     return ms.join(';')+';' 

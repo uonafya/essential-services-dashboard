@@ -458,10 +458,20 @@
                         let prd1 = prd_.shift(); let prd2 = prd_.shift(); prd = prd_.join(';')
                     }
                     if(prop && prop.pe){
-                        prd = getMonthsInYear(prop.pe)
+                        // console.log('prop.pe: ', prop.pe)
+                        if(prop.pe.includes('Q')){
+                            prd = prop.pe
+                        }else{
+                            prd = getMonthsInYear(prop.pe)
+                        }
                     }
                     if(prop && prop.pe_to){
-                        prd = getPeriodBtwnYears(prop.pe, prop.pe_to, 'months')
+                        // console.log('prop.pe_to: ', prop.pe_to)
+                        if(prop.pe_to.includes('Q')){
+                            prd = prop.pe_to
+                        }else{
+                            prd = getPeriodBtwnYears(prop.pe, prop.pe_to, 'months')
+                        }
                     }
 
 
